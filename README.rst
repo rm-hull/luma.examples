@@ -111,21 +111,21 @@ flag to show the options::
 .. note::
    #. Substitute ``python3`` for ``python`` in the above examples if you are using python3.
    #. ``python-dev`` (apt-get) and ``psutil`` (pip/pip3) are required to run the ``sys_info.py`` 
-      example. See `install instructions <https://github.com/rm-hull/luma.oled/blob/master/examples/sys_info.py#L3-L7>`_ for the exact commands to use.
+      example. See `install instructions <https://github.com/rm-hull/luma.examples/blob/master/examples/sys_info.py#L3-L7>`_ for the exact commands to use.
 
 Emulators
 ^^^^^^^^^
 There are various display emulators available for running code against, for debugging
 and screen capture functionality:
 
-* The :py:class:`luma.core.emulator.capture` device will persist a numbered PNG file to
+* The `luma.core.emulator.capture` device will persist a numbered PNG file to
   disk every time its ``display`` method is called.
 
-* The :py:class:`luma.core.emulator.gifanim` device will record every image when its ``display``
+* The `luma.core.emulator.gifanim` device will record every image when its ``display``
   method is called, and on program exit (or Ctrl-C), will assemble the images into an
   animated GIF.
 
-* The :py:class:`luma.core.emulator.pygame` device uses the :py:mod:`pygame` library to
+* The `luma.core.emulator.pygame` device uses the `pygame` library to
   render the displayed image to a pygame display surface. 
 
 Invoke the demos with::
@@ -140,3 +140,36 @@ or::
    *Pygame* is required to use any of the emulated devices, but it is **NOT**
    installed as a dependency by default, and so must be manually installed
    before using any of these emulation devices.
+
+Documentation
+-------------
+Full documentation with installation instructions can be found in:
+
+* https://luma-oled.readthedocs.io
+* https://luma-lcd.readthedocs.io
+* https://luma-led-matrix.readthedocs.io (coming soon)
+* https://luma-core.readthedocs.io (coming soon)
+
+License
+-------
+The MIT License (MIT)
+
+Copyright (c) 2017 Richard Hull & Contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
