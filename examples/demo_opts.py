@@ -75,7 +75,7 @@ if args.display in ('ssd1306', 'ssd1325', 'ssd1331', 'sh1106'):
     except Exception as e:
         parser.error(e)
 
-if args.display in ('pcd8544'):
+elif args.display in ('pcd8544'):
     Device = getattr(luma.lcd.device, args.display)
     try:
         serial = luma.core.serial.spi(port=args.spi_port,
