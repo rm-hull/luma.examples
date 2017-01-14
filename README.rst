@@ -67,7 +67,7 @@ flag to show the options::
                       [--scale SCALE] [--mode {1,RGB,RGBA}] [--duration DURATION]
                       [--loop LOOP] [--max-frames MAX_FRAMES]
 
-    oled arguments
+    luma.examples arguments
 
     optional arguments:
       -h, --help            show this help message and exit
