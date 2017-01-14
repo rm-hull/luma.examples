@@ -54,18 +54,18 @@ By default, all the examples will asume I2C port 1, address ``0x3C`` and the
 specified on the command line – each program can be invoked with a ``--help``
 flag to show the options::
 
-    $ python pi_logo.py -h
-    usage: pi_logo.py [-h] [--config CONFIG]
-                      [--display {ssd1306,ssd1325,ssd1331,sh1106,pcd8544,capture,pygame,gifanim}]
-                      [--width WIDTH] [--height HEIGHT] [--rotate {0,1,2,3}]
-                      [--interface {i2c,spi}] [--i2c-port I2C_PORT]
-                      [--i2c-address I2C_ADDRESS] [--spi-port SPI_PORT]
-                      [--spi-device SPI_DEVICE] [--spi-bus-speed SPI_BUS_SPEED]
-                      [--bcm-data-command BCM_DATA_COMMAND]
-                      [--bcm-reset BCM_RESET]
-                      [--transform {none,identity,scale2x,smoothscale}]
-                      [--scale SCALE] [--mode {1,RGB,RGBA}] [--duration DURATION]
-                      [--loop LOOP] [--max-frames MAX_FRAMES]
+    $ python demo.py -h
+    usage: demo.py [-h] [--config CONFIG]
+                   [--display {ssd1306,ssd1325,ssd1331,sh1106,pcd8544,capture,pygame,gifanim}]
+                   [--width WIDTH] [--height HEIGHT] [--rotate {0,1,2,3}]
+                   [--interface {i2c,spi}] [--i2c-port I2C_PORT]
+                   [--i2c-address I2C_ADDRESS] [--spi-port SPI_PORT]
+                   [--spi-device SPI_DEVICE] [--spi-bus-speed SPI_BUS_SPEED]
+                   [--bcm-data-command BCM_DATA_COMMAND] [--bcm-reset BCM_RESET]
+                   [--bcm-backlight BCM_BACKLIGHT]
+                   [--transform {none,identity,scale2x,smoothscale}]
+                   [--scale SCALE] [--mode {1,RGB,RGBA}] [--duration DURATION]
+                   [--loop LOOP] [--max-frames MAX_FRAMES]
 
     luma.examples arguments
 
@@ -95,6 +95,9 @@ flag to show the options::
                             BCM pin for D/C RESET (SPI devices only) (default: 24)
       --bcm-reset BCM_RESET
                             BCM pin for RESET (SPI devices only) (default: 25)
+      --bcm-backlight BCM_BACKLIGHT
+                            BCM pin for backlight (PCD8544 devices only) (default:
+                            18)
       --transform {none,identity,scale2x,smoothscale}
                             Scaling transform to apply (emulator only) (default:
                             scale2x)
