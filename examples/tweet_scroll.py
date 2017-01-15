@@ -1,0 +1,98 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# Copyright (c) 2014-17 Richard Hull and contributors
+# See LICENSE.rst for details.
+# PYTHON_ARGCOMPLETE_OK
+
+from __future__ import unicode_literals
+
+# Instructions:
+#  1. Install tweepy, with 'sudo -H pip install tweepy'
+#  2. Get Twitter API keys:
+#     In order to access Twitter Streaming API, we need to get four pieces of
+#     information from Twitter: API key, API secret, Access token and Access
+#     token secret. Follow the steps below to get all four elements:
+#         - Create a twitter account if you do not already have one.
+#         - Go to https://apps.twitter.com/ and log in with your twitter
+#           credentials.
+#         - Click "Create New App"
+#         - Fill out the form, agree to the terms, and click "Create your
+#           Twitter application"
+#         - In the next page, click on "API keys" tab, and copy your "API
+#           key" and "API secret".
+#         - Scroll down and click "Create my access token", and copy your
+#           "Access token" and "Access token secret".
+#  3. Paste the four values into the variables below.
+#
+consumer_key = "TWITTER_API_CONSUMER_KEY"
+consumer_secret = "TWITTER_API_CONSUMER_SECRET"
+access_token = "TWITTER_API_ACCESS_TOKEN"
+access_token_secret = "TWITTER_API_ACCESS_TOKEN_SECRET"
+
+search_terms = ['python']
+
+import os
+import tweepy
+from PIL import ImageFont
+
+from demo_opts import device
+from luma.core.render import canvas
+
+try:
+    from Queue import Queue
+except ImportError:
+    from queue import Queue
+
+
+def make_font(name, size):
+    font_path = os.path.abspath(os.path.join(
+        os.path.dirname(__file__), 'fonts', name))
+    return ImageFont.truetype(font_path, size)
+
+
+def scroll_message(status, font=None, speed=1):
+    author = u"@{0}".format(status.author.screen_name)
+    full_text = u"{0}  {1}".format(author, status.text).replace("\n", " ")
+    x = device.width
+
+    # First measure the text size
+    with canvas(device) as draw:
+        w, h = draw.textsize(full_text, font)
+
+    while x + w > 0:
+        with canvas(device) as draw:
+            draw.text((x, 0), full_text, font=font, fill="white")
+            draw.text((x, 0), author, font=font, fill="yellow")
+
+        x -= speed
+
+
+class listener(tweepy.StreamListener):
+
+    def __init__(self, queue):
+        super(listener, self).__init__()
+        self.queue = queue
+
+    def on_status(self, status):
+        self.queue.put(status)
+
+
+auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+auth.set_access_token(access_token, access_token_secret)
+api = tweepy.API(auth)
+queue = Queue()
+code2000 = make_font("code2000.ttf", 12)
+
+try:
+    stream = tweepy.Stream(auth=api.auth, listener=listener(queue))
+    stream.filter(track=search_terms, async=True)
+
+    try:
+        while True:
+            status = queue.get()
+            scroll_message(status, font=code2000)
+    except KeyboardInterrupt:
+        pass
+
+finally:
+    stream.disconnect()

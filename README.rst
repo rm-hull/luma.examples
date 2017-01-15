@@ -25,9 +25,9 @@ Running the examples
 After cloning the repository, enter the ``examples`` directory and try running
 the following examples:
 
-=============== ========================================================
+=============== ================================================================
 Example         Description
-=============== ========================================================
+=============== ================================================================
 3d_box.py       Rotating 3D box wireframe & color dithering
 bounce.py       Display a bouncing ball animation and frames per second
 carousel.py     Showcase viewport and hotspot functionality
@@ -46,8 +46,9 @@ starfield.py    3D starfield simulation
 sys_info.py     Display basic system information
 terminal.py     Simple println capabilities
 tv_snow.py      Example image-blitting
+tweet_scroll.py Using Twitter's Streaming API to display scrolling notifications
 welcome.py      Unicode font rendering & scrolling
-=============== ========================================================
+=============== ================================================================
 
 By default, all the examples will asume I2C port 1, address ``0x3C`` and the
 ``ssd1306`` driver.  If you need to use a different setting, these can be
