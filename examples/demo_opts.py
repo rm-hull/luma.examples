@@ -9,8 +9,6 @@ Argument parser for examples.
 import logging
 import argparse
 
-import luma.lcd.device
-import luma.oled.device
 import luma.core.emulator
 import luma.core.serial
 
@@ -64,6 +62,7 @@ if args.display in ('ssd1306', 'ssd1325', 'ssd1331', 'sh1106'):
     if args.interface not in ('i2c', 'spi'):
         parser.error('unknown interface %s' % args.interface)
 
+    import luma.oled.device
     Device = getattr(luma.oled.device, args.display)
     try:
         if (args.interface == 'i2c'):
@@ -80,6 +79,7 @@ if args.display in ('ssd1306', 'ssd1325', 'ssd1331', 'sh1106'):
         parser.error(e)
 
 elif args.display in ('pcd8544'):
+    import luma.lcd.device
     Device = getattr(luma.lcd.device, args.display)
     try:
         serial = luma.core.serial.spi(port=args.spi_port,
