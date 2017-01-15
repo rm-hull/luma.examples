@@ -81,7 +81,11 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 queue = Queue()
-code2000 = make_font("code2000.ttf", 12)
+
+if device.height > 16:
+    font = make_font("code2000.ttf", 12)
+else:
+    font = make_font("pixelmix.ttf", 8)
 
 try:
     stream = tweepy.Stream(auth=api.auth, listener=listener(queue))
@@ -90,7 +94,7 @@ try:
     try:
         while True:
             status = queue.get()
-            scroll_message(status, font=code2000)
+            scroll_message(status, font=font)
     except KeyboardInterrupt:
         pass
 
