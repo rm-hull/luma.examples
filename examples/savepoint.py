@@ -4,6 +4,10 @@
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
+"""
+Example of savepoint/restore functionality.
+"""
+
 import time
 from demo_opts import device
 from luma.core.virtual import history

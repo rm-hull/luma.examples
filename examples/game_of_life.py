@@ -4,8 +4,12 @@
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
-# Adapted from:
-#  http://codereview.stackexchange.com/a/108121
+"""
+Conway's game of life.
+
+Adapted from:
+http://codereview.stackexchange.com/a/108121
+"""
 
 import time
 from random import randint

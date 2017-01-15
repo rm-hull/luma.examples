@@ -4,6 +4,10 @@
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
+"""
+Simple println capabilities.
+"""
+
 import os
 import time
 from demo_opts import device

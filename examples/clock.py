@@ -4,8 +4,12 @@
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
-# Ported from:
-# https://gist.github.com/TheRayTracer/dd12c498e3ecb9b8b47f#file-clock-py
+"""
+An analog clockface with date & time.
+
+Ported from:
+https://gist.github.com/TheRayTracer/dd12c498e3ecb9b8b47f#file-clock-py
+"""
 
 import math
 import time

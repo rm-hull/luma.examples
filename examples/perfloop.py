@@ -4,8 +4,13 @@
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
-# Ported from:
-# https://github.com/adafruit/Adafruit_Python_SSD1306/blob/master/examples/shapes.py
+"""
+Simple benchmarking utility to measure performance.
+
+Ported from:
+https://github.com/adafruit/Adafruit_Python_SSD1306/blob/master/examples/shapes.py
+"""
+
 import sys
 import time
 from PIL import Image, ImageDraw
@@ -27,7 +32,7 @@ class Timer:
 def main():
     elapsed_time = 0
     count = 0
-    print("Testing OLED dislay rendering performance")
+    print("Testing dislay rendering performance")
     print("Press Ctrl-C to abort test\n")
 
     image = Image.new(device.mode, device.size)

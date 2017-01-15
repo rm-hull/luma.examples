@@ -4,6 +4,10 @@
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
+"""
+Color rendering demo.
+"""
+
 import math
 import time
 import random
@@ -14,7 +18,8 @@ from PIL import Image
 
 
 def main():
-    img_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'images', 'balloon.png'))
+    img_path = os.path.abspath(os.path.join(
+        os.path.dirname(__file__), 'images', 'balloon.png'))
     balloon = Image.open(img_path) \
         .transform(device.size, Image.AFFINE, (1, 0, 0, 0, 1, 0), Image.BILINEAR) \
         .convert(device.mode)

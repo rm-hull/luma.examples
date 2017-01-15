@@ -4,8 +4,12 @@
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
-# Loosely based on poster_demo by @bjerrep
-# https://github.com/bjerrep/ssd1306/blob/master/examples/poster_demo.py
+"""
+Showcase viewport and hotspot functionality.
+
+Loosely based on poster_demo by @bjerrep
+https://github.com/bjerrep/ssd1306/blob/master/examples/poster_demo.py
+"""
 
 import psutil
 

@@ -4,6 +4,10 @@
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
+"""
+Display the Raspberry Pi logo (loads image as .png).
+"""
+
 import os.path
 from demo_opts import device
 from PIL import Image
@@ -11,7 +15,7 @@ from PIL import Image
 
 def main():
     img_path = os.path.abspath(os.path.join(os.path.dirname(__file__),
-                                            'images', 'pi_logo.png'))
+        'images', 'pi_logo.png'))
     logo = Image.open(img_path).convert("RGBA")
     fff = Image.new(logo.mode, logo.size, (255,) * 4)
 

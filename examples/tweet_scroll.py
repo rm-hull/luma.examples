@@ -6,24 +6,28 @@
 
 from __future__ import unicode_literals
 
-# Instructions:
-#  1. Install tweepy, with 'sudo -H pip install tweepy'
-#  2. Get Twitter API keys:
-#     In order to access Twitter Streaming API, we need to get four pieces of
-#     information from Twitter: API key, API secret, Access token and Access
-#     token secret. Follow the steps below to get all four elements:
-#         - Create a twitter account if you do not already have one.
-#         - Go to https://apps.twitter.com/ and log in with your twitter
-#           credentials.
-#         - Click "Create New App"
-#         - Fill out the form, agree to the terms, and click "Create your
-#           Twitter application"
-#         - In the next page, click on "API keys" tab, and copy your "API
-#           key" and "API secret".
-#         - Scroll down and click "Create my access token", and copy your
-#           "Access token" and "Access token secret".
-#  3. Paste the four values into the variables below.
-#
+"""
+Using Twitter's Streaming API to display scrolling notifications.
+
+Instructions:
+  1. Install tweepy, with 'sudo -H pip install tweepy'
+  2. Get Twitter API keys:
+     In order to access Twitter Streaming API, we need to get four pieces of
+     information from Twitter: API key, API secret, Access token and Access
+     token secret. Follow the steps below to get all four elements:
+         - Create a twitter account if you do not already have one.
+         - Go to https://apps.twitter.com/ and log in with your twitter
+           credentials.
+         - Click "Create New App"
+         - Fill out the form, agree to the terms, and click "Create your
+           Twitter application"
+         - In the next page, click on "API keys" tab, and copy your "API
+           key" and "API secret".
+         - Scroll down and click "Create my access token", and copy your
+           "Access token" and "Access token secret".
+  3. Paste the four values into the variables below.
+"""
+
 consumer_key = "TWITTER_API_CONSUMER_KEY"
 consumer_secret = "TWITTER_API_CONSUMER_SECRET"
 access_token = "TWITTER_API_ACCESS_TOKEN"
