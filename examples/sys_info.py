@@ -3,12 +3,15 @@
 # Copyright (c) 2014-17 Richard Hull and contributors
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
-#
-# !!! Needs psutil (+ dependencies) installing:
-#
-#    $ sudo apt-get install python-dev
-#    $ sudo pip install psutil
-#
+
+"""
+Display basic system information.
+
+Needs psutil (+ dependencies) installed::
+
+  $ sudo apt-get install python-dev
+  $ sudo pip install psutil
+"""
 
 import os
 import sys

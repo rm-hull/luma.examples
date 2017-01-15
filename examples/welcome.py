@@ -4,6 +4,10 @@
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
+"""
+Unicode font rendering & scrolling.
+"""
+
 import os
 import time
 import random

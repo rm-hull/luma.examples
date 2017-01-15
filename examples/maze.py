@@ -3,11 +3,13 @@
 # Copyright (c) 2014-17 Richard Hull and contributors
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
-#
-# Maze generator example for RPi-SSD1306
-#
-# Adapted from:
-#    https://github.com/rm-hull/maze/blob/master/src/maze/generator.clj
+
+"""
+Maze generator example.
+
+Adapted from:
+https://github.com/rm-hull/maze/blob/master/src/maze/generator.clj
+"""
 
 import time
 from demo_opts import device

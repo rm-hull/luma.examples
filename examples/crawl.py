@@ -4,6 +4,10 @@
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
+"""
+A vertical scrolling demo, which should be familiar.
+"""
+
 import time
 import os.path
 from demo_opts import device
@@ -50,7 +54,8 @@ galaxy....
 
 
 def main():
-    img_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'images', 'starwars.png'))
+    img_path = os.path.abspath(os.path.join(os.path.dirname(__file__),
+        'images', 'starwars.png'))
     logo = Image.open(img_path)
 
     virtual = viewport(device, width=128, height=768)

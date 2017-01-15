@@ -4,8 +4,12 @@
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
-# Ported from:
-# https://github.com/adafruit/Adafruit_Python_SSD1306/blob/master/examples/shapes.py
+"""
+Use misc draw commands to create a simple image.
+
+Ported from:
+https://github.com/adafruit/Adafruit_Python_SSD1306/blob/master/examples/shapes.py
+"""
 
 import time
 import datetime

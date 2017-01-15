@@ -4,9 +4,12 @@
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
-# Adapted from:
-#  http://codentronix.com/2011/05/12/rotating-3d-cube-using-python-and-pygame/
+"""
+Rotating 3D box wireframe & color dithering.
 
+Adapted from:
+http://codentronix.com/2011/05/12/rotating-3d-cube-using-python-and-pygame/
+"""
 
 import math
 from operator import itemgetter

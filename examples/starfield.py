@@ -4,8 +4,12 @@
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
-# Adapted from:
-#  http://codentronix.com/2011/05/28/3d-starfield-made-using-python-and-pygame/
+"""
+3D starfield simulation.
+
+Adapted from:
+http://codentronix.com/2011/05/28/3d-starfield-made-using-python-and-pygame/
+"""
 
 from random import randrange
 from demo_opts import device

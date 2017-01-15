@@ -4,8 +4,12 @@
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
-# Ported from:
-# https://gist.github.com/TheRayTracer/dd12c498e3ecb9b8b47f#file-invaders-py
+"""
+Space Invaders demo.
+
+Ported from:
+https://gist.github.com/TheRayTracer/dd12c498e3ecb9b8b47f#file-invaders-py
+"""
 
 import os.path
 import time

@@ -4,6 +4,10 @@
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
+"""
+Example image-blitting.
+"""
+
 import struct
 import random
 from demo_opts import device
