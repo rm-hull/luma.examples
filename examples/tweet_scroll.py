@@ -36,11 +36,13 @@ access_token_secret = "TWITTER_API_ACCESS_TOKEN_SECRET"
 search_terms = ['python']
 
 import os
+import time
 import tweepy
 from PIL import ImageFont
 
 from demo_opts import device
 from luma.core.render import canvas
+from luma.core.virtual import viewport
 
 try:
     from Queue import Queue
@@ -63,12 +65,16 @@ def scroll_message(status, font=None, speed=1):
     with canvas(device) as draw:
         w, h = draw.textsize(full_text, font)
 
-    while x + w > 0:
-        with canvas(device) as draw:
-            draw.text((x, 0), full_text, font=font, fill="white")
-            draw.text((x, 0), author, font=font, fill="yellow")
+    virtual = viewport(device, width=w + x + x, height=h)
+    with canvas(virtual) as draw:
+        draw.text((x, 0), full_text, font=font, fill="white")
+        draw.text((x, 0), author, font=font, fill="yellow")
 
-        x -= speed
+    i = 0
+    while i < x + w:
+        virtual.set_position((i, 0))
+        i += speed
+        time.sleep(0.025)
 
 
 class listener(tweepy.StreamListener):
@@ -86,7 +92,7 @@ auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 queue = Queue()
 
-if device.height > 16:
+if device.height >= 16:
     font = make_font("code2000.ttf", 12)
 else:
     font = make_font("pixelmix.ttf", 8)
