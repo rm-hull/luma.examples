@@ -15,12 +15,8 @@ import psutil
 
 from demo_opts import device
 from luma.core.virtual import viewport, snapshot
-import hotspot.memory as memory
-import hotspot.uptime as uptime
-import hotspot.cpu_load as cpu_load
-import hotspot.clock as clock
-import hotspot.network as network
-import hotspot.disk as disk
+
+from hotspot import memory, uptime, cpu_load, clock, network, disk
 
 
 def position(max):
