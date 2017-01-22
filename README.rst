@@ -1,8 +1,8 @@
-`luma.core <https://github.com/rm-hull/luma.core>`_ **|** 
+`luma.core <https://github.com/rm-hull/luma.core>`__ **|** 
 luma.examples **|** 
-`luma.lcd <https://github.com/rm-hull/luma.lcd>`_ **|** 
-`luma.led_matrix <https://github.com/rm-hull/luma.led_matrix>`_ **|** 
-`luma.oled <https://github.com/rm-hull/luma.oled>`_ 
+`luma.lcd <https://github.com/rm-hull/luma.lcd>`__ **|** 
+`luma.led_matrix <https://github.com/rm-hull/luma.led_matrix>`__ **|** 
+`luma.oled <https://github.com/rm-hull/luma.oled>`__ 
 
 Luma.Examples
 =============

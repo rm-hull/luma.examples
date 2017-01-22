@@ -30,7 +30,7 @@ parser.add_argument('--spi-bus-speed', type=int, default=8000000, help='SPI max 
 parser.add_argument('--bcm-data-command', type=int, default=24, help='BCM pin for D/C RESET (SPI devices only)')
 parser.add_argument('--bcm-reset', type=int, default=25, help='BCM pin for RESET (SPI devices only)')
 parser.add_argument('--bcm-backlight', type=int, default=18, help='BCM pin for backlight (PCD8544 devices only)')
-parser.add_argument('--transform', type=str, default='scale2x', help='Scaling transform to apply (emulator only)', choices=["none", "identity", "scale2x", "smoothscale", "led_matrix"])
+parser.add_argument('--transform', type=str, default='scale2x', help='Scaling transform to apply (emulator only)', choices=["none", "identity", "scale2x", "smoothscale", "led_matrix", "seven_segment"])
 parser.add_argument('--scale', type=int, default=2, help='Scaling factor to apply (emulator only)')
 parser.add_argument('--mode', type=str, default='RGB', help='Colour mode (emulator only)', choices=['1', 'RGB', 'RGBA'])
 parser.add_argument('--duration', type=float, default=0.01, help='Animation frame duration (gifanim emulator only)')
