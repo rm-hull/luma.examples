@@ -33,11 +33,6 @@ consumer_secret = "TWITTER_API_CONSUMER_SECRET"
 access_token = "TWITTER_API_ACCESS_TOKEN"
 access_token_secret = "TWITTER_API_ACCESS_TOKEN_SECRET"
 
-consumer_key = "bQVAqaT0Equ4nWcKpX3w"
-consumer_secret = "leY0rmbRWTtpYmBuWhdr0qHCvExVhYusj8xFfwII"
-access_token = "343663230-f73H8br8VFqslGaYmn4Tf4m8XYHFSQe3kqMjNvS5"
-access_token_secret = "2ZKA7DRKpxruMWStY602hmXhef9A9lOoiNPa7zHyj0"
-
 search_terms = ['python']
 
 import os
