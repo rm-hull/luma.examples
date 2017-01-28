@@ -17,7 +17,7 @@ parser = argparse.ArgumentParser(description='luma.examples arguments',
     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
 parser.add_argument('--config', '-f', type=str, help='Load configuration settings from a file')
-parser.add_argument('--display', '-d', type=str, default='ssd1306', help='Display type, supports real devices or emulators', choices=["ssd1306", "ssd1325", "ssd1331", "sh1106", "pcd8544", "max7219", "capture", "pygame", "gifanim"])
+parser.add_argument('--display', '-d', type=str, default='ssd1306', help='Display type, supports real devices or emulators', choices=["ssd1306", "ssd1322", "ssd1325", "ssd1331", "sh1106", "pcd8544", "max7219", "capture", "pygame", "gifanim"])
 parser.add_argument('--width', type=int, default=128, help='Width of the device in pixels')
 parser.add_argument('--height', type=int, default=64, help='Height of the device in pixels')
 parser.add_argument('--rotate', '-r', type=int, default=0, help='Rotation factor', choices=[0, 1, 2, 3])
@@ -58,7 +58,7 @@ if args.config:
         config = fp.read().replace("\n", " ").split()
         args = parser.parse_args(config)
 
-if args.display in ('ssd1306', 'ssd1325', 'ssd1331', 'sh1106'):
+if args.display in ('ssd1306', 'ssd1322', 'ssd1325', 'ssd1331', 'sh1106'):
     if args.interface not in ('i2c', 'spi'):
         parser.error('unknown interface %s' % args.interface)
 
