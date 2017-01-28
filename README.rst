@@ -32,30 +32,31 @@ Running the examples
 After cloning the repository, enter the ``examples`` directory and try running
 the following examples:
 
-=============== ================================================================
-Example         Description
-=============== ================================================================
-3d_box.py       Rotating 3D box wireframe & color dithering
-bounce.py       Display a bouncing ball animation and frames per second
-carousel.py     Showcase viewport and hotspot functionality
-clock.py        An analog clockface with date & time
-colors.py       Color rendering demo
-crawl.py        A vertical scrolling demo, which should be familiar
-demo.py         Use misc draw commands to create a simple image
-game_of_life.py Conway's game of life
-grayscale.py    Greyscale rendering demo
-invaders.py     Space Invaders demo
-maze.py         Maze generator
-perfloop.py     Simple benchmarking utility to measure performance
-pi_logo.py      Display the Raspberry Pi logo (loads image as .png)
-savepoint.py    Example of savepoint/restore functionality
-starfield.py    3D starfield simulation
-sys_info.py     Display basic system information
-terminal.py     Simple println capabilities
-tv_snow.py      Example image-blitting
-tweet_scroll.py Using Twitter's Streaming API to display scrolling notifications
-welcome.py      Unicode font rendering & scrolling
-=============== ================================================================
+===================== ================================================================
+Example               Description
+===================== ================================================================
+3d_box.py             Rotating 3D box wireframe & color dithering
+bounce.py             Display a bouncing ball animation and frames per second
+carousel.py           Showcase viewport and hotspot functionality
+clock.py              An analog clockface with date & time
+colors.py             Color rendering demo
+crawl.py              A vertical scrolling demo, which should be familiar
+demo.py               Use misc draw commands to create a simple image
+game_of_life.py       Conway's game of life
+grayscale.py          Greyscale rendering demo
+invaders.py           Space Invaders demo
+maze.py               Maze generator
+perfloop.py           Simple benchmarking utility to measure performance
+pi_logo.py            Display the Raspberry Pi logo (loads image as .png)
+savepoint.py          Example of savepoint/restore functionality
+scrolling_pixelart.py Image dithering and viewport scrolling 
+starfield.py          3D starfield simulation
+sys_info.py           Display basic system information
+terminal.py           Simple println capabilities
+tv_snow.py            Example image-blitting
+tweet_scroll.py       Using Twitter's Streaming API to display scrolling notifications
+welcome.py            Unicode font rendering & scrolling
+===================== ================================================================
 
 By default, all the examples will asume I2C port 1, address ``0x3C`` and the
 ``ssd1306`` driver.  If you need to use a different setting, these can be
@@ -64,7 +65,7 @@ flag to show the options::
 
     $ python demo.py -h
     usage: demo.py [-h] [--config CONFIG]
-                   [--display {ssd1306,ssd1325,ssd1331,sh1106,pcd8544,capture,pygame,gifanim}]
+                   [--display {ssd1306,ssd1322,ssd1325,ssd1331,sh1106,pcd8544,capture,pygame,gifanim}]
                    [--width WIDTH] [--height HEIGHT] [--rotate {0,1,2,3}]
                    [--interface {i2c,spi}] [--i2c-port I2C_PORT]
                    [--i2c-address I2C_ADDRESS] [--spi-port SPI_PORT]
@@ -82,7 +83,7 @@ flag to show the options::
       --config CONFIG, -f CONFIG
                             Load configuration settings from a file (default:
                             None)
-      --display {ssd1306,ssd1325,ssd1331,sh1106,pcd8544,capture,pygame,gifanim}, -d {ssd1306,ssd1325,ssd1331,sh1106,pcd8544,capture,pygame,gifanim}
+      --display {ssd1306,ssd1322,ssd1325,ssd1331,sh1106,pcd8544,capture,pygame,gifanim}, -d {ssd1306,ssd1322,ssd1325,ssd1331,sh1106,pcd8544,capture,pygame,gifanim}
                             Display type, supports real devices or emulators
                             (default: ssd1306)
       --width WIDTH         Width of the device in pixels (default: 128)

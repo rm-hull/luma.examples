@@ -1,0 +1,100 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# Copyright (c) 2014-17 Richard Hull and contributors
+# See LICENSE.rst for details.
+# PYTHON_ARGCOMPLETE_OK
+
+"""
+Another vertical scrolling demo, images (used without permission)
+from @pixel_dailies twitter feed.
+"""
+
+import time
+import random
+import os.path
+from demo_opts import device
+from luma.core.virtual import viewport
+from PIL import Image
+
+
+def scroll_down(virtual, pos):
+    x, y = pos
+    if virtual.height > device.height:
+        while y < virtual.height - device.height:
+            virtual.set_position((x, y))
+            time.sleep(0.01)
+            y += 1
+        y -= 1
+    return (x, y)
+
+
+def scroll_right(virtual, pos):
+    x, y = pos
+    if virtual.width > device.width:
+        while x < virtual.width - device.width:
+            virtual.set_position((x, y))
+            time.sleep(0.01)
+            x += 1
+        x -= 1
+    return (x, y)
+
+
+def scroll_up(virtual, pos):
+    x, y = pos
+    while y >= 0:
+        virtual.set_position((x, y))
+        time.sleep(0.01)
+        y -= 1
+    y = 0
+    return (x, y)
+
+
+def scroll_left(virtual, pos):
+    x, y = pos
+    while x >= 0:
+        virtual.set_position((x, y))
+        time.sleep(0.01)
+        x -= 1
+    x = 0
+    return (x, y)
+
+
+def main():
+
+    images = [
+        "C26fp7WUAAAysiZ.png",
+        "C2_y0p8XcAACTpz.png",
+        "C3E_8sGWIAAg4jT.jpg",
+        "C3Nwk67UYAEo5_A.jpg",
+        "C3Q99BPXUAES3WC.jpg"
+    ]
+
+    while True:
+        img_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'images', random.choice(images)))
+        pixel_art = Image.open(img_path).convert(device.mode)
+        w, h = pixel_art.size
+
+        virtual = viewport(device, width=w, height=h)
+
+        for _ in range(2):
+            virtual.display(pixel_art)
+
+        time.sleep(2)
+
+        pos = (0, 0)
+
+        pos = scroll_down(virtual, pos)
+        time.sleep(2)
+        pos = scroll_right(virtual, pos)
+        time.sleep(2)
+        pos = scroll_up(virtual, pos)
+        time.sleep(2)
+        pos = scroll_left(virtual, pos)
+        time.sleep(2)
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        pass
