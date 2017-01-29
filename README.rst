@@ -24,7 +24,7 @@ instructions in the above repositories to wire up your display, then from a comm
 
 Log out and in again, clone this repository::
 
-  $ git clone https://github.com/rm-hull/luma.examples
+  $ git clone https://github.com/rm-hull/luma.examples.git
   $ cd luma.examples
 
 Running the examples
@@ -122,8 +122,8 @@ flag to show the options::
 
 .. note::
    #. Substitute ``python3`` for ``python`` in the above examples if you are using python3.
-   #. ``python-dev`` (apt-get) and ``psutil`` (pip/pip3) are required to run the ``sys_info.py`` 
-      example. See `install instructions <https://github.com/rm-hull/luma.examples/blob/master/examples/sys_info.py#L3-L7>`_ for the exact commands to use.
+   #. ``python-dev`` (apt-get) and ``psutil`` (pip/pip3) are required to run the ``sys_info.py``
+      example. See `install instructions <https://github.com/rm-hull/luma.examples/blob/master/examples/sys_info.py#L10-L13>`_ for the exact commands to use.
 
 Emulators
 ^^^^^^^^^
