@@ -47,6 +47,8 @@ grayscale.py          Greyscale rendering demo
 invaders.py           Space Invaders demo
 maze.py               Maze generator
 perfloop.py           Simple benchmarking utility to measure performance
+picamera_photo.py     Capture photo with picamera and display it on a screen
+picamera_video.py     Capture continuous video stream and display it on a screen
 pi_logo.py            Display the Raspberry Pi logo (loads image as .png)
 savepoint.py          Example of savepoint/restore functionality
 scrolling_pixelart.py Image dithering and viewport scrolling
