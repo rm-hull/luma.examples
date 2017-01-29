@@ -1,5 +1,13 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# Copyright (c) 2017 Richard Hull and contributors
+# See LICENSE.rst for details.
+# PYTHON_ARGCOMPLETE_OK
+
 """
-Capture photo to a PIL image -> OLED display.
+Capture photo with picamera and display it on a screen.
+
+Requires picamera to be installed.
 """
 
 import io
@@ -9,40 +17,42 @@ import picamera
 
 from PIL import Image
 
-from luma.core.serial import i2c
-from luma.oled.device import ssd1306
+from demo_opts import device
 
 
 def main():
     cameraResolution = (1024, 768)
     imageSize = (128, 64)
-
-    # create OLED device
-    serial = i2c()
-    device = ssd1306(serial)
+    displayTime = 5
 
     # create the in-memory stream
     stream = io.BytesIO()
     with picamera.PiCamera() as camera:
+        # set camera resolution
         camera.resolution = cameraResolution
-        print("Starting camera...")
+
+        print("Starting camera preview...")
         camera.start_preview()
         time.sleep(2)
 
-        print("Capturing image...")
+        print("Capturing photo...")
         camera.capture(stream, format='jpeg', resize=imageSize)
 
-        print("Stopping camera...")
+        print("Stopping camera preview...")
         camera.close()
 
         # "rewind" the stream to the beginning so we can read its content
         stream.seek(0)
 
-        print("Displaying image....")
-        photo = Image.open(stream).convert("RGBA")
-        device.display(photo.convert(device.mode))
+        print("Displaying photo for {0} seconds...".format(displayTime))
 
-        time.sleep(5)
+        # open photo
+        photo = Image.open(stream)
+
+        # display on screen for a few seconds
+        device.display(photo.convert(device.mode))
+        time.sleep(displayTime)
+
         print("Done.")
 
 
@@ -51,4 +61,3 @@ if __name__ == "__main__":
         main()
     except KeyboardInterrupt:
         pass
-
