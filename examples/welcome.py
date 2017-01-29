@@ -162,18 +162,18 @@ def overlapping(pt_a, pt_b, w, h):
 
 def main():
     fonts = [make_font("code2000.ttf", sz) for sz in range(24, 8, -2)]
-    w, h = 256, 256
-    virtual = viewport(device, w, h)
+    sq = device.width * 2
+    virtual = viewport(device, sq, sq)
 
     for welcome_a, welcome_b in pairs(infinite_shuffle(welcome)):
         widget_a = make_snapshot(device.width, device.height, welcome_a, fonts)
         widget_b = make_snapshot(device.width, device.height, welcome_b, fonts)
 
-        posn_a = random_point(w - device.width, h - device.height)
-        posn_b = random_point(w - device.width, h - device.height)
+        posn_a = random_point(virtual.width - device.width, virtual.height - device.height)
+        posn_b = random_point(virtual.width - device.width, virtual.height - device.height)
 
         while overlapping(posn_a, posn_b, device.width, device.height):
-            posn_b = random_point(w - device.width, h - device.height)
+            posn_b = random_point(virtual.width - device.width, virtual.height - device.height)
 
         virtual.add_hotspot(widget_a, posn_a)
         virtual.add_hotspot(widget_b, posn_b)
@@ -182,7 +182,7 @@ def main():
             virtual.set_position(posn_a)
             time.sleep(0.3)
 
-        for posn in lerp_2d(posn_a, posn_b, 30):
+        for posn in lerp_2d(posn_a, posn_b, device.width // 4):
             virtual.set_position(posn)
 
         virtual.remove_hotspot(widget_a, posn_a)
