@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2014-17 Richard Hull and contributors
+# Copyright (c) 2017 Richard Hull and contributors
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
@@ -56,17 +56,17 @@ def scroll_left(virtual, pos):
 
 
 def main():
-
     images = [
-        "C26fp7WUAAAysiZ.png",
-        "C2_y0p8XcAACTpz.png",
-        "C3E_8sGWIAAg4jT.jpg",
-        "C3Nwk67UYAEo5_A.jpg",
-        "C3Q99BPXUAES3WC.jpg"
+        "pixelart1.png",
+        "pixelart2.png",
+        "pixelart3.jpg",
+        "pixelart4.jpg",
+        "pixelart5.jpg"
     ]
 
     while True:
-        img_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'images', random.choice(images)))
+        img_path = os.path.abspath(os.path.join(os.path.dirname(__file__),
+            'images', random.choice(images)))
         pixel_art = Image.open(img_path).convert(device.mode)
         w, h = pixel_art.size
 
