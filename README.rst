@@ -9,24 +9,24 @@ Luma.Examples
 
 .. image:: https://img.shields.io/maintenance/yes/2017.svg?maxAge=2592000
 
-This is the companion repo for running examples against the `luma.oled <https://github.com/rm-hull/luma.oled>`_, 
+This is the companion repo for running examples against the `luma.oled <https://github.com/rm-hull/luma.oled>`_,
 `luma.lcd <https://github.com/rm-hull/luma.lcd>`_ and `luma.led_matrix <https://github.com/rm-hull/luma.led_matrix>`_ display drivers.
 
 Installation instructions
 -------------------------
-Assuming you are using a Raspberry Pi (running Debian Jessie), follow the pre-requisites & 
+Assuming you are using a Raspberry Pi (running Debian Jessie), follow the pre-requisites &
 instructions in the above repositories to wire up your display, then from a command-line::
 
   $ sudo usermod -a -G i2c,spi,gpio pi
   $ sudo apt-get install python-dev python-pip libfreetype6-dev libjpeg8-dev libsdl1.2-dev
   $ sudo -H pip install --upgrade pip
   $ sudo -H pip install --upgrade luma.oled luma.lcd luma.led_matrix
-  
+
 Log out and in again, clone this repository::
 
   $ git clone https://github.com/rm-hull/luma.examples
   $ cd luma.examples
-  
+
 Running the examples
 --------------------
 After cloning the repository, enter the ``examples`` directory and try running
@@ -49,7 +49,7 @@ maze.py               Maze generator
 perfloop.py           Simple benchmarking utility to measure performance
 pi_logo.py            Display the Raspberry Pi logo (loads image as .png)
 savepoint.py          Example of savepoint/restore functionality
-scrolling_pixelart.py Image dithering and viewport scrolling 
+scrolling_pixelart.py Image dithering and viewport scrolling
 starfield.py          3D starfield simulation
 sys_info.py           Display basic system information
 terminal.py           Simple println capabilities
@@ -138,7 +138,7 @@ and screen capture functionality:
   animated GIF.
 
 * The `luma.core.emulator.pygame` device uses the `pygame` library to
-  render the displayed image to a pygame display surface. 
+  render the displayed image to a pygame display surface.
 
 Invoke the demos with::
 
@@ -147,7 +147,7 @@ Invoke the demos with::
 or::
 
   $ python examples/clock.py -d pygame
-  
+
 .. note::
    *Pygame* is required to use any of the emulated devices, but it is **NOT**
    installed as a dependency by default, and so must be manually installed
