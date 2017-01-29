@@ -65,7 +65,7 @@ def scroll_message(status, font=None, speed=1):
     with canvas(device) as draw:
         w, h = draw.textsize(full_text, font)
 
-    virtual = viewport(device, width=w + x + x, height=h)
+    virtual = viewport(device, width=max(device.width, w + x + x), height=max(h, device.height))
     with canvas(virtual) as draw:
         draw.text((x, 0), full_text, font=font, fill="white")
         draw.text((x, 0), author, font=font, fill="yellow")
