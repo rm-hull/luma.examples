@@ -22,7 +22,6 @@ def scroll_down(virtual, pos):
     if virtual.height > device.height:
         while y < virtual.height - device.height:
             virtual.set_position((x, y))
-            time.sleep(0.01)
             y += 1
         y -= 1
     return (x, y)
@@ -33,7 +32,6 @@ def scroll_right(virtual, pos):
     if virtual.width > device.width:
         while x < virtual.width - device.width:
             virtual.set_position((x, y))
-            time.sleep(0.01)
             x += 1
         x -= 1
     return (x, y)
@@ -43,7 +41,6 @@ def scroll_up(virtual, pos):
     x, y = pos
     while y >= 0:
         virtual.set_position((x, y))
-        time.sleep(0.01)
         y -= 1
     y = 0
     return (x, y)
@@ -53,7 +50,6 @@ def scroll_left(virtual, pos):
     x, y = pos
     while x >= 0:
         virtual.set_position((x, y))
-        time.sleep(0.01)
         x -= 1
     x = 0
     return (x, y)
@@ -76,13 +72,11 @@ def main():
 
         virtual = viewport(device, width=w, height=h)
 
-        for _ in range(2):
-            virtual.display(pixel_art)
+        virtual.display(pixel_art)
 
         time.sleep(2)
 
         pos = (0, 0)
-
         pos = scroll_down(virtual, pos)
         time.sleep(2)
         pos = scroll_right(virtual, pos)
