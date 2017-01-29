@@ -58,7 +58,7 @@ def main():
         'images', 'starwars.png'))
     logo = Image.open(img_path)
 
-    virtual = viewport(device, width=128, height=768)
+    virtual = viewport(device, width=device.width, height=768)
 
     for _ in range(2):
         with canvas(virtual) as draw:
