@@ -77,35 +77,30 @@ def streams():
             time.sleep(0.1)
 
 
-def main():
-    cameraResolution = (640, 480)
-    imageSize = (128, 64)
-    cameraFrameRate = 8
+cameraResolution = (640, 480)
+imageSize = (128, 64)
+cameraFrameRate = 8
 
-    with picamera.PiCamera() as camera:
-        pool = [ImageProcessor() for i in range(4)]
+with picamera.PiCamera() as camera:
+    pool = [ImageProcessor() for i in range(4)]
 
-        # set camera resolution
-        camera.resolution = cameraResolution
-        camera.framerate = cameraFrameRate
+    # set camera resolution
+    camera.resolution = cameraResolution
+    camera.framerate = cameraFrameRate
 
-        print("Starting camera preview...")
-        camera.start_preview()
-        time.sleep(2)
+    print("Starting camera preview...")
+    camera.start_preview()
+    time.sleep(2)
 
-        print("Capturing video...")
+    print("Capturing video...")
+    try:
         camera.capture_sequence(streams(), use_video_port=True, resize=imageSize)
 
-    # Shut down the processors in an orderly fashion
-    while pool:
-        with lock:
-            processor = pool.pop()
-        processor.terminated = True
-        processor.join()
-
-
-if __name__ == "__main__":
-    try:
-        main()
+        # shut down the processors in an orderly fashion
+        while pool:
+            with lock:
+                processor = pool.pop()
+            processor.terminated = True
+            processor.join()
     except KeyboardInterrupt:
         pass
