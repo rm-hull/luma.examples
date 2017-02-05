@@ -18,7 +18,7 @@ Assuming you are using a Raspberry Pi (running Debian Jessie), follow the pre-re
 instructions in the above repositories to wire up your display, then from a command-line::
 
   $ sudo usermod -a -G i2c,spi,gpio pi
-  $ sudo apt-get install python-dev python-pip libfreetype6-dev libjpeg8-dev libsdl1.2-dev
+  $ sudo apt-get install python-dev python-pip libfreetype6-dev libjpeg8-dev
   $ sudo -H pip install --upgrade pip
   $ sudo -H pip install --upgrade luma.oled luma.lcd luma.led_matrix
 
