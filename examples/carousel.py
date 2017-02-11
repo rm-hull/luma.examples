@@ -9,6 +9,10 @@ Showcase viewport and hotspot functionality.
 
 Loosely based on poster_demo by @bjerrep
 https://github.com/bjerrep/ssd1306/blob/master/examples/poster_demo.py
+
+Needs psutil (+ dependencies) installed::
+  $ sudo apt-get install python-dev
+  $ sudo pip install psutil
 """
 
 import psutil
