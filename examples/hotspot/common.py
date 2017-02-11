@@ -5,8 +5,11 @@
 
 from PIL import ImageFont
 
+import os.path
 
-tiny_font = ImageFont.truetype("examples/fonts/FreePixel.ttf", 10)
+
+tiny_font = ImageFont.truetype(os.path.abspath(os.path.join(
+    os.path.dirname(__file__), "..", "fonts", "FreePixel.ttf")), 10)
 
 
 def bytes2human(n, fmt="{0:0.2f}"):
