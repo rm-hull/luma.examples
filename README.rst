@@ -1,5 +1,6 @@
 `luma.core <https://github.com/rm-hull/luma.core>`__ **|** 
-luma.examples **|** 
+luma.examples **|**
+`luma.emulator <https://github.com/rm-hull/luma.emulator>`__ **|**
 `luma.lcd <https://github.com/rm-hull/luma.lcd>`__ **|** 
 `luma.led_matrix <https://github.com/rm-hull/luma.led_matrix>`__ **|** 
 `luma.oled <https://github.com/rm-hull/luma.oled>`__ 
@@ -9,8 +10,8 @@ Luma.Examples
 
 .. image:: https://img.shields.io/maintenance/yes/2017.svg?maxAge=2592000
 
-This is the companion repo for running examples against the `luma.oled <https://github.com/rm-hull/luma.oled>`_,
-`luma.lcd <https://github.com/rm-hull/luma.lcd>`_ and `luma.led_matrix <https://github.com/rm-hull/luma.led_matrix>`_ display drivers.
+This is the companion repo for running examples against the `luma.emulator <https://github.com/rm-hull/luma.emulator>`_,
+`luma.oled <https://github.com/rm-hull/luma.oled>`_, `luma.lcd <https://github.com/rm-hull/luma.lcd>`_ and `luma.led_matrix <https://github.com/rm-hull/luma.led_matrix>`_ display drivers.
 
 Installation instructions
 -------------------------
@@ -21,7 +22,7 @@ instructions in the above repositories to wire up your display, then from a comm
   $ sudo apt-get install python-dev python-pip libfreetype6-dev libjpeg-dev
   $ sudo -H pip install --upgrade pip
   $ sudo apt-get purge python-pip
-  $ sudo -H pip install --upgrade luma.oled luma.lcd luma.led_matrix
+  $ sudo -H pip install --upgrade luma.emulator luma.oled luma.lcd luma.led_matrix
 
 Log out and in again, clone this repository::
 
@@ -164,6 +165,7 @@ Full documentation with installation instructions can be found in:
 * https://luma-lcd.readthedocs.io
 * https://luma-led-matrix.readthedocs.io
 * https://luma-core.readthedocs.io (coming soon)
+* https://luma-emulator.readthedocs.io (coming soon)
 
 License
 -------
