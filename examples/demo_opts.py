@@ -9,7 +9,6 @@ Argument parser for examples.
 import logging
 import argparse
 
-import luma.core.emulator
 import luma.core.serial
 
 
@@ -109,8 +108,9 @@ elif args.display in ('max7219'):
         parser.error(e)
 
 elif args.display in ('capture', 'pygame', 'gifanim'):
-    Emulator = getattr(luma.core.emulator, args.display)
-    device = Emulator(**vars(args))
+    import luma.emulator.device
+    Device = getattr(luma.emulator.device, args.display)
+    device = Device(**vars(args))
 
 else:
     parser.error('unknown display %s' % args.display)
