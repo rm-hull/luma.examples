@@ -6,10 +6,20 @@
 Argument parser for examples.
 """
 
+import sys
 import logging
 import argparse
 
 import luma.core.serial
+
+
+def load_config(fp):
+    args = []
+    for line in fp.readlines():
+        if not line.startswith('#'):
+            args.append(line.replace("\n", ""))
+
+    return args
 
 
 parser = argparse.ArgumentParser(description='luma.examples arguments',
@@ -31,7 +41,7 @@ parser.add_argument('--bcm-reset', type=int, default=25, help='BCM pin for RESET
 parser.add_argument('--bcm-backlight', type=int, default=18, help='BCM pin for backlight (PCD8544 devices only)')
 parser.add_argument('--transform', type=str, default='scale2x', help='Scaling transform to apply (emulator only)', choices=["none", "identity", "scale2x", "smoothscale", "led_matrix", "seven_segment"])
 parser.add_argument('--scale', type=int, default=2, help='Scaling factor to apply (emulator only)')
-parser.add_argument('--mode', type=str, default='RGB', help='Colour mode (emulator only)', choices=['1', 'RGB', 'RGBA'])
+parser.add_argument('--mode', type=str, default='RGB', help='Colour mode (ssd1322, ssd1325 and emulator only)', choices=['1', 'RGB', 'RGBA'])
 parser.add_argument('--duration', type=float, default=0.01, help='Animation frame duration (gifanim emulator only)')
 parser.add_argument('--loop', type=int, default=0, help='Repeat loop, zero=forever (gifanim emulator only)')
 parser.add_argument('--max-frames', type=int, help='Maximum frames to record (gifanim emulator only)')
@@ -54,8 +64,8 @@ args = parser.parse_args()
 
 if args.config:
     with open(args.config, "r") as fp:
-        config = fp.read().replace("\n", " ").split()
-        args = parser.parse_args(config)
+        config = load_config(fp)
+        args = parser.parse_args(config + sys.argv[1:])
 
 if args.display in ('ssd1306', 'ssd1322', 'ssd1325', 'ssd1331', 'sh1106'):
     if args.interface not in ('i2c', 'spi'):
