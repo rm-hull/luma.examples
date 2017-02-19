@@ -22,7 +22,6 @@ from demo_opts import device
 
 def main():
     cameraResolution = (1024, 768)
-    imageSize = (128, 64)
     displayTime = 5
 
     # create the in-memory stream
@@ -36,7 +35,7 @@ def main():
         time.sleep(2)
 
         print("Capturing photo...")
-        camera.capture(stream, format='jpeg', resize=imageSize)
+        camera.capture(stream, format='jpeg', resize=device.size)
 
         print("Stopping camera preview...")
         camera.close()

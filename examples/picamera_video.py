@@ -78,7 +78,6 @@ def streams():
 
 
 cameraResolution = (640, 480)
-imageSize = (128, 64)
 cameraFrameRate = 8
 
 with picamera.PiCamera() as camera:
@@ -94,7 +93,7 @@ with picamera.PiCamera() as camera:
 
     print("Capturing video...")
     try:
-        camera.capture_sequence(streams(), use_video_port=True, resize=imageSize)
+        camera.capture_sequence(streams(), use_video_port=True, resize=device.size)
 
         # shut down the processors in an orderly fashion
         while pool:
