@@ -83,7 +83,7 @@ if args.display in ('ssd1306', 'ssd1322', 'ssd1325', 'ssd1331', 'sh1106'):
                                           bcm_DC=args.bcm_data_command,
                                           bcm_RST=args.bcm_reset)
         device = Device(serial, width=args.width, height=args.height,
-                        rotate=args.rotate)
+                        rotate=args.rotate, mode=args.mode)
     except Exception as e:
         parser.error(e)
 
