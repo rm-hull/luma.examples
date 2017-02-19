@@ -16,7 +16,7 @@ import luma.core.serial
 def load_config(fp):
     args = []
     for line in fp.readlines():
-        if not line.startswith('#'):
+        if line.strip() and not line.startswith('#'):
             args.append(line.replace("\n", ""))
 
     return args
