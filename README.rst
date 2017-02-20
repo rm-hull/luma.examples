@@ -54,6 +54,7 @@ picamera_video.py     Capture continuous video stream and display it on a screen
 pi_logo.py            Display the Raspberry Pi logo (loads image as .png)
 savepoint.py          Example of savepoint/restore functionality
 scrolling_pixelart.py Image dithering and viewport scrolling
+sprite_animation.py   Using sprite maps for animation effects
 starfield.py          3D starfield simulation
 sys_info.py           Display basic system information
 terminal.py           Simple println capabilities
