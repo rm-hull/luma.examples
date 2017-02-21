@@ -109,8 +109,7 @@ elif args.display in ('max7219'):
         serial = luma.core.serial.spi(port=args.spi_port,
                                       device=args.spi_device,
                                       bus_speed_hz=args.spi_bus_speed,
-                                      bcm_DC=args.bcm_data_command,
-                                      bcm_RST=args.bcm_reset)
+                                      gpio=luma.core.serial.noop())
         device = Device(serial, width=args.width, height=args.height,
                         rotate=args.rotate)
 
