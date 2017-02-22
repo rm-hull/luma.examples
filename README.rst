@@ -40,6 +40,7 @@ Example               Description
 3d_box.py             Rotating 3D box wireframe & color dithering
 bounce.py             Display a bouncing ball animation and frames per second
 carousel.py           Showcase viewport and hotspot functionality
+chroma.py             Trippy color rendering demo
 clock.py              An analog clockface with date & time
 colors.py             Color rendering demo
 crawl.py              A vertical scrolling demo, which should be familiar
