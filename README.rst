@@ -77,6 +77,7 @@ flag to show the options::
                    [--spi-device SPI_DEVICE] [--spi-bus-speed SPI_BUS_SPEED]
                    [--bcm-data-command BCM_DATA_COMMAND] [--bcm-reset BCM_RESET]
                    [--bcm-backlight BCM_BACKLIGHT]
+                   [--block-orientation {horizontal,vertical}]
                    [--transform {none,identity,scale2x,smoothscale,led_matrix,seven_segment}]
                    [--scale SCALE] [--mode {1,RGB,RGBA}] [--duration DURATION]
                    [--loop LOOP] [--max-frames MAX_FRAMES]
@@ -112,6 +113,9 @@ flag to show the options::
       --bcm-backlight BCM_BACKLIGHT
                             BCM pin for backlight (PCD8544 devices only) (default:
                             18)
+      --block-orientation {horizontal,vertical}
+                            Fix 90° phase error (MAX7219 LED matrix only)
+                            (default: horizontal)
       --transform {none,identity,scale2x,smoothscale,led_matrix,seven_segment}
                             Scaling transform to apply (emulator only) (default:
                             scale2x)

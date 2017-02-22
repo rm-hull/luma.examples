@@ -39,6 +39,7 @@ parser.add_argument('--spi-bus-speed', type=int, default=8000000, help='SPI max 
 parser.add_argument('--bcm-data-command', type=int, default=24, help='BCM pin for D/C RESET (SPI devices only)')
 parser.add_argument('--bcm-reset', type=int, default=25, help='BCM pin for RESET (SPI devices only)')
 parser.add_argument('--bcm-backlight', type=int, default=18, help='BCM pin for backlight (PCD8544 devices only)')
+parser.add_argument('--block-orientation', type=str, default='horizontal', help='Fix 90° phase error (MAX7219 LED matrix only)', choices=['horizontal', 'vertical'])
 parser.add_argument('--transform', type=str, default='scale2x', help='Scaling transform to apply (emulator only)', choices=["none", "identity", "scale2x", "smoothscale", "led_matrix", "seven_segment"])
 parser.add_argument('--scale', type=int, default=2, help='Scaling factor to apply (emulator only)')
 parser.add_argument('--mode', type=str, default='RGB', help='Colour mode (ssd1322, ssd1325 and emulator only)', choices=['1', 'RGB', 'RGBA'])
@@ -111,7 +112,7 @@ elif args.display in ('max7219'):
                                       bus_speed_hz=args.spi_bus_speed,
                                       gpio=luma.core.serial.noop())
         device = Device(serial, width=args.width, height=args.height,
-                        rotate=args.rotate)
+                        rotate=args.rotate, block_orientation=args.block_orientation)
 
     except Exception as e:
         parser.error(e)
