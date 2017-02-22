@@ -74,10 +74,3 @@ if __name__ == "__main__":
             time.sleep(4)
     except KeyboardInterrupt:
         pass
-
-
-if __name__ == "__main__":
-    try:
-        main()
-    except KeyboardInterrupt:
-        pass

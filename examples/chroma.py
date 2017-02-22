@@ -177,8 +177,6 @@ def main():
         effects.insert(0, effect)
 
 
-
-
 if __name__ == "__main__":
     try:
         main()
