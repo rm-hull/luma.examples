@@ -65,12 +65,12 @@ def main():
             for b in balls:
                 b.update_pos()
                 b.draw(c)
-                c.text((2, 0), fps, fill="white")
+            c.text((2, 0), fps, fill="white")
 
-                now = time.time()
-                if now - last_time > 1:
-                    last_time = now
-                    fps = "FPS: {0:0.3f}".format(frame_count / (now - start_time))
+        now = time.time()
+        if frame_count % 20 == 0:
+            last_time = now
+            fps = "FPS: {0:0.3f}".format(frame_count / (now - start_time))
 
 
 if __name__ == '__main__':
