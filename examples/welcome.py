@@ -195,7 +195,7 @@ def main():
     color_gen = pairs(infinite_shuffle(colors))
 
     for welcome_a, welcome_b in pairs(infinite_shuffle(welcome)):
-        color_a, color_b = color_gen.next()
+        color_a, color_b = next(color_gen)
         widget_a = make_snapshot(device.width, device.height, welcome_a, fonts, color_a)
         widget_b = make_snapshot(device.width, device.height, welcome_b, fonts, color_b)
 
