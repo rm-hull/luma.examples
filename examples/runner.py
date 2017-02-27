@@ -5,6 +5,7 @@
 # PYTHON_ARGCOMPLETE_OK
 
 import sys
+import os.path
 from PIL import Image
 from demo_opts import device
 
@@ -13,15 +14,15 @@ from luma.core.sprite_system import spritesheet, framerate_regulator
 
 def main(num_iterations=sys.maxsize):
     data = {
-        'image': "examples/images/runner.png",
+        'image': os.path.abspath(
+            os.path.join(
+                os.path.dirname(__file__),
+                'images', 'runner.png')),
         'frames': {
             'width': 64,
             'height': 67,
             'regX': 0,
-            'regY': 2,
-            # TODO
-            # 'spacing': 0,
-            # 'margin': 0
+            'regY': 2
         },
         'animations': {
             'run-right': {
