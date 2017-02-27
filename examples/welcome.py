@@ -9,10 +9,10 @@ Unicode font rendering & scrolling.
 """
 
 import os
-import time
 import random
 from demo_opts import device
 from luma.core.virtual import viewport, snapshot, range_overlap
+from luma.core.sprite_system import framerate_regulator
 from PIL import ImageFont
 
 welcome = [
@@ -188,6 +188,7 @@ def overlapping(pt_a, pt_b, w, h):
 
 
 def main():
+    regulator = framerate_regulator(fps=30)
     fonts = [make_font("code2000.ttf", sz) for sz in range(24, 8, -2)]
     sq = device.width * 2
     virtual = viewport(device, sq, sq)
@@ -208,12 +209,13 @@ def main():
         virtual.add_hotspot(widget_a, posn_a)
         virtual.add_hotspot(widget_b, posn_b)
 
-        for _ in range(10):
+        for _ in range(30):
             virtual.set_position(posn_a)
-            time.sleep(0.3)
+            regulator.sleep()
 
         for posn in lerp_2d(posn_a, posn_b, device.width // 4):
             virtual.set_position(posn)
+            regulator.sleep()
 
         virtual.remove_hotspot(widget_a, posn_a)
         virtual.remove_hotspot(widget_b, posn_b)

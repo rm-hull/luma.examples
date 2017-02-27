@@ -10,11 +10,12 @@ Display a bouncing ball animation and frames per second.
 Attribution: https://github.com/rogerdahl/ssd1306/blob/master/examples/bounce.py
 """
 
-import time
+import sys
 import random
 
 from demo_opts import device
 import luma.core.render
+from luma.core.sprite_system import framerate_regulator
 
 
 class Ball(object):
@@ -47,7 +48,7 @@ class Ball(object):
                        self._x_pos + self._radius, self._y_pos + self._radius), fill=self._color)
 
 
-def main():
+def main(num_iterations=sys.maxsize):
     colors = ["red", "orange", "yellow", "green", "blue", "magenta"]
     balls = [Ball(device.width, device.height, i * 1.5, colors[i % 6]) for i in range(10)]
 
@@ -55,10 +56,11 @@ def main():
     fps = ""
     canvas = luma.core.render.canvas(device)
 
-    start_time = time.time()
-    last_time = time.time()
+    regulator = framerate_regulator(-1)
 
-    while True:
+    while num_iterations > 0:
+        num_iterations -= 1
+
         frame_count += 1
         with canvas as c:
             c.rectangle(device.bounding_box, outline="white", fill="black")
@@ -67,10 +69,10 @@ def main():
                 b.draw(c)
             c.text((2, 0), fps, fill="white")
 
-        now = time.time()
+        regulator.sleep()
+
         if frame_count % 20 == 0:
-            last_time = now
-            fps = "FPS: {0:0.3f}".format(frame_count / (now - start_time))
+            fps = "FPS: {0:0.3f}".format(regulator.effective_FPS())
 
 
 if __name__ == '__main__':

@@ -11,10 +11,12 @@ Adapted from:
 http://codentronix.com/2011/05/12/rotating-3d-cube-using-python-and-pygame/
 """
 
+import sys
 import math
 from operator import itemgetter
 from demo_opts import device
 from luma.core.render import canvas
+from luma.core.sprite_system import framerate_regulator
 
 
 def radians(degrees):
@@ -65,7 +67,10 @@ def sine_wave(min, max, step=1):
         angle += step
 
 
-def main():
+def main(num_iterations=sys.maxsize):
+
+    regulator = framerate_regulator(fps=30)
+
     vertices = [
         point(-1, 1, -1),
         point(1, 1, -1),
@@ -88,7 +93,11 @@ def main():
 
     a, b, c = 0, 0, 0
 
-    for angle, dist in sine_wave(8, 40, 0.5):
+    for angle, dist in sine_wave(8, 40, 1.5):
+        num_iterations -= 1
+        if num_iterations == 0:
+            break
+
         t = [v.rotate_x(a).rotate_y(b).rotate_z(c).project(device.size, 256, dist)
              for v in vertices]
 
@@ -112,6 +121,8 @@ def main():
         a += 0.3
         b -= 1.1
         c += 0.85
+
+        regulator.sleep()
 
 
 if __name__ == "__main__":
