@@ -15,8 +15,9 @@ import os.path
 import time
 import random
 from demo_opts import device
-from luma.core.render import canvas
 from PIL import Image
+from luma.core.render import canvas
+from luma.core.sprite_system import framerate_regulator
 
 arrow = [0x04, 0x02, 0x01, 0x02, 0x04]
 alien1 = [0x4C, 0x1A, 0xB6, 0x5F, 0x5F, 0xB6, 0x1A, 0x4C]
@@ -187,6 +188,7 @@ if __name__ == '__main__':
     if device.size not in ((256, 64), (128, 64), (96, 64)):
         raise ValueError("Unsupported mode: {0}x{1}".format(device.width, device.height))
 
+    regulator = framerate_regulator()
     plyr = player()
     army = army()
     rows = random.sample(range(12), 12)
@@ -218,6 +220,8 @@ if __name__ == '__main__':
 
             draw.text((8, 0), text="Score: {0}".format(army.score()), fill="blue")
 
+        regulator.sleep()
+
     # Double buffering in pygame?
     for i in range(2):
         with canvas(device) as draw:
@@ -226,4 +230,4 @@ if __name__ == '__main__':
             else:
                 draw.text((30, 28), text="Defeat", fill="red")
 
-    time.sleep(10)
+    time.sleep(5)

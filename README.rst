@@ -48,11 +48,13 @@ demo.py               Use misc draw commands to create a simple image
 game_of_life.py       Conway's game of life
 grayscale.py          Greyscale rendering demo
 invaders.py           Space Invaders demo
+jetset_willy.py       Sprite animation framework demo
 maze.py               Maze generator
 perfloop.py           Simple benchmarking utility to measure performance
 picamera_photo.py     Capture photo with picamera and display it on a screen
 picamera_video.py     Capture continuous video stream and display it on a screen
 pi_logo.py            Display the Raspberry Pi logo (loads image as .png)
+runner.py             Sprite animation framework demo
 savepoint.py          Example of savepoint/restore functionality
 scrolling_pixelart.py Image dithering and viewport scrolling
 sprite_animation.py   Using sprite maps for animation effects
