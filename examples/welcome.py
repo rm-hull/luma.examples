@@ -15,6 +15,7 @@ from luma.core.virtual import viewport, snapshot, range_overlap
 from luma.core.sprite_system import framerate_regulator
 from PIL import ImageFont
 
+
 welcome = [
     u"Бзиала шәаабеит",
     u"Къеблагъ",
@@ -110,6 +111,7 @@ colors = [
     "firebrick", "darkred", "maroon", "white", "whitesmoke", "gainsboro",
     "lightgrey", "silver", "darkgray", "gray", "dimgray", "black"
 ]
+
 
 def make_font(name, size):
     font_path = os.path.abspath(os.path.join(
