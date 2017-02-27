@@ -38,6 +38,10 @@ setup(
         'docs': [
             'sphinx >= 1.5.1'
         ],
+        'qa': [
+            'rstcheck',
+            'flake8'
+        ],
         'test': test_deps
     },
     classifiers=[
