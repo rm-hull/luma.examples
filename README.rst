@@ -25,12 +25,16 @@ instructions in the above repositories to wire up your display, then from a comm
   $ sudo apt-get install python-dev python-pip libfreetype6-dev libjpeg-dev
   $ sudo -H pip install --upgrade pip
   $ sudo apt-get purge python-pip
-  $ sudo -H pip install --upgrade luma.emulator luma.oled luma.lcd luma.led_matrix
 
-Log out and in again, clone this repository::
+Log out and in again and clone this repository::
 
   $ git clone https://github.com/rm-hull/luma.examples.git
   $ cd luma.examples
+
+Finally, install the luma libraries using::
+
+  $ sudo -H pip install -e .
+
 
 Running the examples
 --------------------
