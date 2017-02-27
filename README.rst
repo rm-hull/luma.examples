@@ -143,14 +143,14 @@ Emulators
 There are various display emulators available for running code against, for debugging
 and screen capture functionality:
 
-* The `luma.core.emulator.capture` device will persist a numbered PNG file to
+* The `luma.emulator.device.capture` device will persist a numbered PNG file to
   disk every time its ``display`` method is called.
 
-* The `luma.core.emulator.gifanim` device will record every image when its ``display``
+* The `luma.emulator.device.gifanim` device will record every image when its ``display``
   method is called, and on program exit (or Ctrl-C), will assemble the images into an
   animated GIF.
 
-* The `luma.core.emulator.pygame` device uses the `pygame` library to
+* The `luma.emulator.device.pygame` device uses the `pygame` library to
   render the displayed image to a pygame display surface.
 
 Invoke the demos with::
