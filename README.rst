@@ -180,8 +180,8 @@ Full documentation with installation instructions can be found in:
 * https://luma-oled.readthedocs.io
 * https://luma-lcd.readthedocs.io
 * https://luma-led-matrix.readthedocs.io
-* https://luma-core.readthedocs.io (coming soon)
-* https://luma-emulator.readthedocs.io (coming soon)
+* https://luma-core.readthedocs.io
+* https://luma-emulator.readthedocs.io
 
 License
 -------
