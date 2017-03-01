@@ -17,7 +17,7 @@ import picamera
 
 from PIL import Image
 
-from demo_opts import device
+from demo_opts import get_device
 
 
 def main():
@@ -57,6 +57,7 @@ def main():
 
 if __name__ == "__main__":
     try:
+        device = get_device()
         main()
     except KeyboardInterrupt:
         pass

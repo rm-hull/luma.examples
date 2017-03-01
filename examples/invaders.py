@@ -14,10 +14,11 @@ https://gist.github.com/TheRayTracer/dd12c498e3ecb9b8b47f#file-invaders-py
 import os.path
 import time
 import random
-from demo_opts import device
+from demo_opts import get_device
 from PIL import Image
 from luma.core.render import canvas
 from luma.core.sprite_system import framerate_regulator
+
 
 arrow = [0x04, 0x02, 0x01, 0x02, 0x04]
 alien1 = [0x4C, 0x1A, 0xB6, 0x5F, 0x5F, 0xB6, 0x1A, 0x4C]
@@ -184,6 +185,8 @@ def ai_logic_move(army, plyr, rows):
 
 
 if __name__ == '__main__':
+
+    device = get_device()
 
     if device.size not in ((256, 64), (128, 64), (96, 64)):
         raise ValueError("Unsupported mode: {0}x{1}".format(device.width, device.height))

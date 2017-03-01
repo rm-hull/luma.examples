@@ -10,7 +10,7 @@ Unicode font rendering & scrolling.
 
 import os
 import random
-from demo_opts import device
+from demo_opts import get_device
 from luma.core.virtual import viewport, snapshot, range_overlap
 from luma.core.sprite_system import framerate_regulator
 from PIL import ImageFont
@@ -225,6 +225,7 @@ def main():
 
 if __name__ == "__main__":
     try:
+        device = get_device()
         main()
     except KeyboardInterrupt:
         pass

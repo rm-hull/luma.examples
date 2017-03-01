@@ -10,7 +10,7 @@ Simple println capabilities.
 
 import os
 import time
-from demo_opts import device
+from demo_opts import get_device
 from luma.core.virtual import terminal
 from PIL import ImageFont
 
@@ -79,6 +79,7 @@ def main():
 
 if __name__ == "__main__":
     try:
+        device = get_device()
         main()
     except KeyboardInterrupt:
         pass

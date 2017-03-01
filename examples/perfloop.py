@@ -15,7 +15,7 @@ import sys
 import time
 from PIL import Image, ImageDraw
 
-from demo_opts import device
+from demo_opts import get_device
 import demo
 
 
@@ -64,4 +64,5 @@ def main():
 
 
 if __name__ == "__main__":
+    device = get_device()
     main()

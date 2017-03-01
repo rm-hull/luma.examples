@@ -40,7 +40,7 @@ import time
 import tweepy
 from PIL import ImageFont
 
-from demo_opts import device
+from demo_opts import get_device
 from luma.core.render import canvas
 from luma.core.virtual import viewport
 
@@ -87,6 +87,7 @@ class listener(tweepy.StreamListener):
         self.queue.put(status)
 
 
+device = get_device()
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)

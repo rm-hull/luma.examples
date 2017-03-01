@@ -11,7 +11,7 @@ import math
 import time
 import colorsys
 
-from demo_opts import device
+from demo_opts import get_device
 from luma.core.render import canvas
 
 
@@ -179,6 +179,7 @@ def main():
 
 if __name__ == "__main__":
     try:
+        device = get_device()
         main()
     except KeyboardInterrupt:
         pass
