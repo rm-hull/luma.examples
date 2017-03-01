@@ -10,8 +10,6 @@ import sys
 import logging
 import argparse
 
-import luma.core.serial
-
 
 # logging
 logging.basicConfig(
@@ -31,9 +29,9 @@ def load_config(fp):
     return args
 
 
-def get_device(args=None):
-    if args is None:
-        args = sys.argv[1:]
+def get_device(actual_args=None):
+    if actual_args is None:
+        actual_args = sys.argv[1:]
 
     parser = argparse.ArgumentParser(description='luma.examples arguments',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -66,7 +64,7 @@ def get_device(args=None):
     except ImportError:
         pass
 
-    args = parser.parse_args()
+    args = parser.parse_args(actual_args)
 
     if args.config:
         with open(args.config, "r") as fp:
@@ -82,13 +80,17 @@ def get_device(args=None):
         Device = getattr(luma.oled.device, args.display)
         try:
             if (args.interface == 'i2c'):
-                serial = luma.core.serial.i2c(port=args.i2c_port, address=args.i2c_address)
+                from luma.core.serial import i2c
+                serial = i2c(port=args.i2c_port, address=args.i2c_address)
+
             elif (args.interface == 'spi'):
-                serial = luma.core.serial.spi(port=args.spi_port,
-                                              device=args.spi_device,
-                                              bus_speed_hz=args.spi_bus_speed,
-                                              bcm_DC=args.bcm_data_command,
-                                              bcm_RST=args.bcm_reset)
+                from luma.core.serial import spi
+                serial = spi(port=args.spi_port,
+                    device=args.spi_device,
+                    bus_speed_hz=args.spi_bus_speed,
+                    bcm_DC=args.bcm_data_command,
+                    bcm_RST=args.bcm_reset)
+
             device = Device(serial, width=args.width, height=args.height,
                             rotate=args.rotate, mode=args.mode)
             return device
@@ -99,13 +101,14 @@ def get_device(args=None):
     elif args.display in ('pcd8544'):
         # luma.lcd
         import luma.lcd.device
+        from luma.core.serial import spi
         Device = getattr(luma.lcd.device, args.display)
         try:
-            serial = luma.core.serial.spi(port=args.spi_port,
-                                          device=args.spi_device,
-                                          bus_speed_hz=args.spi_bus_speed,
-                                          bcm_DC=args.bcm_data_command,
-                                          bcm_RST=args.bcm_reset)
+            serial = spi(port=args.spi_port,
+                device=args.spi_device,
+                bus_speed_hz=args.spi_bus_speed,
+                bcm_DC=args.bcm_data_command,
+                bcm_RST=args.bcm_reset)
             luma.lcd.device.backlight(bcm_LIGHT=args.bcm_backlight).enable(True)
             device = Device(serial, rotate=args.rotate)
             return device
@@ -116,12 +119,13 @@ def get_device(args=None):
     elif args.display in ('max7219'):
         # luma.led_matrix
         import luma.led_matrix.device
+        from luma.core.serial import spi, noop
         Device = getattr(luma.led_matrix.device, args.display)
         try:
-            serial = luma.core.serial.spi(port=args.spi_port,
-                                          device=args.spi_device,
-                                          bus_speed_hz=args.spi_bus_speed,
-                                          gpio=luma.core.serial.noop())
+            serial = spi(port=args.spi_port,
+                device=args.spi_device,
+                bus_speed_hz=args.spi_bus_speed,
+                gpio=noop())
             device = Device(serial, width=args.width, height=args.height,
                             rotate=args.rotate, block_orientation=args.block_orientation)
             return device
