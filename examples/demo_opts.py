@@ -11,6 +11,9 @@ import logging
 import argparse
 from collections import OrderedDict
 
+from luma.core.error import Error
+
+
 # logging
 logging.basicConfig(
     level=logging.DEBUG,
@@ -94,12 +97,13 @@ def get_device(actual_args=None):
         config = load_config(args.config)
         args = parser.parse_args(config + actual_args)
 
-    # find display and create device
-    if args.display in display_types.get('oled'):
-        # luma.oled
-        import luma.oled.device
-        Device = getattr(luma.oled.device, args.display)
-        try:
+    try:
+        # find display type and create device
+        if args.display in display_types.get('oled'):
+            # luma.oled
+            import luma.oled.device
+            Device = getattr(luma.oled.device, args.display)
+
             if args.interface == 'i2c':
                 from luma.core.serial import i2c
                 serial = i2c(port=args.i2c_port, address=args.i2c_address)
@@ -116,15 +120,12 @@ def get_device(actual_args=None):
                             rotate=args.rotate, mode=args.mode)
             return device
 
-        except Exception as e:
-            parser.error(e)
+        elif args.display in display_types.get('lcd'):
+            # luma.lcd
+            import luma.lcd.device
+            from luma.core.serial import spi
 
-    elif args.display in display_types.get('lcd'):
-        # luma.lcd
-        import luma.lcd.device
-        from luma.core.serial import spi
-        Device = getattr(luma.lcd.device, args.display)
-        try:
+            Device = getattr(luma.lcd.device, args.display)
             serial = spi(port=args.spi_port,
                 device=args.spi_device,
                 bus_speed_hz=args.spi_bus_speed,
@@ -134,15 +135,12 @@ def get_device(actual_args=None):
             device = Device(serial, rotate=args.rotate)
             return device
 
-        except Exception as e:
-            parser.error(e)
+        elif args.display in display_types.get('led_matrix'):
+            # luma.led_matrix
+            import luma.led_matrix.device
+            from luma.core.serial import spi, noop
 
-    elif args.display in display_types.get('led_matrix'):
-        # luma.led_matrix
-        import luma.led_matrix.device
-        from luma.core.serial import spi, noop
-        Device = getattr(luma.led_matrix.device, args.display)
-        try:
+            Device = getattr(luma.led_matrix.device, args.display)
             serial = spi(port=args.spi_port,
                 device=args.spi_device,
                 bus_speed_hz=args.spi_bus_speed,
@@ -151,16 +149,13 @@ def get_device(actual_args=None):
                             rotate=args.rotate, block_orientation=args.block_orientation)
             return device
 
-        except Exception as e:
-            parser.error(e)
+        elif args.display in display_types.get('emulator'):
+            # luma.emulator
+            import luma.emulator.device
 
-    elif args.display in display_types.get('emulator'):
-        # luma.emulator
-        import luma.emulator.device
-        Device = getattr(luma.emulator.device, args.display)
-        try:
+            Device = getattr(luma.emulator.device, args.display)
             device = Device(**vars(args))
             return device
 
-        except Exception as e:
-            parser.error(e)
+    except Error as e:
+        parser.error(e)

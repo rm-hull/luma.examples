@@ -126,16 +126,17 @@ def test_get_device_led_matrix_all(capsys):
 
 # luma.lcd
 
-def test_get_device_lcd_all(capsys):
+def test_get_device_lcd_all():
     """
     Load supported lcd devices one by one.
     """
     for display in display_types.get('lcd'):
-        with pytest.raises(SystemExit):
+        # XXX: this should raise a normal SystemExit, see
+        # https://github.com/rm-hull/luma.lcd/issues/28
+        with pytest.raises(RuntimeError) as ex:
             get_device(['--display', display])
 
-        assertInError('error: This module can only be run on a Raspberry Pi!\n',
-            capsys)
+        assert str(ex.value) == 'This module can only be run on a Raspberry Pi!'
 
 
 # luma.oled
