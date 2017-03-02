@@ -89,12 +89,12 @@ def get_device(actual_args=None):
     parser = create_parser()
     args = parser.parse_args(actual_args)
 
-    # parse config
     if args.config:
+        # load config from file
         config = load_config(args.config)
         args = parser.parse_args(config + actual_args)
 
-    # create device
+    # find display and create device
     if args.display in display_types.get('oled'):
         if args.interface not in interface_types:
             parser.error('unknown interface %s' % args.interface)
