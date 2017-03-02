@@ -100,7 +100,7 @@ def test_get_device_emulator_all():
     """
     Load an emulator device.
     """
-    emulators= {
+    emulators = {
         'capture': luma.emulator.device.capture,
         'pygame': luma.emulator.device.pygame,
         'gifanim': luma.emulator.device.gifanim
