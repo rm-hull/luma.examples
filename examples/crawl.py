@@ -10,7 +10,7 @@ A vertical scrolling demo, which should be familiar.
 
 import time
 import os.path
-from demo_opts import device
+from demo_opts import get_device
 from luma.core.virtual import viewport
 from luma.core.render import canvas
 from PIL import Image
@@ -85,6 +85,7 @@ def main():
 
 if __name__ == "__main__":
     try:
+        device = get_device()
         main()
     except KeyboardInterrupt:
         pass

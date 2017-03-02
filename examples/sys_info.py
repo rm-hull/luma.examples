@@ -22,7 +22,7 @@ if os.name != 'posix':
 
 import psutil
 
-from demo_opts import device
+from demo_opts import get_device
 from luma.core.render import canvas
 from PIL import ImageFont
 
@@ -102,6 +102,7 @@ def main():
 
 if __name__ == "__main__":
     try:
+        device = get_device()
         main()
     except KeyboardInterrupt:
         pass

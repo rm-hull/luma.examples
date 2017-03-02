@@ -7,7 +7,7 @@
 import sys
 import os.path
 from PIL import Image
-from demo_opts import device
+from demo_opts import get_device
 
 from luma.core.sprite_system import spritesheet, framerate_regulator
 
@@ -97,6 +97,7 @@ def main(num_iterations=sys.maxsize):
 
 if __name__ == "__main__":
     try:
+        device = get_device()
         main()
     except KeyboardInterrupt:
         pass

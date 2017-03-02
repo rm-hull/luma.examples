@@ -13,7 +13,8 @@ Attribution: https://github.com/rogerdahl/ssd1306/blob/master/examples/bounce.py
 import sys
 import random
 
-from demo_opts import device
+from demo_opts import get_device
+
 import luma.core.render
 from luma.core.sprite_system import framerate_regulator
 
@@ -77,6 +78,7 @@ def main(num_iterations=sys.maxsize):
 
 if __name__ == '__main__':
     try:
+        device = get_device()
         main()
     except KeyboardInterrupt:
         pass

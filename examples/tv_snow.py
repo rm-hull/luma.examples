@@ -10,10 +10,12 @@ Example image-blitting.
 
 import struct
 import random
-from demo_opts import device
+from demo_opts import get_device
 from luma.core.render import canvas
 from PIL import Image, ImageDraw
 
+
+device = get_device()
 size = (60, 30)
 # Calc offset to center text vertically and horizontally
 offset = ((device.width - size[0]) // 2, (device.height - size[1]) // 2)

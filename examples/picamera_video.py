@@ -18,7 +18,7 @@ import picamera
 
 from PIL import Image
 
-from demo_opts import device
+from demo_opts import get_device
 
 
 # create a pool of image processors
@@ -79,6 +79,7 @@ def streams():
 
 cameraResolution = (640, 480)
 cameraFrameRate = 8
+device = get_device()
 
 with picamera.PiCamera() as camera:
     pool = [ImageProcessor() for i in range(4)]

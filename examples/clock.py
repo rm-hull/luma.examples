@@ -14,7 +14,7 @@ https://gist.github.com/TheRayTracer/dd12c498e3ecb9b8b47f#file-clock-py
 import math
 import time
 import datetime
-from demo_opts import device
+from demo_opts import get_device
 from luma.core.render import canvas
 
 
@@ -66,6 +66,7 @@ def main():
 
 if __name__ == "__main__":
     try:
+        device = get_device()
         main()
     except KeyboardInterrupt:
         pass

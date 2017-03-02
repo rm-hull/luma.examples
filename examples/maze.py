@@ -12,7 +12,7 @@ https://github.com/rm-hull/maze/blob/master/src/maze/generator.clj
 """
 
 import time
-from demo_opts import device
+from demo_opts import get_device
 from luma.core.render import canvas
 from random import randrange
 
@@ -153,6 +153,7 @@ def demo(iterations):
 
 if __name__ == "__main__":
     try:
+        device = get_device()
         demo(20)
     except KeyboardInterrupt:
         pass

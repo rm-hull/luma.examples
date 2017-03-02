@@ -14,7 +14,7 @@ http://codentronix.com/2011/05/12/rotating-3d-cube-using-python-and-pygame/
 import sys
 import math
 from operator import itemgetter
-from demo_opts import device
+from demo_opts import get_device
 from luma.core.render import canvas
 from luma.core.sprite_system import framerate_regulator
 
@@ -127,6 +127,7 @@ def main(num_iterations=sys.maxsize):
 
 if __name__ == "__main__":
     try:
+        device = get_device()
         main()
     except KeyboardInterrupt:
         pass

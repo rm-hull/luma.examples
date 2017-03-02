@@ -10,7 +10,7 @@ Sprite animation
 
 import time
 import os.path
-from demo_opts import device
+from demo_opts import get_device
 from PIL import Image
 
 
@@ -68,6 +68,7 @@ def explosion():
 
 if __name__ == "__main__":
     try:
+        device = get_device()
         while True:
             mickey()
             explosion()

@@ -1,0 +1,4 @@
+--display=capture
+--width=800
+--height=8600
+--spi-bus-speed=16000000

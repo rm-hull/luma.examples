@@ -17,7 +17,7 @@ Needs psutil (+ dependencies) installed::
 
 import psutil
 
-from demo_opts import device
+from demo_opts import get_device
 from luma.core.virtual import viewport, snapshot
 
 from hotspot import memory, uptime, cpu_load, clock, network, disk
@@ -106,6 +106,7 @@ def main():
 
 if __name__ == "__main__":
     try:
+        device = get_device()
         main()
     except KeyboardInterrupt:
         pass

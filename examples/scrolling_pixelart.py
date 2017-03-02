@@ -12,7 +12,7 @@ from @pixel_dailies twitter feed.
 import time
 import random
 import os.path
-from demo_opts import device
+from demo_opts import get_device
 from luma.core.virtual import viewport
 from PIL import Image
 
@@ -89,6 +89,7 @@ def main():
 
 if __name__ == "__main__":
     try:
+        device = get_device()
         main()
     except KeyboardInterrupt:
         pass
