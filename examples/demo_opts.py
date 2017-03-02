@@ -31,6 +31,7 @@ def load_config(fp):
 
     return args
 
+
 def create_parser():
     """
     Create command-line argument parser.
@@ -75,7 +76,7 @@ def get_device(actual_args=None):
     """
     if actual_args is None:
         actual_args = sys.argv[1:]
-    
+
     parser = create_parser()
     args = parser.parse_args(actual_args)
 
