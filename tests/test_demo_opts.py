@@ -148,7 +148,7 @@ def test_get_device_oled_all(capsys):
         with pytest.raises(SystemExit):
             get_device(['--display', display])
 
-        assertInError('I2C device permission denied', capsys)
+        assertInError('I2C device', capsys)
 
 
 def test_get_device_oled_interface_unknown(capsys):
