@@ -21,6 +21,9 @@ logging.getLogger('PIL').setLevel(logging.ERROR)
 
 
 def load_config(fp):
+    """
+    Load device configuration from file.
+    """
     args = []
     for line in fp.readlines():
         if line.strip() and not line.startswith('#'):
@@ -28,11 +31,10 @@ def load_config(fp):
 
     return args
 
-
-def get_device(actual_args=None):
-    if actual_args is None:
-        actual_args = sys.argv[1:]
-
+def create_parser():
+    """
+    Create command-line argument parser.
+    """
     parser = argparse.ArgumentParser(description='luma.examples arguments',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
@@ -64,12 +66,23 @@ def get_device(actual_args=None):
     except ImportError:
         pass
 
+    return parser
+
+
+def get_device(actual_args=None):
+    """
+    Create and return the device.
+    """
+    if actual_args is None:
+        actual_args = sys.argv[1:]
+    
+    parser = create_parser()
     args = parser.parse_args(actual_args)
 
     if args.config:
         with open(args.config, "r") as fp:
             config = load_config(fp)
-            args = parser.parse_args(config + sys.argv[1:])
+            args = parser.parse_args(config + actual_args)
 
     if args.display in ('ssd1306', 'ssd1322', 'ssd1325', 'ssd1331', 'sh1106'):
         if args.interface not in ('i2c', 'spi'):
