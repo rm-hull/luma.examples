@@ -152,7 +152,7 @@ def get_device(actual_args=None):
             import luma.led_matrix.device
             from luma.core.serial import noop
             Device = getattr(luma.led_matrix.device, args.display)
-            Serial = getattr(make_serial(args, gpio=noop()), args.interface)
+            Serial = make_serial(args, gpio=noop()).spi
             device = Device(Serial(), **vars(args))
 
         elif args.display in display_types.get('emulator'):
