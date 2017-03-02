@@ -96,9 +96,6 @@ def get_device(actual_args=None):
 
     # find display and create device
     if args.display in display_types.get('oled'):
-        if args.interface not in interface_types:
-            parser.error('unknown interface %s' % args.interface)
-
         # luma.oled
         import luma.oled.device
         Device = getattr(luma.oled.device, args.display)
