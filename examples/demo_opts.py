@@ -9,7 +9,7 @@ Argument parser for examples.
 import sys
 import logging
 import argparse
-
+from collections import OrderedDict
 
 # logging
 logging.basicConfig(
@@ -17,34 +17,44 @@ logging.basicConfig(
     format='%(asctime)-15s - %(message)s'
 )
 # ignore PIL debug messages
-logging.getLogger('PIL').setLevel(logging.ERROR)
+logging.getLogger("PIL").setLevel(logging.ERROR)
+
+# supported devices
+interface_types = ["i2c", "spi"]
+display_types = OrderedDict()
+display_types["oled"] = ["ssd1306", "ssd1322", "ssd1325", "ssd1331", "sh1106"]
+display_types["lcd"] = ["pcd8544"]
+display_types["led_matrix"] = ["max7219"]
+display_types["emulator"] = ["capture", "pygame", "gifanim"]
+display_choices = [display for k, v in display_types.items() for display in v]
 
 
-def load_config(fp):
+def load_config(path):
     """
-    Load device configuration from file.
+    Load device configuration from file path and return parsed data.
     """
     args = []
-    for line in fp.readlines():
-        if line.strip() and not line.startswith('#'):
-            args.append(line.replace("\n", ""))
+    with open(path, "r") as fp:
+        for line in fp.readlines():
+            if line.strip() and not line.startswith("#"):
+                args.append(line.replace("\n", ""))
 
     return args
 
 
-def create_parser():
+def create_parser(description='luma.examples arguments'):
     """
-    Create command-line argument parser.
+    Create and return command-line argument parser for examples.
     """
-    parser = argparse.ArgumentParser(description='luma.examples arguments',
+    parser = argparse.ArgumentParser(description=description,
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
     parser.add_argument('--config', '-f', type=str, help='Load configuration settings from a file')
-    parser.add_argument('--display', '-d', type=str, default='ssd1306', help='Display type, supports real devices or emulators', choices=["ssd1306", "ssd1322", "ssd1325", "ssd1331", "sh1106", "pcd8544", "max7219", "capture", "pygame", "gifanim"])
+    parser.add_argument('--display', '-d', type=str, default='ssd1306', help='Display type, supports real devices or emulators', choices=display_choices)
     parser.add_argument('--width', type=int, default=128, help='Width of the device in pixels')
     parser.add_argument('--height', type=int, default=64, help='Height of the device in pixels')
     parser.add_argument('--rotate', '-r', type=int, default=0, help='Rotation factor', choices=[0, 1, 2, 3])
-    parser.add_argument('--interface', '-i', type=str, default='i2c', help='Serial interface type', choices=["i2c", "spi"])
+    parser.add_argument('--interface', '-i', type=str, default='i2c', help='Serial interface type', choices=interface_types)
     parser.add_argument('--i2c-port', type=int, default=1, help='I2C bus number')
     parser.add_argument('--i2c-address', type=str, default='0x3C', help='I2C display address')
     parser.add_argument('--spi-port', type=int, default=0, help='SPI port number')
@@ -72,32 +82,32 @@ def create_parser():
 
 def get_device(actual_args=None):
     """
-    Create and return the device.
+    Create device from command-line arguments and return it.
     """
     if actual_args is None:
         actual_args = sys.argv[1:]
-
     parser = create_parser()
     args = parser.parse_args(actual_args)
 
+    # parse config
     if args.config:
-        with open(args.config, "r") as fp:
-            config = load_config(fp)
-            args = parser.parse_args(config + actual_args)
+        config = load_config(args.config)
+        args = parser.parse_args(config + actual_args)
 
-    if args.display in ('ssd1306', 'ssd1322', 'ssd1325', 'ssd1331', 'sh1106'):
-        if args.interface not in ('i2c', 'spi'):
+    # create device
+    if args.display in display_types.get('oled'):
+        if args.interface not in interface_types:
             parser.error('unknown interface %s' % args.interface)
 
         # luma.oled
         import luma.oled.device
         Device = getattr(luma.oled.device, args.display)
         try:
-            if (args.interface == 'i2c'):
+            if args.interface == 'i2c':
                 from luma.core.serial import i2c
                 serial = i2c(port=args.i2c_port, address=args.i2c_address)
 
-            elif (args.interface == 'spi'):
+            elif args.interface == 'spi':
                 from luma.core.serial import spi
                 serial = spi(port=args.spi_port,
                     device=args.spi_device,
@@ -112,7 +122,7 @@ def get_device(actual_args=None):
         except Exception as e:
             parser.error(e)
 
-    elif args.display in ('pcd8544'):
+    elif args.display in display_types.get('lcd'):
         # luma.lcd
         import luma.lcd.device
         from luma.core.serial import spi
@@ -130,7 +140,7 @@ def get_device(actual_args=None):
         except Exception as e:
             parser.error(e)
 
-    elif args.display in ('max7219'):
+    elif args.display in display_types.get('led_matrix'):
         # luma.led_matrix
         import luma.led_matrix.device
         from luma.core.serial import spi, noop
@@ -147,7 +157,7 @@ def get_device(actual_args=None):
         except Exception as e:
             parser.error(e)
 
-    elif args.display in ('capture', 'pygame', 'gifanim'):
+    elif args.display in display_types.get('emulator'):
         # luma.emulator
         import luma.emulator.device
         Device = getattr(luma.emulator.device, args.display)
@@ -157,6 +167,3 @@ def get_device(actual_args=None):
 
         except Exception as e:
             parser.error(e)
-
-    else:
-        parser.error('unknown display %s' % args.display)

@@ -16,6 +16,11 @@ config_file = os.path.join(os.path.dirname(__file__),
     'resources', 'config-test.txt')
 
 
+def assertInError(msg, capsys):
+    out, err = capsys.readouterr()
+    assert msg in err
+
+
 def test_create_parser():
     """
     create_parser returns an argument parser instance.
@@ -29,8 +34,7 @@ def test_load_config_parse():
     """
     load_config parses a text file and returns a list of arguments.
     """
-    with open(config_file, "r") as fp:
-        result = load_config(fp)
+    result = load_config(config_file)
 
     assert result == [
         '--display=capture',
@@ -57,12 +61,14 @@ def test_get_device_good_config():
     assert isinstance(device, luma.emulator.device.capture)
 
 
-def test_get_device_unknown():
+def test_get_device_unknown(capsys):
     """
     Load an unknown device.
     """
     with pytest.raises(SystemExit):
         get_device(['--display', 'foo'])
+
+    assertInError("invalid choice: 'foo'", capsys)
 
 
 # luma.emulator
@@ -96,10 +102,11 @@ def test_get_device_emulator_gifanim():
 
 # luma.led_matrix
 
-def test_get_device_led_matrix_max7219():
+def test_get_device_led_matrix_max7219(capsys):
     """
     Load the 'max7219' device.
     """
-    #device = get_device(['--display', 'max7219'])
+    with pytest.raises(SystemExit):
+        get_device(['--display', 'max7219'])
 
-    #assert isinstance(device, luma.emulator.device.gifanim)
+    assertInError('error: SPI device not found', capsys)
