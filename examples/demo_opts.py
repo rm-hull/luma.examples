@@ -118,7 +118,6 @@ def get_device(actual_args=None):
 
             device = Device(serial, width=args.width, height=args.height,
                             rotate=args.rotate, mode=args.mode)
-            return device
 
         elif args.display in display_types.get('lcd'):
             # luma.lcd
@@ -133,7 +132,6 @@ def get_device(actual_args=None):
                 bcm_RST=args.bcm_reset)
             luma.lcd.device.backlight(bcm_LIGHT=args.bcm_backlight).enable(True)
             device = Device(serial, rotate=args.rotate)
-            return device
 
         elif args.display in display_types.get('led_matrix'):
             # luma.led_matrix
@@ -146,8 +144,7 @@ def get_device(actual_args=None):
                 bus_speed_hz=args.spi_bus_speed,
                 gpio=noop())
             device = Device(serial, width=args.width, height=args.height,
-                            rotate=args.rotate, block_orientation=args.block_orientation)
-            return device
+                rotate=args.rotate, block_orientation=args.block_orientation)
 
         elif args.display in display_types.get('emulator'):
             # luma.emulator
@@ -155,7 +152,8 @@ def get_device(actual_args=None):
 
             Device = getattr(luma.emulator.device, args.display)
             device = Device(**vars(args))
-            return device
 
     except Error as e:
         parser.error(e)
+
+    return device

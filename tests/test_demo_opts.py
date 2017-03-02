@@ -3,7 +3,17 @@
 # Copyright (c) 2017 Richard Hull and contributors
 # See LICENSE.rst for details.
 
+"""
+Tests for the :py:mod:`demo_opts` module.
+"""
+
 import os
+import sys
+
+try:
+    from unittest.mock import patch
+except ImportError:
+    from mock import patch
 
 import pytest
 
@@ -76,39 +86,28 @@ def test_get_device_unknown(capsys):
     """
     Load an unknown device.
     """
-    with pytest.raises(SystemExit):
-        get_device(['--display', 'foo'])
+    test_args = [__name__, '--display', 'foo']
+    with patch.object(sys, 'argv', test_args):
+        with pytest.raises(SystemExit):
+            get_device()
 
     assertInError("invalid choice: 'foo'", capsys)
 
 
 # luma.emulator
 
-def test_get_device_emulator_capture():
+def test_get_device_emulator_all():
     """
-    Load the 'capture' emulator device.
+    Load an emulator device.
     """
-    device = get_device(['--display', 'capture'])
-
-    assert isinstance(device, luma.emulator.device.capture)
-
-
-def test_get_device_emulator_pygame():
-    """
-    Load the 'pygame' emulator device.
-    """
-    device = get_device(['--display', 'pygame'])
-
-    assert isinstance(device, luma.emulator.device.pygame)
-
-
-def test_get_device_emulator_gifanim():
-    """
-    Load the 'gifanim' emulator device.
-    """
-    device = get_device(['--display', 'gifanim'])
-
-    assert isinstance(device, luma.emulator.device.gifanim)
+    emulators= {
+        'capture': luma.emulator.device.capture,
+        'pygame': luma.emulator.device.pygame,
+        'gifanim': luma.emulator.device.gifanim
+    }
+    for display, klass in emulators.items():
+        device = get_device(['--display', display])
+        assert isinstance(device, klass)
 
 
 # luma.led_matrix
