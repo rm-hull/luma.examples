@@ -34,6 +34,7 @@ def get_choices(module_name):
 
 
 # supported devices
+interface_types = get_choices("luma.core.serial")
 display_types = OrderedDict()
 for namespace in ["oled", "lcd", "led_matrix", "emulator"]:
     display_types[namespace] = get_choices("luma.{0}.device".format(namespace))
@@ -60,7 +61,6 @@ def create_parser(description='luma.examples arguments'):
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
     display_choices = [display for k, v in display_types.items() for display in v]
-    interface_types = get_choices("luma.core.serial")
     framebuffer_choices = get_choices("luma.core.framebuffer")
 
     parser.add_argument('--config', '-f', type=str, help='Load configuration settings from a file')
