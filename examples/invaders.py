@@ -188,7 +188,7 @@ if __name__ == '__main__':
 
     device = get_device()
 
-    if device.size not in ((256, 64), (128, 64), (96, 64)):
+    if device.width < 96 or device.height < 64:
         raise ValueError("Unsupported mode: {0}x{1}".format(device.width, device.height))
 
     regulator = framerate_regulator()
