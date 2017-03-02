@@ -7,12 +7,11 @@ Argument parser for examples.
 """
 
 import sys
+import inspect
+import importlib
 import logging
 import argparse
 from collections import OrderedDict
-
-from luma.core.error import Error
-
 
 # logging
 logging.basicConfig(
@@ -22,14 +21,22 @@ logging.basicConfig(
 # ignore PIL debug messages
 logging.getLogger("PIL").setLevel(logging.ERROR)
 
+
+def get_choices(module_name):
+    try:
+        module = importlib.import_module(module_name)
+        if hasattr(module, "__all__"):
+            return module.__all__
+        else:
+            return [name for name, _ in inspect.getmembers(module, inspect.isclass)]
+    except ImportError:
+        return []
+
+
 # supported devices
-interface_types = ["i2c", "spi"]
 display_types = OrderedDict()
-display_types["oled"] = ["ssd1306", "ssd1322", "ssd1325", "ssd1331", "sh1106"]
-display_types["lcd"] = ["pcd8544"]
-display_types["led_matrix"] = ["max7219"]
-display_types["emulator"] = ["capture", "pygame", "gifanim"]
-display_choices = [display for k, v in display_types.items() for display in v]
+for namespace in ["oled", "lcd", "led_matrix", "emulator"]:
+    display_types[namespace] = get_choices("luma.{0}.device".format(namespace))
 
 
 def load_config(path):
@@ -52,6 +59,10 @@ def create_parser(description='luma.examples arguments'):
     parser = argparse.ArgumentParser(description=description,
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
+    display_choices = [display for k, v in display_types.items() for display in v]
+    interface_types = get_choices("luma.core.serial")
+    framebuffer_choices = get_choices("luma.core.framebuffer")
+
     parser.add_argument('--config', '-f', type=str, help='Load configuration settings from a file')
     parser.add_argument('--display', '-d', type=str, default=display_choices[0], help='Display type, supports real devices or emulators', choices=display_choices)
     parser.add_argument('--width', type=int, default=128, help='Width of the device in pixels')
@@ -67,12 +78,17 @@ def create_parser(description='luma.examples arguments'):
     parser.add_argument('--bcm-reset', type=int, default=25, help='BCM pin for RESET (SPI devices only)')
     parser.add_argument('--bcm-backlight', type=int, default=18, help='BCM pin for backlight (PCD8544 devices only)')
     parser.add_argument('--block-orientation', type=str, default='horizontal', help='Fix 90° phase error (MAX7219 LED matrix only)', choices=['horizontal', 'vertical'])
-    parser.add_argument('--transform', type=str, default='scale2x', help='Scaling transform to apply (emulator only)', choices=["none", "identity", "scale2x", "smoothscale", "led_matrix", "seven_segment"])
-    parser.add_argument('--scale', type=int, default=2, help='Scaling factor to apply (emulator only)')
-    parser.add_argument('--mode', type=str, default='RGB', help='Colour mode (ssd1322, ssd1325 and emulator only)', choices=['1', 'RGB', 'RGBA'])
-    parser.add_argument('--duration', type=float, default=0.01, help='Animation frame duration (gifanim emulator only)')
-    parser.add_argument('--loop', type=int, default=0, help='Repeat loop, zero=forever (gifanim emulator only)')
-    parser.add_argument('--max-frames', type=int, help='Maximum frames to record (gifanim emulator only)')
+    parser.add_argument('--mode', type=str, default='RGB', help='Colour mode (SSD1322, SSD1325 and emulator only)', choices=['1', 'RGB', 'RGBA'])
+    parser.add_argument('--framebuffer', type=str, default=framebuffer_choices[0], help='Framebuffer implementation (SSD1331, SSD1322, ST7735 displays only)', choices=framebuffer_choices)
+    parser.add_argument('--bgr', type=bool, default=False, help='LCD pixels laid out in BGR arrangemen (ST7735 displays only)', choices=[True, False])
+    if len(display_types["emulator"]) > 0:
+        import luma.emulator.render
+        transformer_choices = [fn for fn in dir(luma.emulator.render.transformer) if fn[0:2] != "__"]
+        parser.add_argument('--transform', type=str, default='scale2x', help='Scaling transform to apply (emulator only)', choices=transformer_choices)
+        parser.add_argument('--scale', type=int, default=2, help='Scaling factor to apply (emulator only)')
+        parser.add_argument('--duration', type=float, default=0.01, help='Animation frame duration (gifanim emulator only)')
+        parser.add_argument('--loop', type=int, default=0, help='Repeat loop, zero=forever (gifanim emulator only)')
+        parser.add_argument('--max-frames', type=int, help='Maximum frames to record (gifanim emulator only)')
 
     try:
         import argcomplete
@@ -81,6 +97,26 @@ def create_parser(description='luma.examples arguments'):
         pass
 
     return parser
+
+
+class make_serial(object):
+
+    def __init__(self, opts, gpio=None):
+        self.opts = opts
+        self.gpio = gpio
+
+    def i2c(self):
+        from luma.core.serial import i2c
+        return i2c(port=self.opts.i2c_port, address=self.opts.i2c_address)
+
+    def spi(self):
+        from luma.core.serial import spi
+        return spi(port=self.opts.spi_port,
+                   device=self.opts.spi_device,
+                   bus_speed_hz=self.opts.spi_bus_speed,
+                   bcm_DC=self.opts.bcm_data_command,
+                   bcm_RST=self.opts.bcm_reset,
+                   gpio=self.gpio)
 
 
 def get_device(actual_args=None):
@@ -100,60 +136,31 @@ def get_device(actual_args=None):
     try:
         # find display type and create device
         if args.display in display_types.get('oled'):
-            # luma.oled
             import luma.oled.device
             Device = getattr(luma.oled.device, args.display)
-
-            if args.interface == 'i2c':
-                from luma.core.serial import i2c
-                serial = i2c(port=args.i2c_port, address=args.i2c_address)
-
-            elif args.interface == 'spi':
-                from luma.core.serial import spi
-                serial = spi(port=args.spi_port,
-                    device=args.spi_device,
-                    bus_speed_hz=args.spi_bus_speed,
-                    bcm_DC=args.bcm_data_command,
-                    bcm_RST=args.bcm_reset)
-
-            device = Device(serial, width=args.width, height=args.height,
-                            rotate=args.rotate, mode=args.mode)
+            Serial = getattr(make_serial(args), args.interface)
+            device = Device(Serial(), **vars(args))
 
         elif args.display in display_types.get('lcd'):
-            # luma.lcd
             import luma.lcd.device
-            from luma.core.serial import spi
-
             Device = getattr(luma.lcd.device, args.display)
-            serial = spi(port=args.spi_port,
-                device=args.spi_device,
-                bus_speed_hz=args.spi_bus_speed,
-                bcm_DC=args.bcm_data_command,
-                bcm_RST=args.bcm_reset)
+            Serial = getattr(make_serial(args), args.interface)
             luma.lcd.device.backlight(bcm_LIGHT=args.bcm_backlight).enable(True)
-            device = Device(serial, rotate=args.rotate)
+            device = Device(Serial(), rotate=args.rotate)
 
         elif args.display in display_types.get('led_matrix'):
-            # luma.led_matrix
             import luma.led_matrix.device
-            from luma.core.serial import spi, noop
-
+            from luma.core.serial import noop
             Device = getattr(luma.led_matrix.device, args.display)
-            serial = spi(port=args.spi_port,
-                device=args.spi_device,
-                bus_speed_hz=args.spi_bus_speed,
-                gpio=noop())
-            device = Device(serial, width=args.width, height=args.height,
-                rotate=args.rotate, block_orientation=args.block_orientation)
+            Serial = getattr(make_serial(args, gpio=noop()), args.interface)
+            device = Device(Serial(), **vars(args))
 
         elif args.display in display_types.get('emulator'):
-            # luma.emulator
             import luma.emulator.device
-
             Device = getattr(luma.emulator.device, args.display)
             device = Device(**vars(args))
 
-    except Error as e:
+    except luma.core.error.Error as e:
         parser.error(e)
 
     return device
