@@ -80,7 +80,7 @@ def create_parser(description='luma.examples arguments'):
     parser.add_argument('--block-orientation', type=str, default='horizontal', help='Fix 90° phase error (MAX7219 LED matrix only)', choices=['horizontal', 'vertical'])
     parser.add_argument('--mode', type=str, default='RGB', help='Colour mode (SSD1322, SSD1325 and emulator only)', choices=['1', 'RGB', 'RGBA'])
     parser.add_argument('--framebuffer', type=str, default=framebuffer_choices[0], help='Framebuffer implementation (SSD1331, SSD1322, ST7735 displays only)', choices=framebuffer_choices)
-    parser.add_argument('--bgr', type=bool, default=False, help='LCD pixels laid out in BGR arrangemen (ST7735 displays only)', choices=[True, False])
+    parser.add_argument('--bgr', type=bool, default=False, help='Set to True if LCD pixels laid out in BGR (ST7735 displays only)', choices=[True, False])
     if len(display_types["emulator"]) > 0:
         import luma.emulator.render
         transformer_choices = [fn for fn in dir(luma.emulator.render.transformer) if fn[0:2] != "__"]
