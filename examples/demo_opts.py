@@ -54,7 +54,7 @@ def create_parser(description='luma.examples arguments'):
     parser.add_argument('--width', type=int, default=128, help='Width of the device in pixels')
     parser.add_argument('--height', type=int, default=64, help='Height of the device in pixels')
     parser.add_argument('--rotate', '-r', type=int, default=0, help='Rotation factor', choices=[0, 1, 2, 3])
-    parser.add_argument('--interface', '-i', type=str, default='i2c', help='Serial interface type', choices=interface_types)
+    parser.add_argument('--interface', '-i', type=str, default=interface_types[0], help='Serial interface type', choices=interface_types)
     parser.add_argument('--i2c-port', type=int, default=1, help='I2C bus number')
     parser.add_argument('--i2c-address', type=str, default='0x3C', help='I2C display address')
     parser.add_argument('--spi-port', type=int, default=0, help='SPI port number')
