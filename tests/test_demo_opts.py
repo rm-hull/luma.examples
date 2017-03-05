@@ -135,7 +135,8 @@ def test_get_device_lcd_all():
         with pytest.raises(RuntimeError) as ex:
             get_device(['--display', display])
 
-        assert str(ex.value) == 'This module can only be run on a Raspberry Pi!'
+        assert str(ex.value) in ['This module can only be run on a Raspberry Pi!',
+                                 'Module not imported correctly!']
 
 
 # luma.oled
