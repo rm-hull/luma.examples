@@ -93,7 +93,7 @@ def create_parser(description='luma.examples arguments'):
     try:
         import argcomplete
         argcomplete.autocomplete(parser)
-    except ImportError:
+    except ImportError:  # pragma: no cover
         pass
 
     return parser

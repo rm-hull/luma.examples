@@ -19,8 +19,8 @@ import pytest
 
 import luma.emulator.device
 
-from demo_opts import (load_config, get_device, create_parser, display_types,
-    interface_types)
+from demo_opts import (load_config, get_device, get_choices, create_parser,
+    display_types, interface_types)
 
 
 test_config_file = os.path.join(os.path.dirname(__file__),
@@ -80,6 +80,14 @@ def test_get_device_config__file_success():
     device = get_device(['-f', test_config_file])
 
     assert isinstance(device, luma.emulator.device.capture)
+
+
+def test_get_choices_unknown_module():
+    """
+    get_choices returns an empty list when trying to inspect an unknown module.
+    """
+    result = get_choices('foo')
+    assert result == []
 
 
 def test_get_device_unknown(capsys):
