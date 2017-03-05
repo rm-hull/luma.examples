@@ -209,21 +209,20 @@ if __name__ == '__main__':
     device.clear()
 
     while not army.invaded and army.size() > 0:
-        with canvas(device) as draw:
-            draw.line((0, 61, 95, 61), fill="white")
-            draw.line((0, 63, 95, 63), fill="white")
+        with regulator:
+            with canvas(device) as draw:
+                draw.line((0, 61, 95, 61), fill="white")
+                draw.line((0, 63, 95, 63), fill="white")
 
-            ai_logic_shoot(army, plyr)
-            ai_logic_move(army, plyr, rows)
+                ai_logic_shoot(army, plyr)
+                ai_logic_move(army, plyr, rows)
 
-            army.update(plyr.bullets)
+                army.update(plyr.bullets)
 
-            army.render(draw)
-            plyr.render(draw)
+                army.render(draw)
+                plyr.render(draw)
 
-            draw.text((8, 0), text="Score: {0}".format(army.score()), fill="blue")
-
-        regulator.sleep()
+                draw.text((8, 0), text="Score: {0}".format(army.score()), fill="blue")
 
     # Double buffering in pygame?
     for i in range(2):

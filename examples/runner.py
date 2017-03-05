@@ -43,22 +43,21 @@ def main(num_iterations=sys.maxsize):
     dx = 3
 
     while num_iterations > 0:
-        num_iterations -= 1
+        with regulator:
+            num_iterations -= 1
 
-        background = Image.new(device.mode, device.size, "white")
-        background.paste(next(runner), (x, 0))
-        device.display(background)
-        x += dx
+            background = Image.new(device.mode, device.size, "white")
+            background.paste(next(runner), (x, 0))
+            device.display(background)
+            x += dx
 
-        if x >= device.width:
-            runner = sheet.animate('run-left')
-            dx = -dx
+            if x >= device.width:
+                runner = sheet.animate('run-left')
+                dx = -dx
 
-        if x <= -sheet.frames.width:
-            runner = sheet.animate('run-right')
-            dx = -dx
-
-        regulator.sleep()
+            if x <= -sheet.frames.width:
+                runner = sheet.animate('run-right')
+                dx = -dx
 
 
 if __name__ == "__main__":

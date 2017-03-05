@@ -94,35 +94,34 @@ def main(num_iterations=sys.maxsize):
     a, b, c = 0, 0, 0
 
     for angle, dist in sine_wave(8, 40, 1.5):
-        num_iterations -= 1
-        if num_iterations == 0:
-            break
+        with regulator:
+            num_iterations -= 1
+            if num_iterations == 0:
+                break
 
-        t = [v.rotate_x(a).rotate_y(b).rotate_z(c).project(device.size, 256, dist)
-             for v in vertices]
+            t = [v.rotate_x(a).rotate_y(b).rotate_z(c).project(device.size, 256, dist)
+                for v in vertices]
 
-        depth = []
-        for idx, face in enumerate(faces):
-            v1, v2, v3, v4 = face[0]
-            avg_z = (t[v1].z + t[v2].z + t[v3].z + t[v4].z) / 4.0
-            depth.append((idx, avg_z))
+            depth = []
+            for idx, face in enumerate(faces):
+                v1, v2, v3, v4 = face[0]
+                avg_z = (t[v1].z + t[v2].z + t[v3].z + t[v4].z) / 4.0
+                depth.append((idx, avg_z))
 
-        with canvas(device, dither=True) as draw:
-            for idx, depth in sorted(depth, key=itemgetter(1), reverse=True)[3:]:
-                (v1, v2, v3, v4), color = faces[idx]
+            with canvas(device, dither=True) as draw:
+                for idx, depth in sorted(depth, key=itemgetter(1), reverse=True)[3:]:
+                    (v1, v2, v3, v4), color = faces[idx]
 
-                if angle // 720 % 2 == 0:
-                    fill, outline = color, color
-                else:
-                    fill, outline = "black", "white"
+                    if angle // 720 % 2 == 0:
+                        fill, outline = color, color
+                    else:
+                        fill, outline = "black", "white"
 
-                draw.polygon(t[v1].xy + t[v2].xy + t[v3].xy + t[v4].xy, fill, outline)
+                    draw.polygon(t[v1].xy + t[v2].xy + t[v3].xy + t[v4].xy, fill, outline)
 
-        a += 0.3
-        b -= 1.1
-        c += 0.85
-
-        regulator.sleep()
+            a += 0.3
+            b -= 1.1
+            c += 0.85
 
 
 if __name__ == "__main__":

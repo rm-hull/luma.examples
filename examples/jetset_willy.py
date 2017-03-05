@@ -65,34 +65,33 @@ def main(num_iterations=sys.maxsize):
     dx = 8
 
     while num_iterations > 0:
-        num_iterations -= 1
+        with regulator:
+            num_iterations -= 1
 
-        background = Image.new(device.mode, device.size)
-        background.paste(next(maria), (0, 0))
-        background.paste(next(saw), (64, 0))
-        background.paste(next(willy), (wx, 0))
-        background.paste(next(hare), (hx, device.height - 16))
-        device.display(background)
-        clock += 1
+            background = Image.new(device.mode, device.size)
+            background.paste(next(maria), (0, 0))
+            background.paste(next(saw), (64, 0))
+            background.paste(next(willy), (wx, 0))
+            background.paste(next(hare), (hx, device.height - 16))
+            device.display(background)
+            clock += 1
 
-        if clock % 4 == 0:
-            wx += dx
-            hx += -8
+            if clock % 4 == 0:
+                wx += dx
+                hx += -8
 
-            if wx >= device.width - sheet.frames.width:
-                willy = sheet.animate('willy-left')
-                dx = -dx
-                wx = device.width - 24
+                if wx >= device.width - sheet.frames.width:
+                    willy = sheet.animate('willy-left')
+                    dx = -dx
+                    wx = device.width - 24
 
-            if wx <= 16:
-                willy = sheet.animate('willy-right')
-                dx = -dx
-                wx = 24
+                if wx <= 16:
+                    willy = sheet.animate('willy-right')
+                    dx = -dx
+                    wx = 24
 
-            if hx + sheet.frames.width <= 0:
-                hx = device.width
-
-        regulator.sleep()
+                if hx + sheet.frames.width <= 0:
+                    hx = device.width
 
 
 if __name__ == "__main__":

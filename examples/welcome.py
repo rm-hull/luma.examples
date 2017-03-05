@@ -212,12 +212,12 @@ def main():
         virtual.add_hotspot(widget_b, posn_b)
 
         for _ in range(30):
-            virtual.set_position(posn_a)
-            regulator.sleep()
+            with regulator:
+                virtual.set_position(posn_a)
 
         for posn in lerp_2d(posn_a, posn_b, device.width // 4):
-            virtual.set_position(posn)
-            regulator.sleep()
+            with regulator:
+                virtual.set_position(posn)
 
         virtual.remove_hotspot(widget_a, posn_a)
         virtual.remove_hotspot(widget_b, posn_b)

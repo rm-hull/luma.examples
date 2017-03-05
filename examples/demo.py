@@ -17,7 +17,7 @@ from demo_opts import get_device
 from luma.core.render import canvas
 
 
-def primitives(draw):
+def primitives(device, draw):
     # Draw some shapes.
     # First define some constants to allow easy resizing of shapes.
     padding = 2
@@ -51,10 +51,12 @@ def primitives(draw):
 
 
 def main():
+    device = get_device()
+
     print("Testing basic canvas graphics...")
     for _ in range(2):
         with canvas(device) as draw:
-            primitives(draw)
+            primitives(device, draw)
     time.sleep(5)
 
     print("Testing contrast (dim/bright cycles)...")
@@ -94,7 +96,6 @@ def main():
 
 if __name__ == "__main__":
     try:
-        device = get_device()
         main()
     except KeyboardInterrupt:
         pass

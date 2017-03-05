@@ -57,23 +57,22 @@ def main(num_iterations=sys.maxsize):
     fps = ""
     canvas = luma.core.render.canvas(device)
 
-    regulator = framerate_regulator(-1)
+    regulator = framerate_regulator(fps=0)
 
     while num_iterations > 0:
-        num_iterations -= 1
+        with regulator:
+            num_iterations -= 1
 
-        frame_count += 1
-        with canvas as c:
-            c.rectangle(device.bounding_box, outline="white", fill="black")
-            for b in balls:
-                b.update_pos()
-                b.draw(c)
-            c.text((2, 0), fps, fill="white")
+            frame_count += 1
+            with canvas as c:
+                c.rectangle(device.bounding_box, outline="white", fill="black")
+                for b in balls:
+                    b.update_pos()
+                    b.draw(c)
+                c.text((2, 0), fps, fill="white")
 
-        regulator.sleep()
-
-        if frame_count % 20 == 0:
-            fps = "FPS: {0:0.3f}".format(regulator.effective_FPS())
+            if frame_count % 20 == 0:
+                fps = "FPS: {0:0.3f}".format(regulator.effective_FPS())
 
 
 if __name__ == '__main__':
