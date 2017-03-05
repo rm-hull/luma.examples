@@ -121,7 +121,7 @@ flag to show the options::
       --bcm-reset BCM_RESET
                             BCM pin for RESET (SPI devices only) (default: 25)
       --bcm-backlight BCM_BACKLIGHT
-                            BCM pin for backlight (PCD8544 devices only) (default:
+                            BCM pin for backlight (PCD8544, ST7735 devices only) (default:
                             18)
       --block-orientation {horizontal,vertical}
                             Fix 90° phase error (MAX7219 LED matrix only)

@@ -143,9 +143,10 @@ def get_device(actual_args=None):
 
         elif args.display in display_types.get('lcd'):
             import luma.lcd.device
+            import luma.lcd.aux
             Device = getattr(luma.lcd.device, args.display)
             Serial = getattr(make_serial(args), args.interface)
-            luma.lcd.device.backlight(bcm_LIGHT=args.bcm_backlight).enable(True)
+            luma.lcd.aux.backlight(bcm_LIGHT=args.bcm_backlight).enable(True)
             device = Device(Serial(), rotate=args.rotate)
 
         elif args.display in display_types.get('led_matrix'):

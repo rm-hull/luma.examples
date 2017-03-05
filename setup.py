@@ -30,14 +30,14 @@ setup(
         "luma.core>=0.4.3",
         "luma.emulator>=0.1.2",
         "luma.oled>=2.2.5",
-        "luma.lcd>=0.2.3",
+        "luma.lcd>=0.3.0",
         "luma.led_matrix>=0.6.2"
     ],
     setup_requires=pytest_runner,
     tests_require=test_deps,
     extras_require={
         'docs': [
-            'sphinx >= 1.5.1'
+            'sphinx >= 1.5.3'
         ],
         'qa': [
             'rstcheck',
