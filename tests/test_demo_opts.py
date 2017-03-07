@@ -133,18 +133,15 @@ def test_get_device_led_matrix_all(capsys):
 
 # luma.lcd
 
-def test_get_device_lcd_all():
+def test_get_device_lcd_all(capsys):
     """
     Load supported lcd devices one by one.
     """
     for display in display_types.get('lcd'):
-        # XXX: this should raise a normal SystemExit, see
-        # https://github.com/rm-hull/luma.lcd/issues/28
-        with pytest.raises(RuntimeError) as ex:
+        with pytest.raises(SystemExit) as ex:
             get_device(['--display', display])
 
-        assert str(ex.value) in ['This module can only be run on a Raspberry Pi!',
-                                 'Module not imported correctly!']
+        assertInError('error: I2C device not found on address:', capsys)
 
 
 # luma.oled
