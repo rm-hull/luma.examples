@@ -141,7 +141,7 @@ def test_get_device_lcd_all(capsys):
         with pytest.raises(SystemExit) as ex:
             get_device(['--display', display])
 
-        assertInError('error: I2C device not found on address:', capsys)
+        assertInError('error: GPIO access not available', capsys)
 
 
 # luma.oled
