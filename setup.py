@@ -30,7 +30,7 @@ setup(
         "luma.core>=0.5.2",
         "luma.emulator>=0.1.2",
         "luma.oled>=2.2.5",
-        "luma.lcd>=0.3.0",
+        "luma.lcd>=0.3.1",
         "luma.led_matrix>=0.7.0",
         "argcomplete"
     ],
