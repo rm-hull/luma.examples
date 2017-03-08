@@ -138,7 +138,7 @@ def test_get_device_lcd_all(capsys):
     Load supported lcd devices one by one.
     """
     for display in display_types.get('lcd'):
-        with pytest.raises(SystemExit) as ex:
+        with pytest.raises(SystemExit):
             get_device(['--display', display])
 
         assertInError('error: GPIO access not available', capsys)
