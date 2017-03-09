@@ -141,7 +141,10 @@ def test_get_device_lcd_all(capsys):
         try:
             get_device(['--display', display])
         except SystemExit:
-            assertInError('error: GPIO access not available', capsys)
+            try:
+                assertInError('error: GPIO access not available', capsys)
+            except:
+                assertInError('error: I2C device', capsys)
 
 
 # luma.oled
