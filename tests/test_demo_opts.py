@@ -125,10 +125,10 @@ def test_get_device_led_matrix_all(capsys):
     Load supported led_matrix devices one by one.
     """
     for display in display_types.get('led_matrix'):
-        with pytest.raises(SystemExit):
+        try:
             get_device(['--display', display])
-
-        assertInError('error: SPI device not found', capsys)
+        except SystemExit as e:
+            assert 'SPI device not found' in str(e)
 
 
 # luma.lcd
