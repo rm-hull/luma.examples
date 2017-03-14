@@ -146,7 +146,7 @@ def get_device(actual_args=None):
             import luma.lcd.aux
             Device = getattr(luma.lcd.device, args.display)
             Serial = getattr(make_serial(args), args.interface)
-            luma.lcd.aux.backlight(bcm_LIGHT=args.gpio_backlight).enable(True)
+            luma.lcd.aux.backlight(gpio_LIGHT=args.gpio_backlight).enable(True)
             device = Device(Serial(), **vars(args))
 
         elif args.display in display_types.get('led_matrix'):
