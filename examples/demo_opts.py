@@ -74,9 +74,9 @@ def create_parser(description='luma.examples arguments'):
     parser.add_argument('--spi-port', type=int, default=0, help='SPI port number')
     parser.add_argument('--spi-device', type=int, default=0, help='SPI device')
     parser.add_argument('--spi-bus-speed', type=int, default=8000000, help='SPI max bus speed (Hz)')
-    parser.add_argument('--bcm-data-command', type=int, default=24, help='BCM pin for D/C RESET (SPI devices only)')
-    parser.add_argument('--bcm-reset', type=int, default=25, help='BCM pin for RESET (SPI devices only)')
-    parser.add_argument('--bcm-backlight', type=int, default=18, help='BCM pin for backlight (PCD8544 devices only)')
+    parser.add_argument('--gpio-data-command', type=int, default=24, help='GPIO pin for D/C RESET (SPI devices only)')
+    parser.add_argument('--gpio-reset', type=int, default=25, help='GPIO pin for RESET (SPI devices only)')
+    parser.add_argument('--gpio-backlight', type=int, default=18, help='GPIO pin for backlight (PCD8544 devices only)')
     parser.add_argument('--block-orientation', type=str, default='horizontal', help='Fix 90° phase error (MAX7219 LED matrix only)', choices=['horizontal', 'vertical'])
     parser.add_argument('--mode', type=str, default='RGB', help='Colour mode (SSD1322, SSD1325 and emulator only)', choices=['1', 'RGB', 'RGBA'])
     parser.add_argument('--framebuffer', type=str, default=framebuffer_choices[0], help='Framebuffer implementation (SSD1331, SSD1322, ST7735 displays only)', choices=framebuffer_choices)
@@ -114,8 +114,8 @@ class make_serial(object):
         return spi(port=self.opts.spi_port,
                    device=self.opts.spi_device,
                    bus_speed_hz=self.opts.spi_bus_speed,
-                   bcm_DC=self.opts.bcm_data_command,
-                   bcm_RST=self.opts.bcm_reset,
+                   gpio_DC=self.opts.gpio_data_command,
+                   gpio_RST=self.opts.gpio_reset,
                    gpio=self.gpio)
 
 
@@ -146,7 +146,7 @@ def get_device(actual_args=None):
             import luma.lcd.aux
             Device = getattr(luma.lcd.device, args.display)
             Serial = getattr(make_serial(args), args.interface)
-            luma.lcd.aux.backlight(bcm_LIGHT=args.bcm_backlight).enable(True)
+            luma.lcd.aux.backlight(gpio_LIGHT=args.gpio_backlight).enable(True)
             device = Device(Serial(), **vars(args))
 
         elif args.display in display_types.get('led_matrix'):
@@ -154,7 +154,7 @@ def get_device(actual_args=None):
             from luma.core.serial import noop
             Device = getattr(luma.led_matrix.device, args.display)
             Serial = make_serial(args, gpio=noop()).spi
-            device = Device(Serial(), **vars(args))
+            device = Device(serial_interface=Serial(), **vars(args))
 
         elif args.display in display_types.get('emulator'):
             import luma.emulator.device
