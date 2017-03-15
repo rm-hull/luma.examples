@@ -169,11 +169,6 @@ or::
 
   $ python examples/clock.py -d pygame
 
-.. note::
-   *Pygame* is required to use any of the emulated devices, but it is **NOT**
-   installed as a dependency by default, and so must be manually installed
-   before using any of these emulation devices.
-
 Documentation
 -------------
 Full documentation with installation instructions can be found in:
