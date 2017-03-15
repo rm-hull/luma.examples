@@ -52,6 +52,7 @@ clock.py              An analog clockface with date & time
 colors.py             Color rendering demo
 crawl.py              A vertical scrolling demo, which should be familiar
 demo.py               Use misc draw commands to create a simple image
+font_awesome.py       A meander through some awesome fonts
 game_of_life.py       Conway's game of life
 grayscale.py          Greyscale rendering demo
 invaders.py           Space Invaders demo
@@ -167,11 +168,6 @@ Invoke the demos with::
 or::
 
   $ python examples/clock.py -d pygame
-
-.. note::
-   *Pygame* is required to use any of the emulated devices, but it is **NOT**
-   installed as a dependency by default, and so must be manually installed
-   before using any of these emulation devices.
 
 Documentation
 -------------
