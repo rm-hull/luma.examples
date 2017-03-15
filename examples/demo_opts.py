@@ -40,7 +40,6 @@ for namespace in ["oled", "lcd", "led_matrix", "emulator"]:
     display_types[namespace] = get_choices("luma.{0}.device".format(namespace))
 
 
-
 def display_settings(args):
     """
     Display a short summary of the settings.
