@@ -40,9 +40,22 @@ for namespace in ["oled", "lcd", "led_matrix", "emulator"]:
     display_types[namespace] = get_choices("luma.{0}.device".format(namespace))
 
 
+
+def display_settings(args):
+    """
+    Display a short summary of the settings.
+    """
+    msg = 'Display: {}\nInterface: {}\nDimensions: {} x {}\n{}'.format(
+        args.display, args.interface, args.width, args.height, '-' * 40)
+    print(msg)
+
+
 def load_config(path):
     """
     Load device configuration from file path and return parsed data.
+
+    :param path: Location of configuration file.
+    :type path: str
     """
     args = []
     with open(path, "r") as fp:
@@ -100,7 +113,9 @@ def create_parser(description='luma.examples arguments'):
 
 
 class make_serial(object):
-
+    """
+    Create and return SPI or I2C serial instance.
+    """
     def __init__(self, opts, gpio=None):
         self.opts = opts
         self.gpio = gpio
@@ -163,5 +178,7 @@ def get_device(actual_args=None):
 
     except luma.core.error.Error as e:
         parser.error(e)
+
+    display_settings(args)
 
     return device
