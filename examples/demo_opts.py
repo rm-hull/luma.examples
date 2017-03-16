@@ -12,7 +12,7 @@ import importlib
 import logging
 import argparse
 from collections import OrderedDict
-import luma.core.error
+from luma.core import error
 
 # logging
 logging.basicConfig(
@@ -176,7 +176,7 @@ def get_device(actual_args=None):
             Device = getattr(luma.emulator.device, args.display)
             device = Device(**vars(args))
 
-    except luma.core.error.Error as e:
+    except error.Error as e:
         parser.error(e)
 
     display_settings(args)
