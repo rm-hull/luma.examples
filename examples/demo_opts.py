@@ -12,6 +12,7 @@ import importlib
 import logging
 import argparse
 from collections import OrderedDict
+import luma.core.error
 
 # logging
 logging.basicConfig(
