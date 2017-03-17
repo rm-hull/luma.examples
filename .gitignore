@@ -53,6 +53,10 @@ coverage.xml
 # Sphinx documentation
 doc/_build/
 
+# Eclipse
+.project
+.pydevproject
+
 # PyBuilder
 target/
 .ropeproject
