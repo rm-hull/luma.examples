@@ -45,8 +45,12 @@ def display_settings(args):
     """
     Display a short summary of the settings.
     """
-    msg = 'Display: {}\nInterface: {}\nDimensions: {} x {}\n{}'.format(
-        args.display, args.interface, args.width, args.height, '-' * 40)
+    iface = ''
+    if args.display not in display_types["emulator"]:
+        iface = 'Interface: {}\n'.format(args.interface)
+
+    msg = 'Display: {}\n{}Dimensions: {} x {}\n{}'.format(
+        args.display, iface, args.width, args.height, '-' * 40)
     print(msg)
 
 
