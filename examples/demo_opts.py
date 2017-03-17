@@ -12,6 +12,7 @@ import importlib
 import logging
 import argparse
 from collections import OrderedDict
+from luma.core import error
 
 # logging
 logging.basicConfig(
@@ -44,8 +45,12 @@ def display_settings(args):
     """
     Display a short summary of the settings.
     """
-    msg = 'Display: {}\nInterface: {}\nDimensions: {} x {}\n{}'.format(
-        args.display, args.interface, args.width, args.height, '-' * 40)
+    iface = ''
+    if args.display not in display_types["emulator"]:
+        iface = 'Interface: {}\n'.format(args.interface)
+
+    msg = 'Display: {}\n{}Dimensions: {} x {}\n{}'.format(
+        args.display, iface, args.width, args.height, '-' * 40)
     print(msg)
 
 
@@ -75,32 +80,43 @@ def create_parser(description='luma.examples arguments'):
     display_choices = [display for k, v in display_types.items() for display in v]
     framebuffer_choices = get_choices("luma.core.framebuffer")
 
-    parser.add_argument('--config', '-f', type=str, help='Load configuration settings from a file')
-    parser.add_argument('--display', '-d', type=str, default=display_choices[0], help='Display type, supports real devices or emulators', choices=display_choices)
-    parser.add_argument('--width', type=int, default=128, help='Width of the device in pixels')
-    parser.add_argument('--height', type=int, default=64, help='Height of the device in pixels')
-    parser.add_argument('--rotate', '-r', type=int, default=0, help='Rotation factor', choices=[0, 1, 2, 3])
-    parser.add_argument('--interface', '-i', type=str, default=interface_types[0], help='Serial interface type', choices=interface_types)
-    parser.add_argument('--i2c-port', type=int, default=1, help='I2C bus number')
-    parser.add_argument('--i2c-address', type=str, default='0x3C', help='I2C display address')
-    parser.add_argument('--spi-port', type=int, default=0, help='SPI port number')
-    parser.add_argument('--spi-device', type=int, default=0, help='SPI device')
-    parser.add_argument('--spi-bus-speed', type=int, default=8000000, help='SPI max bus speed (Hz)')
-    parser.add_argument('--gpio-data-command', type=int, default=24, help='GPIO pin for D/C RESET (SPI devices only)')
-    parser.add_argument('--gpio-reset', type=int, default=25, help='GPIO pin for RESET (SPI devices only)')
-    parser.add_argument('--gpio-backlight', type=int, default=18, help='GPIO pin for backlight (PCD8544 devices only)')
-    parser.add_argument('--block-orientation', type=str, default='horizontal', help='Fix 90° phase error (MAX7219 LED matrix only)', choices=['horizontal', 'vertical'])
-    parser.add_argument('--mode', type=str, default='RGB', help='Colour mode (SSD1322, SSD1325 and emulator only)', choices=['1', 'RGB', 'RGBA'])
-    parser.add_argument('--framebuffer', type=str, default=framebuffer_choices[0], help='Framebuffer implementation (SSD1331, SSD1322, ST7735 displays only)', choices=framebuffer_choices)
-    parser.add_argument('--bgr', type=bool, default=False, help='Set to True if LCD pixels laid out in BGR (ST7735 displays only)', choices=[True, False])
+    general_group = parser.add_argument_group('General')
+    general_group.add_argument('--config', '-f', type=str, help='Load configuration settings from a file')
+    general_group.add_argument('--display', '-d', type=str, default=display_choices[0], help='Display type, supports real devices or emulators', choices=display_choices)
+    general_group.add_argument('--width', type=int, default=128, help='Width of the device in pixels')
+    general_group.add_argument('--height', type=int, default=64, help='Height of the device in pixels')
+    general_group.add_argument('--rotate', '-r', type=int, default=0, help='Rotation factor', choices=[0, 1, 2, 3])
+    general_group.add_argument('--interface', '-i', type=str, default=interface_types[0], help='Serial interface type', choices=interface_types)
+
+    i2c_group = parser.add_argument_group('I2C')
+    i2c_group.add_argument('--i2c-port', type=int, default=1, help='I2C bus number')
+    i2c_group.add_argument('--i2c-address', type=str, default='0x3C', help='I2C display address')
+
+    spi_group = parser.add_argument_group('SPI')
+    spi_group.add_argument('--spi-port', type=int, default=0, help='SPI port number')
+    spi_group.add_argument('--spi-device', type=int, default=0, help='SPI device')
+    spi_group.add_argument('--spi-bus-speed', type=int, default=8000000, help='SPI max bus speed (Hz)')
+
+    gpio_group = parser.add_argument_group('GPIO')
+    gpio_group.add_argument('--gpio-data-command', type=int, default=24, help='GPIO pin for D/C RESET (SPI devices only)')
+    gpio_group.add_argument('--gpio-reset', type=int, default=25, help='GPIO pin for RESET (SPI devices only)')
+    gpio_group.add_argument('--gpio-backlight', type=int, default=18, help='GPIO pin for backlight (PCD8544 devices only)')
+
+    misc_group = parser.add_argument_group('Misc')
+    misc_group.add_argument('--block-orientation', type=str, default='horizontal', help='Fix 90° phase error (MAX7219 LED matrix only)', choices=['horizontal', 'vertical'])
+    misc_group.add_argument('--mode', type=str, default='RGB', help='Colour mode (SSD1322, SSD1325 and emulator only)', choices=['1', 'RGB', 'RGBA'])
+    misc_group.add_argument('--framebuffer', type=str, default=framebuffer_choices[0], help='Framebuffer implementation (SSD1331, SSD1322, ST7735 displays only)', choices=framebuffer_choices)
+    misc_group.add_argument('--bgr', type=bool, default=False, help='Set to True if LCD pixels laid out in BGR (ST7735 displays only)', choices=[True, False])
+
     if len(display_types["emulator"]) > 0:
         import luma.emulator.render
         transformer_choices = [fn for fn in dir(luma.emulator.render.transformer) if fn[0:2] != "__"]
-        parser.add_argument('--transform', type=str, default='scale2x', help='Scaling transform to apply (emulator only)', choices=transformer_choices)
-        parser.add_argument('--scale', type=int, default=2, help='Scaling factor to apply (emulator only)')
-        parser.add_argument('--duration', type=float, default=0.01, help='Animation frame duration (gifanim emulator only)')
-        parser.add_argument('--loop', type=int, default=0, help='Repeat loop, zero=forever (gifanim emulator only)')
-        parser.add_argument('--max-frames', type=int, help='Maximum frames to record (gifanim emulator only)')
+        emulator_group = parser.add_argument_group('Emulator')
+        emulator_group.add_argument('--transform', type=str, default='scale2x', help='Scaling transform to apply (emulator only)', choices=transformer_choices)
+        emulator_group.add_argument('--scale', type=int, default=2, help='Scaling factor to apply (emulator only)')
+        emulator_group.add_argument('--duration', type=float, default=0.01, help='Animation frame duration (gifanim emulator only)')
+        emulator_group.add_argument('--loop', type=int, default=0, help='Repeat loop, zero=forever (gifanim emulator only)')
+        emulator_group.add_argument('--max-frames', type=int, help='Maximum frames to record (gifanim emulator only)')
 
     try:
         import argcomplete
@@ -175,7 +191,7 @@ def get_device(actual_args=None):
             Device = getattr(luma.emulator.device, args.display)
             device = Device(**vars(args))
 
-    except luma.core.error.Error as e:
+    except error.Error as e:
         parser.error(e)
 
     display_settings(args)
