@@ -82,26 +82,31 @@ flag to show the options::
 
     $ python examples/demo.py -h
     usage: demo.py [-h] [--config CONFIG]
-                   [--display {ssd1306,ssd1322,ssd1325,ssd1331,sh1106,pcd8544,max7219,capture,pygame,gifanim}]
+                   [--display {ssd1306,ssd1322,ssd1325,ssd1331,sh1106,pcd8544,max7219,neopixel,capture,gifanim,pygame}]
                    [--width WIDTH] [--height HEIGHT] [--rotate {0,1,2,3}]
                    [--interface {i2c,spi}] [--i2c-port I2C_PORT]
                    [--i2c-address I2C_ADDRESS] [--spi-port SPI_PORT]
                    [--spi-device SPI_DEVICE] [--spi-bus-speed SPI_BUS_SPEED]
-                   [--bcm-data-command BCM_DATA_COMMAND] [--bcm-reset BCM_RESET]
-                   [--bcm-backlight BCM_BACKLIGHT]
+                   [--gpio-data-command GPIO_DATA_COMMAND]
+                   [--gpio-reset GPIO_RESET] [--gpio-backlight GPIO_BACKLIGHT]
                    [--block-orientation {horizontal,vertical}]
-                   [--transform {none,identity,scale2x,smoothscale,led_matrix,seven_segment}]
-                   [--scale SCALE] [--mode {1,RGB,RGBA}] [--duration DURATION]
-                   [--loop LOOP] [--max-frames MAX_FRAMES]
-
+                   [--mode {1,RGB,RGBA}]
+                   [--framebuffer {diff_to_previous,full_frame}]
+                   [--bgr {True,False}]
+                   [--transform {identity,led_matrix,none,scale2x,seven_segment,smoothscale}]
+                   [--scale SCALE] [--duration DURATION] [--loop LOOP]
+                   [--max-frames MAX_FRAMES]
+    
     luma.examples arguments
-
+    
     optional arguments:
       -h, --help            show this help message and exit
+    
+    General:
       --config CONFIG, -f CONFIG
                             Load configuration settings from a file (default:
                             None)
-      --display {ssd1306,ssd1322,ssd1325,ssd1331,sh1106,pcd8544,max7219,capture,pygame,gifanim}, -d {ssd1306,ssd1322,ssd1325,ssd1331,sh1106,pcd8544,max7219,capture,pygame,gifanim}
+      --display {ssd1306,ssd1322,ssd1325,ssd1331,sh1106,pcd8544,max7219,neopixel,capture,gifanim,pygame}, -d {ssd1306,ssd1322,ssd1325,ssd1331,sh1106,pcd8544,max7219,neopixel,capture,gifanim,pygame}
                             Display type, supports real devices or emulators
                             (default: ssd1306)
       --width WIDTH         Width of the device in pixels (default: 128)
@@ -110,30 +115,46 @@ flag to show the options::
                             Rotation factor (default: 0)
       --interface {i2c,spi}, -i {i2c,spi}
                             Serial interface type (default: i2c)
+    
+    I2C:
       --i2c-port I2C_PORT   I2C bus number (default: 1)
       --i2c-address I2C_ADDRESS
                             I2C display address (default: 0x3C)
+    
+    SPI:
       --spi-port SPI_PORT   SPI port number (default: 0)
       --spi-device SPI_DEVICE
                             SPI device (default: 0)
       --spi-bus-speed SPI_BUS_SPEED
                             SPI max bus speed (Hz) (default: 8000000)
-      --bcm-data-command BCM_DATA_COMMAND
-                            BCM pin for D/C RESET (SPI devices only) (default: 24)
-      --bcm-reset BCM_RESET
-                            BCM pin for RESET (SPI devices only) (default: 25)
-      --bcm-backlight BCM_BACKLIGHT
-                            BCM pin for backlight (PCD8544, ST7735 devices only) (default:
-                            18)
+    
+    GPIO:
+      --gpio-data-command GPIO_DATA_COMMAND
+                            GPIO pin for D/C RESET (SPI devices only) (default:
+                            24)
+      --gpio-reset GPIO_RESET
+                            GPIO pin for RESET (SPI devices only) (default: 25)
+      --gpio-backlight GPIO_BACKLIGHT
+                            GPIO pin for backlight (PCD8544 devices only)
+                            (default: 18)
+    
+    Misc:
       --block-orientation {horizontal,vertical}
                             Fix 90° phase error (MAX7219 LED matrix only)
                             (default: horizontal)
-      --transform {none,identity,scale2x,smoothscale,led_matrix,seven_segment}
+      --mode {1,RGB,RGBA}   Colour mode (SSD1322, SSD1325 and emulator only)
+                            (default: RGB)
+      --framebuffer {diff_to_previous,full_frame}
+                            Framebuffer implementation (SSD1331, SSD1322, ST7735
+                            displays only) (default: diff_to_previous)
+      --bgr {True,False}    Set to True if LCD pixels laid out in BGR (ST7735
+                            displays only) (default: False)
+    
+    Emulator:
+      --transform {identity,led_matrix,none,scale2x,seven_segment,smoothscale}
                             Scaling transform to apply (emulator only) (default:
                             scale2x)
       --scale SCALE         Scaling factor to apply (emulator only) (default: 2)
-      --mode {1,RGB,RGBA}   Colour mode (ssd1322, ssd1325 and emulator only)
-                            (default: RGB)
       --duration DURATION   Animation frame duration (gifanim emulator only)
                             (default: 0.01)
       --loop LOOP           Repeat loop, zero=forever (gifanim emulator only)
