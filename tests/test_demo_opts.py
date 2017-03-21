@@ -19,8 +19,8 @@ import pytest
 
 import luma.emulator.device
 
-from demo_opts import (load_config, get_device, get_choices, create_parser,
-    display_types, interface_types)
+import cmdline
+from demo_opts import get_device
 
 
 test_config_file = os.path.join(os.path.dirname(__file__),
@@ -39,14 +39,14 @@ def test_support():
     """
     Attributes available to check supported display types and interfaces.
     """
-    assert interface_types == ["i2c", "spi"]
+    assert cmdline.interface_types == ["i2c", "spi"]
 
 
 def test_create_parser():
     """
     create_parser returns an argument parser instance.
     """
-    parser = create_parser()
+    parser = cmdline.create_parser()
     args = parser.parse_args(['-f', test_config_file])
     assert args.config == test_config_file
 
@@ -55,7 +55,7 @@ def test_load_config_file_parse():
     """
     load_config parses a text file and returns a list of arguments.
     """
-    result = load_config(test_config_file)
+    result = cmdline.load_config(test_config_file)
 
     assert result == [
         '--display=capture',
@@ -73,7 +73,7 @@ def test_get_device_config_file_missing():
         get_device(['-f', 'foo'])
 
 
-def test_get_device_config__file_success():
+def test_get_device_config_file_success():
     """
     Loading a correct config file does not throw an error.
     """
@@ -86,7 +86,7 @@ def test_get_choices_unknown_module():
     """
     get_choices returns an empty list when trying to inspect an unknown module.
     """
-    result = get_choices('foo')
+    result = cmdline.get_choices('foo')
     assert result == []
 
 
@@ -100,6 +100,21 @@ def test_get_device_unknown(capsys):
             get_device()
 
     assertInError("invalid choice: 'foo'", capsys)
+
+
+def test_display_settings():
+    class foo(object):
+        display = 'foo'
+        interface = 'bar'
+        width = 100
+        height = 50
+
+    result = cmdline.display_settings(foo())
+
+    assert result == """Display: foo
+Interface: bar
+Dimensions: 100 x 50
+----------------------------------------"""
 
 
 # luma.emulator
@@ -124,7 +139,7 @@ def test_get_device_led_matrix_all(capsys):
     """
     Load supported led_matrix devices one by one.
     """
-    for display in display_types.get('led_matrix'):
+    for display in cmdline.display_types.get('led_matrix'):
         try:
             get_device(['--display', display])
         except SystemExit:
@@ -137,7 +152,7 @@ def test_get_device_lcd_all(capsys):
     """
     Load supported lcd devices one by one.
     """
-    for display in display_types.get('lcd'):
+    for display in cmdline.display_types.get('lcd'):
         try:
             get_device(['--display', display])
         except SystemExit:
@@ -153,7 +168,7 @@ def test_get_device_oled_all(capsys):
     """
     Load supported oled devices one by one.
     """
-    for display in display_types.get('oled'):
+    for display in cmdline.display_types.get('oled'):
         with pytest.raises(SystemExit):
             get_device(['--display', display])
 
