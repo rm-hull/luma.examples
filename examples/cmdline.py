@@ -29,7 +29,7 @@ for namespace in ["oled", "lcd", "led_matrix", "emulator"]:
 def display_settings(args):
     """
     Display a short summary of the settings.
-    
+
     :rtype: str
     """
     iface = ''
