@@ -15,7 +15,12 @@ README = read_file("README.rst")
 
 needs_pytest = {'pytest', 'test', 'ptr'}.intersection(sys.argv)
 pytest_runner = ['pytest-runner'] if needs_pytest else []
-test_deps = ["mock", "pytest", "pytest-cov", "pytest-warnings"]
+test_deps = [
+    'mock;python_version<"3.3"',
+    "pytest",
+    "pytest-cov",
+    "pytest-warnings"
+]
 
 setup(
     name="luma.examples",
