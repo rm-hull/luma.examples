@@ -21,7 +21,7 @@ setup(
     name="luma.examples",
     author="Richard Hull",
     author_email="richard.hull@destructuring-bind.org",
-    description=("Examples for the luma libraries."),
+    description="Examples for the luma libraries.",
     long_description=README,
     license="MIT",
     keywords="raspberry orange banana pi rpi opi sbc oled lcd led display screen spi i2c",
@@ -38,7 +38,7 @@ setup(
     tests_require=test_deps,
     extras_require={
         'docs': [
-            'sphinx >= 1.5.3'
+            'sphinx >= 1.5.1'
         ],
         'qa': [
             'rstcheck',
@@ -48,7 +48,7 @@ setup(
     },
     classifiers=[
         "License :: OSI Approved :: MIT License",
-        "Development Status :: 4 - Beta",
+        "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Education",
         "Intended Audience :: Developers",
         "Topic :: Education",
