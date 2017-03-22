@@ -10,11 +10,9 @@ levels high.
 
 GitHub
 ^^^^^^
-The source code is available to clone at: https://github.com/rm-hull/luma.lcd.git
+The source code is available to clone at: https://github.com/rm-hull/luma.examples
 
 Contributors
 ^^^^^^^^^^^^
 * Thijs Triemstra (@thijstriemstra)
-* Dougie Lawson (@dougielawson)
-* WsMithril (@WsMithril)
-* Peter Martin (@pe7er)
+* Saumyakanta Sahoo (@somu1795)
