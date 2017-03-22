@@ -19,8 +19,7 @@ import pytest
 
 import luma.emulator.device
 
-import cmdline
-from demo_opts import get_device
+from demo_opts import display_settings, get_device, util
 
 
 test_config_file = os.path.join(os.path.dirname(__file__),
@@ -35,34 +34,22 @@ def assertInError(msg, capsys):
     assert msg in err
 
 
-def test_support():
+def test_display_settings():
     """
-    Attributes available to check supported display types and interfaces.
+    Summary is returned.
     """
-    assert cmdline.interface_types == ["i2c", "spi"]
+    class foo(object):
+        display = 'foo'
+        interface = 'bar'
+        width = 100
+        height = 50
 
+    result = display_settings(foo())
 
-def test_create_parser():
-    """
-    create_parser returns an argument parser instance.
-    """
-    parser = cmdline.create_parser()
-    args = parser.parse_args(['-f', test_config_file])
-    assert args.config == test_config_file
-
-
-def test_load_config_file_parse():
-    """
-    load_config parses a text file and returns a list of arguments.
-    """
-    result = cmdline.load_config(test_config_file)
-
-    assert result == [
-        '--display=capture',
-        '--width=800',
-        '--height=8600',
-        '--spi-bus-speed=16000000'
-    ]
+    assert result == """Display: foo
+Interface: bar
+Dimensions: 100 x 50
+----------------------------------------"""
 
 
 def test_get_device_config_file_missing():
@@ -82,14 +69,6 @@ def test_get_device_config_file_success():
     assert isinstance(device, luma.emulator.device.capture)
 
 
-def test_get_choices_unknown_module():
-    """
-    get_choices returns an empty list when trying to inspect an unknown module.
-    """
-    result = cmdline.get_choices('foo')
-    assert result == []
-
-
 def test_get_device_unknown(capsys):
     """
     Load an unknown device.
@@ -100,21 +79,6 @@ def test_get_device_unknown(capsys):
             get_device()
 
     assertInError("invalid choice: 'foo'", capsys)
-
-
-def test_display_settings():
-    class foo(object):
-        display = 'foo'
-        interface = 'bar'
-        width = 100
-        height = 50
-
-    result = cmdline.display_settings(foo())
-
-    assert result == """Display: foo
-Interface: bar
-Dimensions: 100 x 50
-----------------------------------------"""
 
 
 # luma.emulator
@@ -139,7 +103,7 @@ def test_get_device_led_matrix_all(capsys):
     """
     Load supported led_matrix devices one by one.
     """
-    for display in cmdline.display_types.get('led_matrix'):
+    for display in util.get_display_types().get('led_matrix'):
         try:
             get_device(['--display', display])
         except SystemExit:
@@ -152,7 +116,7 @@ def test_get_device_lcd_all(capsys):
     """
     Load supported lcd devices one by one.
     """
-    for display in cmdline.display_types.get('lcd'):
+    for display in util.get_display_types().get('lcd'):
         try:
             get_device(['--display', display])
         except SystemExit:
@@ -168,7 +132,7 @@ def test_get_device_oled_all(capsys):
     """
     Load supported oled devices one by one.
     """
-    for display in cmdline.display_types.get('oled'):
+    for display in util.get_display_types().get('oled'):
         with pytest.raises(SystemExit):
             get_device(['--display', display])
 
