@@ -19,5 +19,5 @@ matrix:
     allow_failures:
         - python: 3.7-dev
 
-install: pip install -U pip tox
+install: pip install -U pip tox setuptools
 script: tox -vv
