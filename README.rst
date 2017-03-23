@@ -24,8 +24,9 @@ instructions in the above repositories to wire up your display, then from a comm
 
   $ sudo usermod -a -G i2c,spi,gpio pi
   $ sudo apt-get install python-dev python-pip libfreetype6-dev libjpeg-dev
-  $ sudo -H pip install --upgrade pip setuptools
   $ sudo apt-get purge python-pip
+  $ sudo -H pip install --upgrade pip setuptools
+  
 
 Log out and in again and clone this repository::
 
@@ -185,11 +186,11 @@ and screen capture functionality:
 
 Invoke the demos with::
 
-  $ python examples/clock.py -d capture
+  $ python examples/clock.py --display capture
 
 or::
 
-  $ python examples/clock.py -d pygame
+  $ python examples/clock.py --display pygame
 
 Documentation
 -------------
