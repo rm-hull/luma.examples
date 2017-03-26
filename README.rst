@@ -24,8 +24,8 @@ instructions in the above repositories to wire up your display, then from a comm
 
   $ sudo usermod -a -G i2c,spi,gpio pi
   $ sudo apt-get install python-dev python-pip libfreetype6-dev libjpeg-dev
-  $ sudo apt-get purge python-pip
   $ sudo -H pip install --upgrade pip
+  $ sudo apt-get purge python-pip
   
 
 Log out and in again and clone this repository::
