@@ -19,7 +19,7 @@ import pytest
 
 import luma.emulator.device
 
-from demo_opts import display_settings, get_device, util
+from demo_opts import display_settings, get_device, cmdline
 
 
 test_config_file = os.path.join(os.path.dirname(__file__),
@@ -103,7 +103,7 @@ def test_get_device_led_matrix_all(capsys):
     """
     Load supported led_matrix devices one by one.
     """
-    for display in util.get_display_types().get('led_matrix'):
+    for display in cmdline.get_display_types().get('led_matrix'):
         try:
             get_device(['--display', display])
         except SystemExit:
@@ -116,7 +116,7 @@ def test_get_device_lcd_all(capsys):
     """
     Load supported lcd devices one by one.
     """
-    for display in util.get_display_types().get('lcd'):
+    for display in cmdline.get_display_types().get('lcd'):
         try:
             get_device(['--display', display])
         except SystemExit:
@@ -132,7 +132,7 @@ def test_get_device_oled_all(capsys):
     """
     Load supported oled devices one by one.
     """
-    for display in util.get_display_types().get('oled'):
+    for display in cmdline.get_display_types().get('oled'):
         with pytest.raises(SystemExit):
             get_device(['--display', display])
 

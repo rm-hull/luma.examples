@@ -5,7 +5,7 @@
 import sys
 import logging
 
-from luma.core import util, error
+from luma.core import cmdline, error
 
 
 # logging
@@ -24,7 +24,7 @@ def display_settings(args):
     :rtype: str
     """
     iface = ''
-    display_types = util.get_display_types()
+    display_types = cmdline.get_display_types()
     if args.display not in display_types['emulator']:
         iface = 'Interface: {}\n'.format(args.interface)
 
@@ -38,17 +38,17 @@ def get_device(actual_args=None):
     """
     if actual_args is None:
         actual_args = sys.argv[1:]
-    parser = util.create_parser(description='luma.examples arguments')
+    parser = cmdline.create_parser(description='luma.examples arguments')
     args = parser.parse_args(actual_args)
 
     if args.config:
         # load config from file
-        config = util.load_config(args.config)
+        config = cmdline.load_config(args.config)
         args = parser.parse_args(config + actual_args)
 
     # create device
     try:
-        device = util.create_device(args)
+        device = cmdline.create_device(args)
     except error.Error as e:
         parser.error(e)
 
