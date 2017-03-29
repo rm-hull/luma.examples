@@ -15,19 +15,24 @@ README = read_file("README.rst")
 
 needs_pytest = {'pytest', 'test', 'ptr'}.intersection(sys.argv)
 pytest_runner = ['pytest-runner'] if needs_pytest else []
-test_deps = ["mock", "pytest", "pytest-cov", "pytest-warnings"]
+test_deps = [
+    'mock;python_version<"3.3"',
+    "pytest",
+    "pytest-cov",
+    "pytest-warnings"
+]
 
 setup(
     name="luma.examples",
     author="Richard Hull",
     author_email="richard.hull@destructuring-bind.org",
-    description=("Examples for the luma libraries."),
+    description="Examples for the luma libraries.",
     long_description=README,
     license="MIT",
     keywords="raspberry orange banana pi rpi opi sbc oled lcd led display screen spi i2c",
     url="https://github.com/rm-hull/luma.examples",
     install_requires=[
-        "luma.core>=0.6.1",
+        "luma.core>=0.7.0",
         "luma.emulator>=0.1.2",
         "luma.oled>=2.2.5",
         "luma.lcd>=0.3.3",
@@ -38,7 +43,7 @@ setup(
     tests_require=test_deps,
     extras_require={
         'docs': [
-            'sphinx >= 1.5.3'
+            'sphinx >= 1.5.1'
         ],
         'qa': [
             'rstcheck',
@@ -48,7 +53,7 @@ setup(
     },
     classifiers=[
         "License :: OSI Approved :: MIT License",
-        "Development Status :: 4 - Beta",
+        "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Education",
         "Intended Audience :: Developers",
         "Topic :: Education",

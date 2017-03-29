@@ -5,9 +5,7 @@
 import sys
 import logging
 
-import cmdline
-
-from luma.core import error
+from luma.core import cmdline, error
 
 
 # logging
@@ -19,13 +17,28 @@ logging.basicConfig(
 logging.getLogger("PIL").setLevel(logging.ERROR)
 
 
+def display_settings(args):
+    """
+    Display a short summary of the settings.
+
+    :rtype: str
+    """
+    iface = ''
+    display_types = cmdline.get_display_types()
+    if args.display not in display_types['emulator']:
+        iface = 'Interface: {}\n'.format(args.interface)
+
+    return 'Display: {}\n{}Dimensions: {} x {}\n{}'.format(
+        args.display, iface, args.width, args.height, '-' * 40)
+
+
 def get_device(actual_args=None):
     """
     Create device from command-line arguments and return it.
     """
     if actual_args is None:
         actual_args = sys.argv[1:]
-    parser = cmdline.create_parser()
+    parser = cmdline.create_parser(description='luma.examples arguments')
     args = parser.parse_args(actual_args)
 
     if args.config:
@@ -39,6 +52,6 @@ def get_device(actual_args=None):
     except error.Error as e:
         parser.error(e)
 
-    print(cmdline.display_settings(args))
+    print(display_settings(args))
 
     return device
