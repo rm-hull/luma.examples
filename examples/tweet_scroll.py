@@ -36,18 +36,25 @@ access_token_secret = "TWITTER_API_ACCESS_TOKEN_SECRET"
 search_terms = ['python']
 
 import os
+import sys
 import time
-import tweepy
 from PIL import ImageFont
-
-from demo_opts import get_device
-from luma.core.render import canvas
-from luma.core.virtual import viewport
 
 try:
     from Queue import Queue
 except ImportError:
     from queue import Queue
+
+from demo_opts import get_device
+from luma.core.render import canvas
+from luma.core.virtual import viewport
+
+
+try:
+    import tweepy
+except ImportError:
+    print("The tweepy library was not found. Run 'sudo -H pip install tweepy' to install it.")
+    sys.exit()
 
 
 def make_font(name, size):

@@ -18,7 +18,7 @@ from luma.core.legacy.font import proportional, SINCLAIR_FONT
 try:
     import feedparser
 except ImportError:
-    print("The feedparser library was not found. Run 'pip install feedparser' to install it first.")
+    print("The feedparser library was not found. Run 'sudo -H pip install feedparser' to install it.")
     sys.exit()
 
 
