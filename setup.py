@@ -6,10 +6,24 @@ import sys
 from setuptools import setup
 
 
+def check_setuptools_features():
+    import pkg_resources
+    try:
+        list(pkg_resources.parse_requirements('foo~=1.0'))
+    except ValueError:
+        exit('Your Python distribution comes with an incompatible version '
+             'of `setuptools`. Please run:\n'
+             ' sudo pip install --upgrade setuptools\n'
+             'and then run this command again')
+
+
 def read_file(fname):
     with open(os.path.join(os.path.dirname(__file__), fname)) as r:
         return r.read()
 
+
+# check if setuptools is up to date
+check_setuptools_features()
 
 README = read_file("README.rst")
 
