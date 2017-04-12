@@ -10,21 +10,27 @@ Display basic system information.
 Needs psutil (+ dependencies) installed::
 
   $ sudo apt-get install python-dev
-  $ sudo pip install psutil
+  $ sudo -H pip install psutil
 """
 
 import os
 import sys
 import time
 from datetime import datetime
+
 if os.name != 'posix':
     sys.exit('{} platform not supported'.format(os.name))
-
-import psutil
 
 from demo_opts import get_device
 from luma.core.render import canvas
 from PIL import ImageFont
+
+try:
+    import psutil
+except ImportError:
+    print("The psutil library was not found. Run 'sudo -H pip install psutil' to install it.")
+    sys.exit()
+
 
 # TODO: custom font bitmaps for up/down arrows
 # TODO: Load histogram
