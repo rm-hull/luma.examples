@@ -10,11 +10,16 @@
 
 import sys
 import time
-import feedparser
 
 from demo_opts import get_device
 from luma.core.legacy import show_message
 from luma.core.legacy.font import proportional, SINCLAIR_FONT
+
+try:
+    import feedparser
+except ImportError:
+    print("The feedparser library was not found. Run 'pip install feedparser' to install it first.")
+    sys.exit()
 
 
 def main(num_iterations=sys.maxsize):
