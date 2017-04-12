@@ -201,35 +201,38 @@ if __name__ == '__main__':
         .transform((device.width, device.height), Image.AFFINE, (1, 0, 0, 0, 1, 0), Image.BILINEAR) \
         .convert(device.mode)
 
-    # Double buffering in pygame?
-    device.display(splash)
-    device.display(splash)
+    try:
+        # Double buffering in pygame?
+        device.display(splash)
+        device.display(splash)
 
-    time.sleep(3)
-    device.clear()
+        time.sleep(3)
+        device.clear()
 
-    while not army.invaded and army.size() > 0:
-        with regulator:
+        while not army.invaded and army.size() > 0:
+            with regulator:
+                with canvas(device) as draw:
+                    draw.line((0, 61, 95, 61), fill="white")
+                    draw.line((0, 63, 95, 63), fill="white")
+
+                    ai_logic_shoot(army, plyr)
+                    ai_logic_move(army, plyr, rows)
+
+                    army.update(plyr.bullets)
+
+                    army.render(draw)
+                    plyr.render(draw)
+
+                    draw.text((8, 0), text="Score: {0}".format(army.score()), fill="blue")
+
+        # Double buffering in pygame?
+        for i in range(2):
             with canvas(device) as draw:
-                draw.line((0, 61, 95, 61), fill="white")
-                draw.line((0, 63, 95, 63), fill="white")
+                if army.size() == 0:
+                    draw.text((27, 28), text="Victory", fill="blue")
+                else:
+                    draw.text((30, 28), text="Defeat", fill="red")
 
-                ai_logic_shoot(army, plyr)
-                ai_logic_move(army, plyr, rows)
-
-                army.update(plyr.bullets)
-
-                army.render(draw)
-                plyr.render(draw)
-
-                draw.text((8, 0), text="Score: {0}".format(army.score()), fill="blue")
-
-    # Double buffering in pygame?
-    for i in range(2):
-        with canvas(device) as draw:
-            if army.size() == 0:
-                draw.text((27, 28), text="Victory", fill="blue")
-            else:
-                draw.text((30, 28), text="Defeat", fill="red")
-
-    time.sleep(5)
+        time.sleep(5)
+    except KeyboardInterrupt:
+        pass
