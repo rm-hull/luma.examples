@@ -13,7 +13,7 @@ def check_setuptools_features():
     except ValueError:
         exit('Your Python distribution comes with an incompatible version '
              'of `setuptools`. Please run:\n'
-             ' $ pip install --upgrade setuptools\n'
+             ' sudo pip install --upgrade setuptools\n'
              'and then run this command again')
 
 
@@ -21,7 +21,7 @@ def read_file(fname):
     with open(os.path.join(os.path.dirname(__file__), fname)) as r:
         return r.read()
 
-    
+
 # check if setuptools is up to date
 check_setuptools_features()
 
