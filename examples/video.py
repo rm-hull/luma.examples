@@ -45,7 +45,7 @@ def main():
             size = device.width, device.height
             img = img.resize(size, PIL.Image.ANTIALIAS)
 
-        device.display(img)
+        device.display(img.convert(device.mode))
 
 
 if __name__ == "__main__":
