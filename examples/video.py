@@ -6,6 +6,14 @@
 
 """
 Display a video clip.
+
+Make sure to install the av system packages:
+
+  $ sudo apt-get install -y libavformat-dev libavcodec-dev libavdevice-dev libavutil-dev libswscale-dev libavresample-dev libavfilter-dev
+
+And the pyav package (might take a while):
+
+  $ sudo -H pip install av
 """
 
 import sys
@@ -17,7 +25,7 @@ import PIL
 try:
     import av
 except ImportError:
-    print("The av library could not be found. Install it using 'sudo -H pip install av'.")
+    print("The pyav library could not be found. Install it using 'sudo -H pip install av'.")
     sys.exit()
 
 
