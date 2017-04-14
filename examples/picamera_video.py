@@ -11,14 +11,19 @@ Requires picamera to be installed.
 """
 
 import io
+import sys
 import time
 import threading
-
-import picamera
 
 from PIL import Image
 
 from demo_opts import get_device
+
+try:
+    import picamera
+except ImportError:
+    print("The picamera library is not installed. Install it using 'sudo -H pip install picamera'.")
+    sys.exit()
 
 
 # create a pool of image processors
