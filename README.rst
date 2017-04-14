@@ -73,6 +73,7 @@ sys_info.py           Display basic system information
 terminal.py           Simple println capabilities
 tv_snow.py            Example image-blitting
 tweet_scroll.py       Using Twitter's Streaming API to display scrolling notifications
+video.py              Display a video clip
 weather.py            3-day weather forecasts from the BBC
 welcome.py            Unicode font rendering & scrolling
 ===================== ================================================================
