@@ -39,7 +39,7 @@ def main():
                 margin = 4
 
                 cx = 30
-                cy = device.height / 2
+                cy = min(device.height, 64) / 2
 
                 left = cx - cy
                 right = cx + cy
@@ -53,7 +53,7 @@ def main():
                 sec_angle = 270 + (6 * now.second)
                 secs = posn(sec_angle, cy - margin - 2)
 
-                draw.ellipse((left + margin, margin, right - margin, device.height - margin), outline="white")
+                draw.ellipse((left + margin, margin, right - margin, min(device.height, 64) - margin), outline="white")
                 draw.line((cx, cy, cx + hrs[0], cy + hrs[1]), fill="white")
                 draw.line((cx, cy, cx + mins[0], cy + mins[1]), fill="white")
                 draw.line((cx, cy, cx + secs[0], cy + secs[1]), fill="red")

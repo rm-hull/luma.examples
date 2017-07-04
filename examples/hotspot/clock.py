@@ -30,25 +30,28 @@ def analog(draw, width, height):
     now = datetime.datetime.now()
     today_date = now.strftime("%d %b %y")
 
-    top = 16
+    y_offset = 16
     margin = 3
 
     cx = width / 2
-    cy = top + ((height - top - margin) / 2)
+    cy = y_offset + ((height - y_offset - margin) / 2)
 
-    left = (width - (height - top - margin)) / 2
+    left = (width - (min(height, 64) - y_offset - margin)) / 2
     right = width - left
+    radius = (right - left) / 2
+    top = cy - radius
+    bottom = cy + radius
 
     hrs_angle = 270 + (30 * (now.hour + (now.minute / 60.0)))
-    hrs = posn(hrs_angle, cx - 16)
+    hrs = posn(hrs_angle, radius - 8)
 
     min_angle = 270 + (6 * now.minute)
-    mins = posn(min_angle, cx - 10)
+    mins = posn(min_angle, radius - 3)
 
     sec_angle = 270 + (6 * now.second)
-    secs = posn(sec_angle, cx - 10)
+    secs = posn(sec_angle, radius - 3)
 
-    draw.ellipse((left, top, right, height - margin), outline="white")
+    draw.ellipse((left, top, right, bottom), outline="white")
     draw.line((cx, cy, cx + hrs[0], cy + hrs[1]), fill="white")
     draw.line((cx, cy, cx + mins[0], cy + mins[1]), fill="white")
     draw.line((cx, cy, cx + secs[0], cy + secs[1]), fill="red")
