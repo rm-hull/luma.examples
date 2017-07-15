@@ -17,6 +17,7 @@ import json
 
 try:
     import pusherclient
+    global pusher
 except ImportError:
     print("The pusherclient library was not found. Run 'sudo -H pip install pusherclient' to install it.")
     sys.exit()
@@ -25,12 +26,13 @@ from demo_opts import get_device
 from luma.core.render import canvas
 from PIL import ImageFont
 
+# Bitstamp uses Pusher for websocket communication. This is their public Pusher key.
+# Refer to https://www.bitstamp.net/websocket/ for more documentation.
+BITSTAMP_PUSHER_KEY = 'de504dc5763aeef9ff52'
+
 font_path = os.path.abspath(os.path.join(os.path.dirname(__file__),
                             'fonts', 'C&C Red Alert [INET].ttf'))
 font = ImageFont.truetype(font_path, 12)
-
-
-global pusher
 
 rows = []
 
@@ -38,7 +40,6 @@ rows = []
 # "sell_order_id": 54235858, "amount_str": "0.20952054",
 # "price_str": "2190.00", "timestamp": "1500056837",
 # "price": 2190.0, "type": 0, "id": 17270785}
-
 def trade_callback(data):
     json_data = json.loads(data)
 
@@ -55,7 +56,7 @@ def connect_handler(data):
     channel = pusher.subscribe('live_trades')
     channel.bind('trade', trade_callback)
 
-pusher = pusherclient.Pusher('de504dc5763aeef9ff52')
+pusher = pusherclient.Pusher(BITSTAMP_PUSHER_KEY)
 pusher.connection.bind('pusher:connection_established', connect_handler)
 pusher.connect()
 

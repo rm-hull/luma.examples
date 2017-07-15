@@ -1,10 +1,10 @@
-`luma.core <https://github.com/rm-hull/luma.core>`__ **|** 
-`luma.docs <https://github.com/rm-hull/luma.docs>`__ **|** 
+`luma.core <https://github.com/rm-hull/luma.core>`__ **|**
+`luma.docs <https://github.com/rm-hull/luma.docs>`__ **|**
 luma.examples **|**
 `luma.emulator <https://github.com/rm-hull/luma.emulator>`__ **|**
-`luma.lcd <https://github.com/rm-hull/luma.lcd>`__ **|** 
-`luma.led_matrix <https://github.com/rm-hull/luma.led_matrix>`__ **|** 
-`luma.oled <https://github.com/rm-hull/luma.oled>`__ 
+`luma.lcd <https://github.com/rm-hull/luma.lcd>`__ **|**
+`luma.led_matrix <https://github.com/rm-hull/luma.led_matrix>`__ **|**
+`luma.oled <https://github.com/rm-hull/luma.oled>`__
 
 Luma.Examples
 =============
@@ -47,6 +47,8 @@ the following examples:
 Example               Description
 ===================== ================================================================
 3d_box.py             Rotating 3D box wireframe & color dithering
+bitstamp_ticker.py    Display the Bitcoin price at Bitstamp
+bitstamp_realtime.py  Displays the latest Bitcoin trades in realtime at Bitstamp
 bounce.py             Display a bouncing ball animation and frames per second
 carousel.py           Showcase viewport and hotspot functionality
 chroma.py             Trippy color rendering demo
