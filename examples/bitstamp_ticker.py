@@ -19,7 +19,6 @@ LTC/USD $40.00
 import os
 import sys
 import time
-from datetime import datetime
 
 try:
     import requests
@@ -31,6 +30,7 @@ from demo_opts import get_device
 from luma.core.render import canvas
 from PIL import ImageFont
 
+
 def fetch_price(crypto_currency, fiat_currency):
     bitstamp_api = "https://www.bitstamp.net/api/v2/ticker/" + crypto_currency.lower() + fiat_currency.lower()
     try:
@@ -39,12 +39,14 @@ def fetch_price(crypto_currency, fiat_currency):
     except:
         print "Error fetching from Bitstamp API"
 
+
 def get_price_text(crypto_currency, fiat_currency):
     data = fetch_price(crypto_currency, fiat_currency)
     return [
         '{}/{} {}'.format(crypto_currency, fiat_currency, data['last']),
         '24h Hi {} Lo {}'.format(data['high'], data['low'])
-     ]
+    ]
+
 
 def show_price(device):
     # use custom font
@@ -61,6 +63,7 @@ def show_price(device):
             rows = get_price_text("LTC", "USD")
             draw.text((0, 28), rows[0], font=font2, fill="white")
             draw.text((0, 42), rows[1], font=font2, fill="white")
+
 
 def main():
     while True:

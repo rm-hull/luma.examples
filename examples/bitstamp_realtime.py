@@ -11,7 +11,6 @@ Displays the latest Bitcoin trades in realtime at Bitstamp
 import os
 import sys
 import time
-from datetime import datetime
 import signal
 import json
 
@@ -36,6 +35,7 @@ font = ImageFont.truetype(font_path, 12)
 
 rows = []
 
+
 # {"amount": 0.20952054000000001, "buy_order_id": 54237121,
 # "sell_order_id": 54235858, "amount_str": "0.20952054",
 # "price_str": "2190.00", "timestamp": "1500056837",
@@ -52,26 +52,31 @@ def trade_callback(data):
         for i, line in enumerate(rows):
             draw.text((0, 2 + (i * 12)), text=line, font=font, fill="white")
 
+
 def connect_handler(data):
     channel = pusher.subscribe('live_trades')
     channel.bind('trade', trade_callback)
 
-pusher = pusherclient.Pusher(BITSTAMP_PUSHER_KEY)
-pusher.connection.bind('pusher:connection_established', connect_handler)
-pusher.connect()
 
 def show_loading():
     with canvas(device) as draw:
         draw.text((0, 0), "Awaiting a BTC trade...", font=font, fill="white")
+
 
 def main():
     show_loading()
     while True:
         time.sleep(1)
 
+
 def handler(signum, frame):
     pusher.disconnect()
     sys.exit()
+
+
+pusher = pusherclient.Pusher(BITSTAMP_PUSHER_KEY)
+pusher.connection.bind('pusher:connection_established', connect_handler)
+pusher.connect()
 
 signal.signal(signal.SIGINT, handler)
 
