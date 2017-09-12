@@ -21,7 +21,7 @@ import demo
 
 
 def main():
-    print("Testing dislay rendering performance")
+    print("Testing display rendering performance")
     print("Press Ctrl-C to abort test\n")
 
     regulator = framerate_regulator(fps=0)  # Unlimited
