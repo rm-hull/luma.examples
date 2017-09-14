@@ -108,6 +108,8 @@ def test_get_device_led_matrix_all(capsys):
             get_device(['--display', display])
         except SystemExit:
             assertInError('SPI device not found', capsys)
+        except ImportError as e:
+            pytest.skip(str(e))
 
 
 # luma.lcd
@@ -124,6 +126,8 @@ def test_get_device_lcd_all(capsys):
                 assertInError('error: GPIO access not available', capsys)
             except:
                 pass
+        except ImportError as e:
+            pytest.skip(str(e))
 
 
 # luma.oled

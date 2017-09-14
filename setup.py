@@ -30,7 +30,7 @@ README = read_file("README.rst")
 needs_pytest = {'pytest', 'test', 'ptr'}.intersection(sys.argv)
 pytest_runner = ['pytest-runner'] if needs_pytest else []
 test_deps = [
-    "mock",
+    'mock;python_version<"3.3"',
     "pytest>=3.1",
     "pytest-cov"
 ]
@@ -45,7 +45,7 @@ setup(
     keywords="raspberry orange banana pi rpi opi sbc oled lcd led display screen spi i2c",
     url="https://github.com/rm-hull/luma.examples",
     install_requires=[
-        "luma.core>=0.9.1",
+        "luma.core>=1.0.0",
         "luma.emulator>=0.1.2",
         "luma.oled>=2.2.5",
         "luma.lcd>=0.3.4",

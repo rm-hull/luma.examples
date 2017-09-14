@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2014-17 Michael Svanström, Richard Hull and contributors
+# Copyright (c) 2017 Michael Svanström, Richard Hull and contributors
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
@@ -37,7 +37,7 @@ def fetch_price(crypto_currency, fiat_currency):
         r = requests.get(bitstamp_api)
         return r.json()
     except:
-        print "Error fetching from Bitstamp API"
+        print("Error fetching from Bitstamp API")
 
 
 def get_price_text(crypto_currency, fiat_currency):
