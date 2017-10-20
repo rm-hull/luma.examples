@@ -14,7 +14,7 @@ import time
 from PIL import ImageFont, Image, ImageDraw
 from demo_opts import get_device
 from luma.core.render import canvas
-from luma.core.multiimage import MultiImage
+from luma.core.multi_image import MultiImage, RenderedImage
 
 titles = [
     ( "Bridge over troubled water", "Simon & Garfunkel" ),
@@ -56,13 +56,13 @@ class Scroller():
     SCROLLING = 2
     WAIT_REWIND = 3
     WAIT_SYNC = 4
-    def __init__(self, multiimage, text_image, y_pos, scroll_delay, synchroniser):
-        self.multiimage = multiimage
-        self.y_pos = y_pos
+    def __init__(self, multi_image, rendered_image, scroll_delay, synchroniser):
+        self.multi_image = multi_image
         self.speed = 1
         self.image_x_pos = 0
-        self.image_id = self.multiimage.add_image(text_image.image, (0, y_pos))
-        self.max_pos = text_image.width - multiimage.get_size()[0]
+        self.rendered_image = rendered_image
+        self.multi_image.add_image(rendered_image)
+        self.max_pos = rendered_image.image.width - multi_image.image().width
         self.delay = scroll_delay
         self.ticks = 0
         self.state = self.WAIT_SCROLL
@@ -73,7 +73,7 @@ class Scroller():
         self.must_scroll = self.max_pos > 0
 
     def __del__(self):
-        self.multiimage.remove_image(self.image_id)
+        self.multi_image.remove_image(self.rendered_image)
 
     def tick(self):
 
@@ -106,7 +106,7 @@ class Scroller():
                 self.state = self.WAIT_REWIND
 
     def render(self):
-        self.multiimage.set_offset(self.image_id, (self.image_x_pos, 0))
+        self.rendered_image.set_offset((self.image_x_pos, 0))
 
     def is_waiting(self):
         self.ticks += 1
@@ -139,8 +139,10 @@ try:
     while True:
         for title in titles:
             synchroniser = Synchroniser()
-            song = Scroller(mi, TextImage(device, title[0], font), 1, 100, synchroniser)
-            artist = Scroller(mi, TextImage(device, title[1], font), 30, 100, synchroniser)
+            ri = RenderedImage(TextImage(device, title[0], font).image, xy=(0,1))
+            ri2 = RenderedImage(TextImage(device, title[1], font).image, xy=(0,30))
+            song = Scroller(mi, ri, 100, synchroniser)
+            artist = Scroller(mi, ri2, 100, synchroniser)
             cycles = 0
 
             while cycles < 3:
@@ -148,6 +150,10 @@ try:
                 song.tick()
                 time.sleep(0.025)
                 cycles = song.get_cycles()
+
+                with canvas(device, background = mi.image()) as draw:
+                    mi.refresh()
+                    pass
 
             del artist
             del song
