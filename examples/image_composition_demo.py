@@ -4,6 +4,8 @@
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
+# TODO: pep8
+
 """
 Scrolling artist + song and play/pause indicator
 """
@@ -14,7 +16,7 @@ import time
 from PIL import ImageFont, Image, ImageDraw
 from demo_opts import get_device
 from luma.core.render import canvas
-from luma.core.multi_image import MultiImage, RenderedImage
+from luma.core.image_composition import ImageComposition, ComposableImage
 
 titles = [
     ( "Bridge over troubled water", "Simon & Garfunkel" ),
@@ -62,7 +64,7 @@ class Scroller():
         self.image_x_pos = 0
         self.rendered_image = rendered_image
         self.multi_image.add_image(rendered_image)
-        self.max_pos = rendered_image.image.width - multi_image.image().width
+        self.max_pos = rendered_image.width - multi_image().width
         self.delay = scroll_delay
         self.ticks = 0
         self.state = self.WAIT_SCROLL
@@ -106,7 +108,7 @@ class Scroller():
                 self.state = self.WAIT_REWIND
 
     def render(self):
-        self.rendered_image.set_offset((self.image_x_pos, 0))
+        self.rendered_image.offset = (self.image_x_pos, 0)
 
     def is_waiting(self):
         self.ticks += 1
@@ -133,16 +135,16 @@ if device.height >= 16:
 else:
     font = make_font("pixelmix.ttf", 8)
 
-mi = MultiImage(device, width=device.width, height=device.height)
+image_composition = ImageComposition(device, width=device.width, height=device.height)
 
 try:
     while True:
         for title in titles:
             synchroniser = Synchroniser()
-            ri = RenderedImage(TextImage(device, title[0], font).image, xy=(0,1))
-            ri2 = RenderedImage(TextImage(device, title[1], font).image, xy=(0,30))
-            song = Scroller(mi, ri, 100, synchroniser)
-            artist = Scroller(mi, ri2, 100, synchroniser)
+            ci_song = ComposableImage(TextImage(device, title[0], font).image, position=(0,1))
+            ci_artist = ComposableImage(TextImage(device, title[1], font).image, position=(0,30))
+            song = Scroller(image_composition, ci_song, 100, synchroniser)
+            artist = Scroller(image_composition, ci_artist, 100, synchroniser)
             cycles = 0
 
             while cycles < 3:
@@ -151,9 +153,9 @@ try:
                 time.sleep(0.025)
                 cycles = song.get_cycles()
 
-                with canvas(device, background = mi.image()) as draw:
-                    mi.refresh()
-                    pass
+                with canvas(device, background = image_composition()) as draw:
+                    image_composition.refresh()
+                    draw.rectangle(device.bounding_box, outline="white")
 
             del artist
             del song
