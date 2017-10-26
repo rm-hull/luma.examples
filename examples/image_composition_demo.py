@@ -4,14 +4,11 @@
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
-# TODO: pep8
-
 """
 Scrolling artist + song and play/pause indicator
 """
 
 import os
-import sys
 import time
 from PIL import ImageFont, Image, ImageDraw
 from demo_opts import get_device
@@ -19,11 +16,12 @@ from luma.core.render import canvas
 from luma.core.image_composition import ImageComposition, ComposableImage
 
 titles = [
-    ( "Bridge over troubled water", "Simon & Garfunkel" ),
-    ( "Up", "R.E.M." ),
-    ( "Wild Child", "Lou Reed & The Velvet Underground" ),
-    ( "(Shake Shake Shake) Shake your body", "KC & The Sunshine Band" ),
+    ("Bridge over troubled water", "Simon & Garfunkel"),
+    ("Up", "R.E.M."),
+    ("Wild Child", "Lou Reed & The Velvet Underground"),
+    ("(Shake Shake Shake) Shake your body", "KC & The Sunshine Band"),
 ]
+
 
 class TextImage():
     def __init__(self, device, text, font):
@@ -31,10 +29,11 @@ class TextImage():
             w, h = draw.textsize(text, font)
         self.image = Image.new(device.mode, (w, h))
         draw = ImageDraw.Draw(self.image)
-        draw.text((0,0), text, font=font, fill="white")
+        draw.text((0, 0), text, font=font, fill="white")
         del draw
         self.width = w
         self.height = h
+
 
 class Synchroniser():
     def __init__(self):
@@ -42,29 +41,30 @@ class Synchroniser():
 
     def busy(self, task):
         self.synchronised[id(task)] = False
-    
+
     def ready(self, task):
         self.synchronised[id(task)] = True
 
     def is_synchronised(self):
         for task in self.synchronised.iteritems():
-            if task[1] == False:
+            if task[1] is False:
                 return False
         return True
-    
+
 
 class Scroller():
     WAIT_SCROLL = 1
     SCROLLING = 2
     WAIT_REWIND = 3
     WAIT_SYNC = 4
-    def __init__(self, multi_image, rendered_image, scroll_delay, synchroniser):
-        self.multi_image = multi_image
+
+    def __init__(self, image_composition, rendered_image, scroll_delay, synchroniser):
+        self.image_composition = image_composition
         self.speed = 1
         self.image_x_pos = 0
         self.rendered_image = rendered_image
-        self.multi_image.add_image(rendered_image)
-        self.max_pos = rendered_image.width - multi_image().width
+        self.image_composition.add_image(rendered_image)
+        self.max_pos = rendered_image.width - image_composition().width
         self.delay = scroll_delay
         self.ticks = 0
         self.state = self.WAIT_SCROLL
@@ -75,7 +75,7 @@ class Scroller():
         self.must_scroll = self.max_pos > 0
 
     def __del__(self):
-        self.multi_image.remove_image(self.rendered_image)
+        self.image_composition.remove_image(self.rendered_image)
 
     def tick(self):
 
@@ -116,7 +116,7 @@ class Scroller():
             self.ticks = 0
             return False
         return True
-        
+
     def get_cycles(self):
         return self.cycles
 
@@ -126,23 +126,24 @@ def make_font(name, size):
         os.path.dirname(__file__), 'fonts', name))
     return ImageFont.truetype(font_path, size)
 
-# ------- main 
+# ------- main
+
 
 device = get_device()
 
 if device.height >= 16:
-    font  = make_font("code2000.ttf", 12)
+    font = make_font("code2000.ttf", 12)
 else:
     font = make_font("pixelmix.ttf", 8)
 
-image_composition = ImageComposition(device, width=device.width, height=device.height)
+image_composition = ImageComposition(device)
 
 try:
     while True:
         for title in titles:
             synchroniser = Synchroniser()
-            ci_song = ComposableImage(TextImage(device, title[0], font).image, position=(0,1))
-            ci_artist = ComposableImage(TextImage(device, title[1], font).image, position=(0,30))
+            ci_song = ComposableImage(TextImage(device, title[0], font).image, position=(0, 1))
+            ci_artist = ComposableImage(TextImage(device, title[1], font).image, position=(0, 30))
             song = Scroller(image_composition, ci_song, 100, synchroniser)
             artist = Scroller(image_composition, ci_artist, 100, synchroniser)
             cycles = 0
@@ -153,7 +154,7 @@ try:
                 time.sleep(0.025)
                 cycles = song.get_cycles()
 
-                with canvas(device, background = image_composition()) as draw:
+                with canvas(device, background=image_composition()) as draw:
                     image_composition.refresh()
                     draw.rectangle(device.bounding_box, outline="white")
 
