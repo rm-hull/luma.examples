@@ -43,42 +43,43 @@ Running the examples
 After cloning the repository, enter the ``examples`` directory and try running
 the following examples:
 
-===================== ================================================================
-Example               Description
-===================== ================================================================
-3d_box.py             Rotating 3D box wireframe & color dithering
-bitstamp_ticker.py    Display the Bitcoin price at Bitstamp
-bitstamp_realtime.py  Displays the latest Bitcoin trades in realtime at Bitstamp
-bounce.py             Display a bouncing ball animation and frames per second
-carousel.py           Showcase viewport and hotspot functionality
-chroma.py             Trippy color rendering demo
-clock.py              An analog clockface with date & time
-colors.py             Color rendering demo
-crawl.py              A vertical scrolling demo, which should be familiar
-demo.py               Use misc draw commands to create a simple image
-font_awesome.py       A meander through some awesome fonts
-game_of_life.py       Conway's game of life
-grayscale.py          Greyscale rendering demo
-invaders.py           Space Invaders demo
-jetset_willy.py       Sprite animation framework demo
-maze.py               Maze generator
-perfloop.py           Simple benchmarking utility to measure performance
-picamera_photo.py     Capture photo with picamera and display it on a screen
-picamera_video.py     Capture continuous video stream and display it on a screen
-pi_logo.py            Display the Raspberry Pi logo (loads image as .png)
-runner.py             Sprite animation framework demo
-savepoint.py          Example of savepoint/restore functionality
-scrolling_pixelart.py Image dithering and viewport scrolling
-sprite_animation.py   Using sprite maps for animation effects
-starfield.py          3D starfield simulation
-sys_info.py           Display basic system information
-terminal.py           Simple println capabilities
-tv_snow.py            Example image-blitting
-tweet_scroll.py       Using Twitter's Streaming API to display scrolling notifications
-video.py              Display a video clip
-weather.py            3-day weather forecasts from the BBC
-welcome.py            Unicode font rendering & scrolling
-===================== ================================================================
+========================= ================================================================
+Example                   Description
+========================= ================================================================
+3d_box.py                 Rotating 3D box wireframe & color dithering
+bitstamp_ticker.py        Display the Bitcoin price at Bitstamp
+bitstamp_realtime.py      Displays the latest Bitcoin trades in realtime at Bitstamp
+bounce.py                 Display a bouncing ball animation and frames per second
+carousel.py               Showcase viewport and hotspot functionality
+chroma.py                 Trippy color rendering demo
+clock.py                  An analog clockface with date & time
+colors.py                 Color rendering demo
+crawl.py                  A vertical scrolling demo, which should be familiar
+demo.py                   Use misc draw commands to create a simple image
+font_awesome.py           A meander through some awesome fonts
+game_of_life.py           Conway's game of life
+grayscale.py              Greyscale rendering demo
+image_composition_demo.py Displays different song titles and scrolls them back and forth
+invaders.py               Space Invaders demo
+jetset_willy.py           Sprite animation framework demo
+maze.py                   Maze generator
+perfloop.py               Simple benchmarking utility to measure performance
+picamera_photo.py         Capture photo with picamera and display it on a screen
+picamera_video.py         Capture continuous video stream and display it on a screen
+pi_logo.py                Display the Raspberry Pi logo (loads image as .png)
+runner.py                 Sprite animation framework demo
+savepoint.py              Example of savepoint/restore functionality
+scrolling_pixelart.py     Image dithering and viewport scrolling
+sprite_animation.py       Using sprite maps for animation effects
+starfield.py              3D starfield simulation
+sys_info.py               Display basic system information
+terminal.py               Simple println capabilities
+tv_snow.py                Example image-blitting
+tweet_scroll.py           Using Twitter's Streaming API to display scrolling notifications
+video.py                  Display a video clip
+weather.py                3-day weather forecasts from the BBC
+welcome.py                Unicode font rendering & scrolling
+========================= ================================================================
 
 By default, all the examples will asume I2C port 1, address ``0x3C`` and the
 ``ssd1306`` driver.  If you need to use a different setting, these can be
