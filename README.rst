@@ -47,6 +47,7 @@ the following examples:
 Example                   Description
 ========================= ================================================================
 3d_box.py                 Rotating 3D box wireframe & color dithering
+animated_gif.py           Renders an animated GIF
 bitstamp_ticker.py        Display the Bitcoin price at Bitstamp
 bitstamp_realtime.py      Displays the latest Bitcoin trades in realtime at Bitstamp
 bounce.py                 Display a bouncing ball animation and frames per second
