@@ -46,7 +46,7 @@ setup(
     url="https://github.com/rm-hull/luma.examples",
     install_requires=[
         "luma.core>=1.1.0",
-        "luma.emulator>=0.2.4",
+        "luma.emulator>=1.0.0",
         "luma.oled>=2.2.5",
         "luma.lcd>=1.0.0",
         "luma.led_matrix>=1.0.2",
