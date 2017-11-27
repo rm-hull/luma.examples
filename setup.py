@@ -49,7 +49,7 @@ setup(
         "luma.emulator>=1.0.2",
         "luma.oled>=2.3.1",
         "luma.lcd>=1.0.3",
-        "luma.led_matrix>=1.0.6",
+        "luma.led_matrix>=1.0.7",
         "argcomplete"
     ],
     setup_requires=pytest_runner,
