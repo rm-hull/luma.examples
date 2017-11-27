@@ -15,5 +15,5 @@ matrix:
         - python: 3.5
           env: TOXENV=qa
 
-install: pip install -U pip tox setuptools
+install: pip install --ignore-installed --upgrade setuptools pip tox
 script: tox -vv

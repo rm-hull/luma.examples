@@ -28,8 +28,18 @@ def display_settings(args):
     if args.display not in display_types['emulator']:
         iface = 'Interface: {}\n'.format(args.interface)
 
-    return 'Display: {}\n{}Dimensions: {} x {}\n{}'.format(
-        args.display, iface, args.width, args.height, '-' * 40)
+    lib_name = cmdline.get_library_for_display_type(args.display)
+    if lib_name is not None:
+        lib_version = cmdline.get_library_version(lib_name)
+    else:
+        lib_name = lib_version = 'unknown'
+
+    import luma.core
+    version = 'luma.{} {} (luma.core {})'.format(
+        lib_name, lib_version, luma.core.__version__)
+
+    return 'Version: {}\nDisplay: {}\n{}Dimensions: {} x {}\n{}'.format(
+        version, args.display, iface, args.width, args.height, '-' * 60)
 
 
 def get_device(actual_args=None):

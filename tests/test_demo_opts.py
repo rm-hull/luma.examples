@@ -11,9 +11,9 @@ import os
 import sys
 
 try:
-    from unittest.mock import patch
+    from unittest.mock import patch, Mock
 except ImportError:
-    from mock import patch
+    from mock import patch, Mock
 
 import pytest
 
@@ -34,22 +34,36 @@ def assertInError(msg, capsys):
     assert msg in err
 
 
+@patch('luma.core.__version__', '4.5.6')
 def test_display_settings():
     """
-    Summary is returned.
+    Summary including library version information is returned.
     """
-    class foo(object):
-        display = 'foo'
-        interface = 'bar'
-        width = 100
-        height = 50
+    display_name = 'Awesome display'
 
-    result = display_settings(foo())
+    class DisplaySettingsConfig(object):
+        display = display_name
+        interface = 'USB'
+        width = 120
+        height = 80
 
-    assert result == """Display: foo
-Interface: bar
-Dimensions: 100 x 50
-----------------------------------------"""
+    with patch('luma.core.cmdline.get_display_types') as mocka:
+        mocka.return_value = {
+            'superhdscreenz': [display_name, 'amazingscreen'],
+            'emulator': ['x', 'y']
+        }
+        # set version nr for fake luma.superhdscreenz module
+        luma_fake_lib = Mock()
+        luma_fake_lib.__version__ = '1.2.3'
+        with patch.dict('sys.modules', {'luma.superhdscreenz': luma_fake_lib}):
+
+            result = display_settings(DisplaySettingsConfig())
+
+            assert result == """Version: luma.superhdscreenz 1.2.3 (luma.core 4.5.6)
+Display: Awesome display
+Interface: USB
+Dimensions: 120 x 80
+------------------------------------------------------------"""
 
 
 def test_get_device_config_file_missing():
