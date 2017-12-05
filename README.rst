@@ -19,7 +19,7 @@ This is the companion repo for running examples against the `luma.emulator <http
 
 Installation instructions
 -------------------------
-Assuming you are using a Raspberry Pi (running Debian Jessie), follow the pre-requisites &
+Assuming you are using a Raspberry Pi (running Debian Jessie or newer), follow the pre-requisites &
 instructions in the above repositories to wire up your display, then from a command-line::
 
   $ sudo usermod -a -G i2c,spi,gpio pi
@@ -41,7 +41,9 @@ Finally, install the luma libraries using::
 Running the examples
 --------------------
 After cloning the repository, enter the ``examples`` directory and try running
-the following examples:
+one of the following examples listed below. For example::
+
+  python examples/3d_box.py
 
 ========================= ================================================================
 Example                   Description
