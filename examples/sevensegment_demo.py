@@ -7,6 +7,7 @@
 Example for seven segment displays.
 """
 
+import sys
 import time
 from datetime import datetime
 
@@ -68,6 +69,12 @@ def show_message_alt(seg, msg, delay=0.1):
 def main():
     # create seven segment device
     device = get_device()
+    device_name = str(device.__class__.__name__)
+
+    if device_name not in ['ht1621', 'max7219']:
+        sys.exit('sevensegment is not supported on a {} device'.format(
+            device_name))
+
     seg = sevensegment(device)
 
     print('Simple text...')
