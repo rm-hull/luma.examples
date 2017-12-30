@@ -94,7 +94,7 @@ flag to show the options::
                   [--height HEIGHT] [--rotate] [--interface]
                   [--i2c-port I2C_PORT] [--i2c-address I2C_ADDRESS]
                   [--spi-port SPI_PORT] [--spi-device SPI_DEVICE]
-                  [--spi-bus-speed SPI_BUS_SPEED]
+                  [--spi-bus-speed SPI_BUS_SPEED] [--gpio GPIO]
                   [--gpio-data-command GPIO_DATA_COMMAND]
                   [--gpio-reset GPIO_RESET] [--gpio-backlight GPIO_BACKLIGHT]
                   [--block-orientation] [--mode] [--framebuffer] [--bgr]
@@ -113,8 +113,9 @@ flag to show the options::
                            None)
      --display , -d        Display type, supports real devices or emulators.
                            Allowed values are: ssd1306, ssd1322, ssd1325,
-                           ssd1331, sh1106, pcd8544, st7735, max7219, ws2812,
-                           neopixel, apa102, capture, gifanim, pygame (default:
+                           ssd1331, ssd1351, sh1106, pcd8544, st7735, ht1621,
+                           uc1701x, max7219, ws2812, neopixel, neosegment,
+                           apa102, capture, gifanim, pygame, asciiart (default:
                            ssd1306)
      --width WIDTH         Width of the device in pixels (default: 128)
      --height HEIGHT       Height of the device in pixels (default: 64)
@@ -136,6 +137,8 @@ flag to show the options::
                            SPI max bus speed (Hz) (default: 8000000)
 
    GPIO:
+     --gpio GPIO           Alternative RPi.GPIO compatible implementation (SPI
+                           devices only) (default: None)
      --gpio-data-command GPIO_DATA_COMMAND
                            GPIO pin for D/C RESET (SPI devices only) (default:
                            24)
@@ -146,8 +149,8 @@ flag to show the options::
                            (default: 18)
 
    Misc:
-     --block-orientation   Fix 90° phase error (MAX7219 LED matrix only). Allowed
-                           values are: 0, 90, -90 (default: 0)
+     --block-orientation   Fix 90° phase error (MAX7219 LED matrix only).
+                           Allowed values are: 0, 90, -90, 180 (default: 0)
      --mode                Colour mode (SSD1322, SSD1325 and emulator only).
                            Allowed values are: 1, RGB, RGBA (default: RGB)
      --framebuffer         Framebuffer implementation (SSD1331, SSD1322, ST7735
@@ -159,8 +162,8 @@ flag to show the options::
                            memory (ST7735 displays only) (default: 0)
      --v-offset V_OFFSET   Vertical offset (in pixels) of screen to display
                            memory (ST7735 displays only) (default: 0)
-     --backlight-active    Set to "low" if LCD backlight is active low (default),
-                           else "high" otherwise (PCD8544, ST7735 displays only).
+     --backlight-active    Set to "low" if LCD backlight is active low, else
+                           "high" otherwise (PCD8544, ST7735 displays only).
                            Allowed values are: low, high (default: low)
 
    Emulator:
@@ -175,7 +178,6 @@ flag to show the options::
      --max-frames MAX_FRAMES
                            Maximum frames to record (gifanim emulator only)
                            (default: None)
-
 
 .. note::
    #. Substitute ``python3`` for ``python`` in the above examples if you are using python3.
