@@ -107,7 +107,7 @@ else:
 
 try:
     stream = tweepy.Stream(auth=api.auth, listener=listener(queue))
-    stream.filter(track=search_terms, async=True)
+    stream.filter(track=search_terms, async=True)  # noqa: W606
 
     try:
         while True:
