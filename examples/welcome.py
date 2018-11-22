@@ -20,6 +20,7 @@ welcome = [
     u"Бзиала шәаабеит",
     u"Къеблагъ",
     u"Welkom",
+    u"Bienvenue",
     u"Maayong pag-abot",
     u"Mayad-ayad nga pad-abot",
     u"Mir se vjên",
