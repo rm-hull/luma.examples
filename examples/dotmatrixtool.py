@@ -5,12 +5,13 @@
 # PYTHON_ARGCOMPLETE_OK
 
 """
-Demonstrate copy-paste from http://dotmatrixtool.com/#
+Design a bitmap using http://dotmatrixtool.com/#, then paste the generated
+hex values over those at lines 21-22.
 
+See https://github.com/rm-hull/luma.led_matrix/issues/170
 """
 
 import time
-import datetime
 from demo_opts import get_device
 from luma.core.render import canvas
 from luma.core import legacy
@@ -18,7 +19,10 @@ from luma.core import legacy
 
 def main():
     MY_CUSTOM_BITMAP_FONT = [
-        [ 0x00, 0x3e, 0x08, 0x3e, 0x00, 0x3e, 0x2a, 0x22, 0x00, 0x3e, 0x20, 0x20, 0x00, 0x3e, 0x0a, 0x0e ]
+        [
+            0x00, 0x3e, 0x08, 0x3e, 0x00, 0x3e, 0x2a, 0x22,
+            0x00, 0x3e, 0x20, 0x20, 0x00, 0x3e, 0x0a, 0x0e
+        ]
     ]
 
     device = get_device()
@@ -27,6 +31,7 @@ def main():
         legacy.text(draw, (0, 0), "\0", fill="white", font=MY_CUSTOM_BITMAP_FONT)
 
     time.sleep(5)
+
 
 if __name__ == "__main__":
     try:
