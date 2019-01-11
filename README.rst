@@ -12,7 +12,7 @@ Luma.Examples
 .. image:: https://travis-ci.org/rm-hull/luma.examples.svg?branch=master
    :target: https://travis-ci.org/rm-hull/luma.examples
 
-.. image:: https://img.shields.io/maintenance/yes/2018.svg?maxAge=2592000
+.. image:: https://img.shields.io/maintenance/yes/2019.svg?maxAge=2592000
 
 This is the companion repo for running examples against the `luma.emulator <https://github.com/rm-hull/luma.emulator>`_,
 `luma.oled <https://github.com/rm-hull/luma.oled>`_, `luma.lcd <https://github.com/rm-hull/luma.lcd>`_ and `luma.led_matrix <https://github.com/rm-hull/luma.led_matrix>`_ display drivers.
