@@ -57,6 +57,7 @@ clock.py                  An analog clockface with date & time
 colors.py                 Color rendering demo
 crawl.py                  A vertical scrolling demo, which should be familiar
 demo.py                   Use misc draw commands to create a simple image
+dotmatrixtool.py          Simple demo showing how to integrate output from http://dotmatrixtool.com
 font_awesome.py           A meander through some awesome fonts
 game_of_life.py           Conway's game of life
 grayscale.py              Greyscale rendering demo
