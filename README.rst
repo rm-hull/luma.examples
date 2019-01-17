@@ -57,6 +57,7 @@ clock.py                  An analog clockface with date & time
 colors.py                 Color rendering demo
 crawl.py                  A vertical scrolling demo, which should be familiar
 demo.py                   Use misc draw commands to create a simple image
+dotmatrixtool.py          Simple demo showing how to integrate output from http://dotmatrixtool.com
 font_awesome.py           A meander through some awesome fonts
 game_of_life.py           Conway's game of life
 grayscale.py              Greyscale rendering demo
@@ -88,55 +89,62 @@ specified on the command line – each program can be invoked with a ``--help``
 flag to show the options::
 
    $ python examples/demo.py --help
-   usage: demo.py [-h] [--config CONFIG] [--display] [--width WIDTH]
-                  [--height HEIGHT] [--rotate] [--interface]
-                  [--i2c-port I2C_PORT] [--i2c-address I2C_ADDRESS]
-                  [--spi-port SPI_PORT] [--spi-device SPI_DEVICE]
-                  [--spi-bus-speed SPI_BUS_SPEED] [--gpio GPIO]
-                  [--gpio-data-command GPIO_DATA_COMMAND]
-                  [--gpio-reset GPIO_RESET] [--gpio-backlight GPIO_BACKLIGHT]
-                  [--block-orientation] [--mode] [--framebuffer] [--bgr]
-                  [--h-offset H_OFFSET] [--v-offset V_OFFSET]
-                  [--backlight-active] [--transform] [--scale SCALE]
-                  [--duration DURATION] [--loop LOOP] [--max-frames MAX_FRAMES]
-
+   usage: 3d_box.py [-h] [--config CONFIG] [--display DISPLAY] [--width WIDTH]
+                 [--height HEIGHT] [--rotate ROTATION] [--interface INTERFACE]
+                 [--i2c-port I2C_PORT] [--i2c-address I2C_ADDRESS]
+                 [--spi-port SPI_PORT] [--spi-device SPI_DEVICE]
+                 [--spi-bus-speed SPI_BUS_SPEED] [--spi-cs-high SPI_CS_HIGH]
+                 [--spi-transfer-size SPI_TRANSFER_SIZE] [--gpio GPIO]
+                 [--gpio-mode GPIO_MODE]
+                 [--gpio-data-command GPIO_DATA_COMMAND]
+                 [--gpio-reset GPIO_RESET] [--gpio-backlight GPIO_BACKLIGHT]
+                 [--block-orientation ORIENTATION] [--mode MODE]
+                 [--framebuffer FRAMEBUFFER] [--bgr] [--h-offset H_OFFSET]
+                 [--v-offset V_OFFSET] [--backlight-active VALUE]
+                 [--transform TRANSFORM] [--scale SCALE] [--duration DURATION]
+                 [--loop LOOP] [--max-frames MAX_FRAMES]
    luma.examples arguments
-
    optional arguments:
      -h, --help            show this help message and exit
-
    General:
      --config CONFIG, -f CONFIG
                            Load configuration settings from a file (default:
                            None)
-     --display , -d        Display type, supports real devices or emulators.
-                           Allowed values are: ssd1306, ssd1322, ssd1325,
-                           ssd1331, ssd1351, sh1106, pcd8544, st7735, ht1621,
-                           uc1701x, max7219, ws2812, neopixel, neosegment,
-                           apa102, capture, gifanim, pygame, asciiart (default:
-                           ssd1306)
+     --display DISPLAY, -d DISPLAY
+                           Display type, supports real devices or emulators.
+                           Allowed values are: ssd1306, ssd1309, ssd1322,
+                           ssd1325, ssd1327, ssd1331, ssd1351, sh1106, pcd8544,
+                           st7735, ht1621, uc1701x, st7567, max7219, ws2812,
+                           neopixel, neosegment, apa102, capture, gifanim,
+                           pygame, asciiart, asciiblock (default: ssd1306)
      --width WIDTH         Width of the device in pixels (default: 128)
      --height HEIGHT       Height of the device in pixels (default: 64)
-     --rotate , -r         Rotation factor. Allowed values are: 0, 1, 2, 3
+     --rotate ROTATION, -r ROTATION
+                           Rotation factor. Allowed values are: 0, 1, 2, 3
                            (default: 0)
-     --interface , -i      Serial interface type. Allowed values are: i2c, spi,
+     --interface INTERFACE, -i INTERFACE
+                           Serial interface type. Allowed values are: i2c, spi,
                            bitbang (default: i2c)
-
    I2C:
      --i2c-port I2C_PORT   I2C bus number (default: 1)
      --i2c-address I2C_ADDRESS
                            I2C display address (default: 0x3C)
-
    SPI:
      --spi-port SPI_PORT   SPI port number (default: 0)
      --spi-device SPI_DEVICE
                            SPI device (default: 0)
      --spi-bus-speed SPI_BUS_SPEED
                            SPI max bus speed (Hz) (default: 8000000)
-
+     --spi-cs-high SPI_CS_HIGH
+                           SPI chip select is high (default: False)
+     --spi-transfer-size SPI_TRANSFER_SIZE
+                           SPI bus max transfer unit (bytes) (default: 4096)
    GPIO:
      --gpio GPIO           Alternative RPi.GPIO compatible implementation (SPI
                            devices only) (default: None)
+     --gpio-mode GPIO_MODE
+                           Alternative pin mapping mode (SPI devices only)
+                           (default: None)
      --gpio-data-command GPIO_DATA_COMMAND
                            GPIO pin for D/C RESET (SPI devices only) (default:
                            24)
@@ -145,13 +153,14 @@ flag to show the options::
      --gpio-backlight GPIO_BACKLIGHT
                            GPIO pin for backlight (PCD8544, ST7735 devices only)
                            (default: 18)
-
    Misc:
-     --block-orientation   Fix 90° phase error (MAX7219 LED matrix only).
-                           Allowed values are: 0, 90, -90, 180 (default: 0)
-     --mode                Colour mode (SSD1322, SSD1325 and emulator only).
+     --block-orientation ORIENTATION
+                           Fix 90° phase error (MAX7219 LED matrix only). Allowed
+                           values are: 0, 90, -90, 180 (default: 0)
+     --mode MODE           Colour mode (SSD1322, SSD1325 and emulator only).
                            Allowed values are: 1, RGB, RGBA (default: RGB)
-     --framebuffer         Framebuffer implementation (SSD1331, SSD1322, ST7735
+     --framebuffer FRAMEBUFFER
+                           Framebuffer implementation (SSD1331, SSD1322, ST7735
                            displays only). Allowed values are: diff_to_previous,
                            full_frame (default: diff_to_previous)
      --bgr                 Set if LCD pixels laid out in BGR (ST7735 displays
@@ -160,12 +169,13 @@ flag to show the options::
                            memory (ST7735 displays only) (default: 0)
      --v-offset V_OFFSET   Vertical offset (in pixels) of screen to display
                            memory (ST7735 displays only) (default: 0)
-     --backlight-active    Set to "low" if LCD backlight is active low, else
+     --backlight-active VALUE
+                           Set to "low" if LCD backlight is active low, else
                            "high" otherwise (PCD8544, ST7735 displays only).
                            Allowed values are: low, high (default: low)
-
    Emulator:
-     --transform           Scaling transform to apply (emulator only). Allowed
+     --transform TRANSFORM
+                           Scaling transform to apply (emulator only). Allowed
                            values are: identity, led_matrix, none, scale2x,
                            seven_segment, smoothscale (default: scale2x)
      --scale SCALE         Scaling factor to apply (emulator only) (default: 2)
@@ -219,7 +229,7 @@ License
 -------
 The MIT License (MIT)
 
-Copyright (c) 2017 Richard Hull & Contributors
+Copyright (c) 2017-2019 Richard Hull & Contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
