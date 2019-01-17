@@ -89,36 +89,34 @@ specified on the command line – each program can be invoked with a ``--help``
 flag to show the options::
 
    $ python examples/demo.py --help
-   usage: demo.py [-h] [--config CONFIG] [--display DISPLAY] [--width WIDTH]
-                  [--height HEIGHT] [--rotate ROTATION] [--interface INTERFACE]
-                  [--i2c-port I2C_PORT] [--i2c-address I2C_ADDRESS]
-                  [--spi-port SPI_PORT] [--spi-device SPI_DEVICE]
-                  [--spi-bus-speed SPI_BUS_SPEED] [--spi-cs-high SPI_CS_HIGH]
-                  [--spi-transfer-size SPI_TRANSFER_SIZE] [--gpio GPIO]
-                  [--gpio-mode GPIO_MODE] [--gpio-data-command GPIO_DATA_COMMAND]
-                  [--gpio-reset GPIO_RESET] [--gpio-backlight GPIO_BACKLIGHT]
-                  [--block-orientation ORIENTATION] [--mode MODE]
-                  [--framebuffer FRAMEBUFFER] [--bgr] [--h-offset H_OFFSET]
-                  [--v-offset V_OFFSET] [--backlight-active VALUE]
-                  [--transform TRANSFORM] [--scale SCALE] [--duration DURATION]
-                  [--loop LOOP] [--max-frames MAX_FRAMES]
-
+   usage: 3d_box.py [-h] [--config CONFIG] [--display DISPLAY] [--width WIDTH]
+                 [--height HEIGHT] [--rotate ROTATION] [--interface INTERFACE]
+                 [--i2c-port I2C_PORT] [--i2c-address I2C_ADDRESS]
+                 [--spi-port SPI_PORT] [--spi-device SPI_DEVICE]
+                 [--spi-bus-speed SPI_BUS_SPEED] [--spi-cs-high SPI_CS_HIGH]
+                 [--spi-transfer-size SPI_TRANSFER_SIZE] [--gpio GPIO]
+                 [--gpio-mode GPIO_MODE]
+                 [--gpio-data-command GPIO_DATA_COMMAND]
+                 [--gpio-reset GPIO_RESET] [--gpio-backlight GPIO_BACKLIGHT]
+                 [--block-orientation ORIENTATION] [--mode MODE]
+                 [--framebuffer FRAMEBUFFER] [--bgr] [--h-offset H_OFFSET]
+                 [--v-offset V_OFFSET] [--backlight-active VALUE]
+                 [--transform TRANSFORM] [--scale SCALE] [--duration DURATION]
+                 [--loop LOOP] [--max-frames MAX_FRAMES]
    luma.examples arguments
-
    optional arguments:
      -h, --help            show this help message and exit
-
    General:
      --config CONFIG, -f CONFIG
                            Load configuration settings from a file (default:
                            None)
      --display DISPLAY, -d DISPLAY
                            Display type, supports real devices or emulators.
-                           Allowed values are: sh1106, ssd1306, ssd1325, ssd1331,
-                           backlight, pcd8544, canvas, max7219, mutable_string,
-                           neopixel, noop, observable, sevensegment, capture,
-                           gifanim, pygame, asciiart, asciiblock (default:
-                           sh1106)
+                           Allowed values are: ssd1306, ssd1309, ssd1322,
+                           ssd1325, ssd1327, ssd1331, ssd1351, sh1106, pcd8544,
+                           st7735, ht1621, uc1701x, st7567, max7219, ws2812,
+                           neopixel, neosegment, apa102, capture, gifanim,
+                           pygame, asciiart, asciiblock (default: ssd1306)
      --width WIDTH         Width of the device in pixels (default: 128)
      --height HEIGHT       Height of the device in pixels (default: 64)
      --rotate ROTATION, -r ROTATION
@@ -127,12 +125,10 @@ flag to show the options::
      --interface INTERFACE, -i INTERFACE
                            Serial interface type. Allowed values are: i2c, spi,
                            bitbang (default: i2c)
-
    I2C:
      --i2c-port I2C_PORT   I2C bus number (default: 1)
      --i2c-address I2C_ADDRESS
                            I2C display address (default: 0x3C)
-
    SPI:
      --spi-port SPI_PORT   SPI port number (default: 0)
      --spi-device SPI_DEVICE
@@ -143,7 +139,6 @@ flag to show the options::
                            SPI chip select is high (default: False)
      --spi-transfer-size SPI_TRANSFER_SIZE
                            SPI bus max transfer unit (bytes) (default: 4096)
-
    GPIO:
      --gpio GPIO           Alternative RPi.GPIO compatible implementation (SPI
                            devices only) (default: None)
@@ -158,11 +153,10 @@ flag to show the options::
      --gpio-backlight GPIO_BACKLIGHT
                            GPIO pin for backlight (PCD8544, ST7735 devices only)
                            (default: 18)
-
    Misc:
      --block-orientation ORIENTATION
-                           Fix 90° phase error (MAX7219 LED matrix only).
-                           Allowed values are: 0, 90, -90, 180 (default: 0)
+                           Fix 90° phase error (MAX7219 LED matrix only). Allowed
+                           values are: 0, 90, -90, 180 (default: 0)
      --mode MODE           Colour mode (SSD1322, SSD1325 and emulator only).
                            Allowed values are: 1, RGB, RGBA (default: RGB)
      --framebuffer FRAMEBUFFER
@@ -179,7 +173,6 @@ flag to show the options::
                            Set to "low" if LCD backlight is active low, else
                            "high" otherwise (PCD8544, ST7735 displays only).
                            Allowed values are: low, high (default: low)
-
    Emulator:
      --transform TRANSFORM
                            Scaling transform to apply (emulator only). Allowed
