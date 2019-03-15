@@ -17,3 +17,4 @@ Contributors
 * Thijs Triemstra (@thijstriemstra)
 * Saumyakanta Sahoo (@somu1795)
 * Michael Svanström (@squeezeday)
+* Tomislav Kopić (@Tkopic001)
