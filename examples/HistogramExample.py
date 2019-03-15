@@ -43,7 +43,7 @@ def main():
     with canvas(device, dither=True) as draw:
         # Vars:
         # Getting system uptime
-        sysUptime = timedelta(seconds = float(open('/proc/uptime', 'r').readline().split()[0]))
+        sysUptime = timedelta(seconds=float(open('/proc/uptime', 'r').readline().split()[0]))
         # RAM bar
         minRamBarH = 15
         maxRamBarH = 25
@@ -85,7 +85,7 @@ def main():
         draw.text(((maxRamBarW - 18), minRamBarH), 'RAM', fill="white")
 
         # System Uptime
-        draw.text((3, 2), "Uptime: " + sysUptime[:7], fill="white")
+        draw.text((3, 2), "Uptime: " + str(sysUptime[:7]), fill="white")
 
         # RAM usage bar
         if ramBarWidth < maxRamBarW:
