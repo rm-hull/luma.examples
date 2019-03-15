@@ -43,9 +43,7 @@ def main():
     with canvas(device, dither=True) as draw:
         # Vars:
         # Getting system uptime
-        with open('/proc/uptime', 'r') as f:
-            uptime_seconds = float(f.readline().split()[0])
-            uptime_string = str(timedelta(seconds = uptime_seconds))
+        sysUptime = timedelta(seconds = float(open('/proc/uptime', 'r').readline().split()[0]))
         # RAM bar
         minRamBarH = 15
         maxRamBarH = 25
@@ -83,11 +81,11 @@ def main():
         # Thermometer outline and legend
         draw.text((105, (maxBarHeight - 1)), 'C', fill="black")
         # RAM bar outline and legend
-        draw.rectangle((minRamBarW, minRamBarH , maxRamBarW, maxRamBarH))
+        draw.rectangle((minRamBarW, minRamBarH, maxRamBarW, maxRamBarH))
         draw.text(((maxRamBarW - 18), minRamBarH), 'RAM', fill="white")
 
         # System Uptime
-        draw.text((3, 2), "Uptime: " + uptime_string[:7], fill="white")
+        draw.text((3, 2), "Uptime: " + sysUptime[:7], fill="white")
 
         # RAM usage bar
         if ramBarWidth < maxRamBarW:
@@ -102,13 +100,13 @@ def main():
         # Historgram
         histogramData.insert(0, histogramHeight)
         for htime in range(0, (len(histogramTime) - 1)):
-                timePlusOne = (htime + 1)
-                if histogramData[0] > maxHistHeight:
-                    draw.line((histogramTime[timePlusOne], histogramData[timePlusOne], histogramTime[htime], histogramData[htime]), fill="orange")
-                else:
-                    histogramData[0] = maxHistHeight
-                    draw.text((((minHistLenght + maxHistLenght) / 2), ((maxHistHeight + minHistHeight) / 2)), "WARNING!", fill="white")
-                    draw.line((histogramTime[timePlusOne], histogramData[timePlusOne], histogramTime[htime], histogramData[htime]), fill="orange")
+            timePlusOne = (htime + 1)
+            if histogramData[0] > maxHistHeight:
+                draw.line((histogramTime[timePlusOne], histogramData[timePlusOne], histogramTime[htime], histogramData[htime]), fill="orange")
+            else:
+                histogramData[0] = maxHistHeight
+                draw.text((((minHistLenght + maxHistLenght) / 2), ((maxHistHeight + minHistHeight) / 2)), "WARNING!", fill="white")
+                draw.line((histogramTime[timePlusOne], histogramData[timePlusOne], histogramTime[htime], histogramData[htime]), fill="orange")
         histogramData.pop((len(histogramTime) - 1))
         draw.rectangle((minHistLenght, maxHistHeight, (minHistLenght + 27), (maxHistHeight + 13)), fill="black", outline="white")
         draw.text(((minHistLenght + 2), (maxHistHeight + 2)), str(cpuLoad[0]), fill="white")
