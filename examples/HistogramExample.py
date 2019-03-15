@@ -5,6 +5,7 @@ from luma.core.interface.serial import i2c
 from luma.core.render import canvas
 from luma.oled.device import ssd1306
 import os
+import multiprocessing
 import time
 import psutil
 from datetime import timedelta
@@ -66,7 +67,7 @@ def main():
                 height= ((((100 - tmpPercent) * (minBarHeight - maxBarHeight)) / 100) + (maxBarHeight))
                 #Histogram graph
                 cpuLoad= os.getloadavg()
-                cpuPercent= ((cpuLoad[0] / 4) * 100)
+                cpuPercent= ((cpuLoad[0] / multiprocessing.cpu_count()) * 100)
                 minHistHeight=60
                 maxHistHeight=30
                 minHistLenght=3
