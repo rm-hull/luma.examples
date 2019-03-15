@@ -85,7 +85,7 @@ def main():
         draw.text(((maxRamBarW - 18), minRamBarH), 'RAM', fill="white")
 
         # System Uptime
-        draw.text((3, 2), "Uptime: " + str(sysUptime[:7]), fill="white")
+        draw.text((3, 2), "Uptime: " + str(sysUptime)[:7], fill="white")
 
         # RAM usage bar
         if ramBarWidth < maxRamBarW:
