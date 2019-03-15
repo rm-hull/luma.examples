@@ -43,7 +43,8 @@ def main():
     with canvas(device, dither=True) as draw:
         # Vars:
         # Getting system uptime
-        sysUptime = timedelta(seconds=float(open('/proc/uptime', 'r').readline().split()[0]))
+        with open('/proc/uptime', 'r') as rd:
+            sysUptime = timedelta(seconds=float(rd.readline().split()[0]))
         # RAM bar
         minRamBarH = 15
         maxRamBarH = 25
