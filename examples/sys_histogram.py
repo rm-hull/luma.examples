@@ -1,86 +1,100 @@
-# This is a simple system monitor that shows you CPU load histogram among other usefull stuff
-from luma.core.interface.serial import i2c
-from luma.core.render import canvas
-from luma.oled.device import ssd1306
-from datetime import timedelta
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# Copyright (c) 2019 Richard Hull and contributors
+# See LICENSE.rst for details.
+# PYTHON_ARGCOMPLETE_OK
+
 import os
 import multiprocessing
 import time
 import psutil
+from datetime import datetime, timedelta
 
-# Setting up the screen
-serial = i2c(port=0, address=0x3C)
-device = ssd1306(serial)
+from demo_opts import get_device
+from luma.core.render import canvas
 
 # Longer refresh rate the more history is shown
 # If you set this to e.x. 30 sec you will get about 25 minutes of history on the graph
-refresh = 1
+REFRESH_INTERVAL = 1
 
 # FlipFlop blink variable
 blnk = 1
 
-# HistogramSettings
-histogramResolution = 100
-histogramTime = []
-histogramData = []
-x = 106
-# Filling up the arrays for the histogram
-for pix in range(0, histogramResolution):
-    x -= 2
-    if x > 2:
-        histogramTime.append(x)
 
-for timeLen in range(0, len(histogramTime)):
-    histogramData.append(60)
+def init_histogram():
+    # HistogramSettings
+    histogramResolution = 100
+    histogramTime = []
+    histogramData = []
+    x = 106
+    # Filling up the arrays for the histogram
+    for pix in range(0, histogramResolution):
+        x -= 2
+        if x > 2:
+            histogramTime.append(x)
+
+    for timeLen in range(0, len(histogramTime)):
+        histogramData.append(60)
+
+    return histogramData, histogramTime
 
 
-def main():
+def main(device, histogramData, histogramTime):
     # Importing some global vars
     global blnk
-    global histogramData
-    global histogramTime
+
+    # Vars:
+    # Getting system uptime
+    sysUptime = datetime.now() - datetime.fromtimestamp(psutil.boot_time())
+
+    # RAM bar
+    minRamBarH = 15
+    maxRamBarH = 25
+    minRamBarW = 3
+    maxRamBarW = 105
+    ramStat = psutil.virtual_memory()
+    ramTot = (ramStat.total >> 20)
+    ramUsd = (ramStat.used >> 20)
+    ramPerc = ((ramUsd / ramTot) * 100)
+    ramBarWidth = ((((100 - ramPerc) * (minRamBarW - maxRamBarW)) / 100) + maxRamBarW)
+
+    # Temp bar
+    minBarHeight = 60
+    maxBarHeight = 3
+    try:
+        with open("/sys/class/thermal/thermal_zone0/temp", "r") as temp:
+            tmpCel = int(temp.read()[:2])
+            tmpPercent = ((tmpCel / 55) * 100)
+
+            height = ((((100 - tmpPercent) * (minBarHeight - maxBarHeight)) / 100) + maxBarHeight)
+    except:
+        tmpCel = 0
+        height = 0
+
+    # Histogram graph
+    cpuLoad = os.getloadavg()
+    cpuPercent = ((cpuLoad[0] / multiprocessing.cpu_count()) * 100)
+    minHistHeight = 60
+    maxHistHeight = 30
+    minHistLenght = 3
+    maxHistLenght = 105
+    histogramHeight = ((((100 - cpuPercent) * (minHistHeight - maxHistHeight)) / 100) + maxHistHeight)
+
     # Starting the canvas for the screen
     with canvas(device, dither=True) as draw:
-        # Vars:
-        # Getting system uptime
-        with open('/proc/uptime', 'r') as rd:
-            sysUptime = timedelta(seconds=float(rd.readline().split()[0]))
-        # RAM bar
-        minRamBarH = 15
-        maxRamBarH = 25
-        minRamBarW = 3
-        maxRamBarW = 105
-        ramStat = psutil.virtual_memory()
-        ramTot = (ramStat.total >> 20)
-        ramUsd = (ramStat.used >> 20)
-        ramPerc = ((ramUsd / ramTot) * 100)
-        ramBarWidth = ((((100 - ramPerc) * (minRamBarW - maxRamBarW)) / 100) + maxRamBarW)
-        # Temp bar
-        temp = open("/sys/class/thermal/thermal_zone0/temp", "r")
-        tmpCel = int(temp.read()[:2])
-        tmpPercent = ((tmpCel / 55) * 100)
-        minBarHeight = 60
-        maxBarHeight = 3
-        height = ((((100 - tmpPercent) * (minBarHeight - maxBarHeight)) / 100) + maxBarHeight)
-        # Histogram graph
-        cpuLoad = os.getloadavg()
-        cpuPercent = ((cpuLoad[0] / multiprocessing.cpu_count()) * 100)
-        minHistHeight = 60
-        maxHistHeight = 30
-        minHistLenght = 3
-        maxHistLenght = 105
-        histogramHeight = ((((100 - cpuPercent) * (minHistHeight - maxHistHeight)) / 100) + maxHistHeight)
-
         # Print
         # Drawing the outlines and legends:
         # Main Outline
         draw.rectangle(device.bounding_box, outline="white")
+
         # Histogram Outline
         draw.rectangle((minHistLenght, maxHistHeight, maxHistLenght, minHistHeight), outline="white")
         draw.rectangle((110, maxBarHeight, 124, minBarHeight), outline="white")
         draw.rectangle((104, maxBarHeight, 110, (maxBarHeight + 8)), fill="white")
+
         # Thermometer outline and legend
         draw.text((105, (maxBarHeight - 1)), 'C', fill="black")
+
         # RAM bar outline and legend
         draw.rectangle((minRamBarW, minRamBarH, maxRamBarW, maxRamBarH))
         draw.text(((maxRamBarW - 18), minRamBarH), 'RAM', fill="white")
@@ -108,9 +122,10 @@ def main():
                 histogramData[0] = maxHistHeight
                 draw.text((((minHistLenght + maxHistLenght) / 2), ((maxHistHeight + minHistHeight) / 2)), "WARNING!", fill="white")
                 draw.line((histogramTime[timePlusOne], histogramData[timePlusOne], histogramTime[htime], histogramData[htime]), fill="orange")
+
         histogramData.pop((len(histogramTime) - 1))
         draw.rectangle((minHistLenght, maxHistHeight, (minHistLenght + 27), (maxHistHeight + 13)), fill="black", outline="white")
-        draw.text(((minHistLenght + 2), (maxHistHeight + 2)), str(cpuLoad[0]), fill="white")
+        draw.text(((minHistLenght + 2), (maxHistHeight + 2)), "{0:.2f}".format(cpuLoad[0]), fill="white")
 
         # CPU Temperature
         if height > maxBarHeight:
@@ -130,7 +145,9 @@ def main():
                 blnk = 1
 
 
-# Infinite loop
-while True:
-    main()
-    time.sleep(refresh)
+if __name__ == "__main__":
+    device = get_device()
+    histogramData, histogramTime = init_histogram()
+    while True:
+        main(device, histogramData, histogramTime)
+        time.sleep(REFRESH_INTERVAL)
