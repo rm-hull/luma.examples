@@ -8,7 +8,7 @@ import os
 import multiprocessing
 import time
 import psutil
-from datetime import datetime, timedelta
+from datetime import datetime
 
 from demo_opts import get_device
 from luma.core.render import canvas
