@@ -53,32 +53,32 @@ def main(device, histogramData, histogramTime):
     minRamBarW = 3
     maxRamBarW = 105
     ramStat = psutil.virtual_memory()
-    ramTot = (ramStat.total >> 20)
-    ramUsd = (ramStat.used >> 20)
-    ramPerc = ((ramUsd / ramTot) * 100)
-    ramBarWidth = ((((100 - ramPerc) * (minRamBarW - maxRamBarW)) / 100) + maxRamBarW)
+    ramTot = ramStat.total >> 20
+    ramUsd = ramStat.used >> 20
+    ramPerc = (ramUsd / ramTot) * 100
+    ramBarWidth = (((100 - ramPerc) * (minRamBarW - maxRamBarW)) / 100) + maxRamBarW
 
     # Temp bar
-    minBarHeight = 60
-    maxBarHeight = 3
+    maxBarHeight = 60
+    minBarHeight = 3
     try:
         with open("/sys/class/thermal/thermal_zone0/temp", "r") as temp:
             tmpCel = int(temp.read()[:2])
-            tmpPercent = ((tmpCel / 55) * 100)
+            tmpPercent = (tmpCel / 55) * 100
 
-            height = ((((100 - tmpPercent) * (minBarHeight - maxBarHeight)) / 100) + maxBarHeight)
+            height = (((100 - tmpPercent) * (maxBarHeight - minBarHeight)) / 100) + minBarHeight
     except:
         tmpCel = 0
         height = 0
 
     # Histogram graph
     cpuLoad = os.getloadavg()
-    cpuPercent = ((cpuLoad[0] / multiprocessing.cpu_count()) * 100)
+    cpuPercent = (cpuLoad[0] / multiprocessing.cpu_count()) * 100
     minHistHeight = 60
     maxHistHeight = 30
     minHistLenght = 3
     maxHistLenght = 105
-    histogramHeight = ((((100 - cpuPercent) * (minHistHeight - maxHistHeight)) / 100) + maxHistHeight)
+    histogramHeight = (((100 - cpuPercent) * (minHistHeight - maxHistHeight)) / 100) + maxHistHeight
 
     # Starting the canvas for the screen
     with canvas(device, dither=True) as draw:
@@ -89,15 +89,15 @@ def main(device, histogramData, histogramTime):
 
         # Histogram Outline
         draw.rectangle((minHistLenght, maxHistHeight, maxHistLenght, minHistHeight), outline="white")
-        draw.rectangle((110, maxBarHeight, 124, minBarHeight), outline="white")
-        draw.rectangle((104, maxBarHeight, 110, (maxBarHeight + 8)), fill="white")
+        draw.rectangle((110, minBarHeight, 124, maxBarHeight), outline="white")
+        draw.rectangle((104, minBarHeight, 110, minBarHeight + 8), fill="white")
 
         # Thermometer outline and legend
-        draw.text((105, (maxBarHeight - 1)), 'C', fill="black")
+        draw.text((105, minBarHeight - 1), 'C', fill="black")
 
         # RAM bar outline and legend
         draw.rectangle((minRamBarW, minRamBarH, maxRamBarW, maxRamBarH))
-        draw.text(((maxRamBarW - 18), minRamBarH), 'RAM', fill="white")
+        draw.text((maxRamBarW - 18, minRamBarH), 'RAM', fill="white")
 
         # System Uptime
         draw.text((3, 2), "Uptime: " + str(sysUptime)[:7], fill="white")
@@ -106,42 +106,42 @@ def main(device, histogramData, histogramTime):
         if ramBarWidth < maxRamBarW:
             draw.rectangle((minRamBarW, minRamBarH, ramBarWidth, maxRamBarH), fill="white")
             if ramUsd < 100:
-                draw.text(((ramBarWidth - 11), minRamBarH), str(ramUsd), fill="black")
+                draw.text((ramBarWidth - 11, minRamBarH), str(ramUsd), fill="black")
             else:
-                draw.text(((ramBarWidth - 17), minRamBarH), str(ramUsd), fill="black")
+                draw.text((ramBarWidth - 17, minRamBarH), str(ramUsd), fill="black")
         else:
             draw.rectangle((minRamBarW, minRamBarH, maxRamBarW, maxRamBarH), fill="red")
 
         # Historgram
         histogramData.insert(0, histogramHeight)
-        for htime in range(0, (len(histogramTime) - 1)):
-            timePlusOne = (htime + 1)
+        for htime in range(0, len(histogramTime) - 1):
+            timePlusOne = htime + 1
             if histogramData[0] > maxHistHeight:
                 draw.line((histogramTime[timePlusOne], histogramData[timePlusOne], histogramTime[htime], histogramData[htime]), fill="orange")
             else:
                 histogramData[0] = maxHistHeight
-                draw.text((((minHistLenght + maxHistLenght) / 2), ((maxHistHeight + minHistHeight) / 2)), "WARNING!", fill="white")
+                draw.text(((minHistLenght + maxHistLenght) / 2, (maxHistHeight + minHistHeight) / 2), "WARNING!", fill="white")
                 draw.line((histogramTime[timePlusOne], histogramData[timePlusOne], histogramTime[htime], histogramData[htime]), fill="orange")
 
-        histogramData.pop((len(histogramTime) - 1))
-        draw.rectangle((minHistLenght, maxHistHeight, (minHistLenght + 27), (maxHistHeight + 13)), fill="black", outline="white")
-        draw.text(((minHistLenght + 2), (maxHistHeight + 2)), "{0:.2f}".format(cpuLoad[0]), fill="white")
+        histogramData.pop(len(histogramTime) - 1)
+        draw.rectangle((minHistLenght, maxHistHeight, minHistLenght + 27, maxHistHeight + 13), fill="black", outline="white")
+        draw.text((minHistLenght + 2, maxHistHeight + 2), "{0:.2f}".format(cpuLoad[0]), fill="white")
 
         # CPU Temperature
-        if height > maxBarHeight:
-            draw.rectangle((112, height, 122, minBarHeight), fill="gray")
-            draw.rectangle((110, height, 124, (height + 10)), fill="white")
+        if height > minBarHeight:
+            draw.rectangle((112, height, 122, maxBarHeight), fill="gray")
+            draw.rectangle((110, height, 124, height + 10), fill="white")
             draw.text((112, height), str(tmpCel), fill="black")
         else:
-            draw.rectangle((110, maxBarHeight, 124, minBarHeight), outline="white")
+            draw.rectangle((110, minBarHeight, 124, maxBarHeight), outline="white")
             if blnk == 1:
-                draw.rectangle((112, maxBarHeight, 122, minBarHeight), fill="gray")
-                draw.rectangle((110, maxBarHeight, 124, (maxBarHeight + 10)), fill="white")
-                draw.text((112, maxBarHeight), str(tmpCel), fill="black")
+                draw.rectangle((112, minBarHeight, 122, maxBarHeight), fill="gray")
+                draw.rectangle((110, minBarHeight, 124, minBarHeight + 10), fill="white")
+                draw.text((112, minBarHeight), str(tmpCel), fill="black")
                 blnk = 0
             else:
-                draw.rectangle((110, maxBarHeight, 124, (maxBarHeight + 10)), fill="black", outline="white")
-                draw.text((112, maxBarHeight), str(tmpCel), fill="white")
+                draw.rectangle((110, minBarHeight, 124, minBarHeight + 10), fill="black", outline="white")
+                draw.text((112, minBarHeight), str(tmpCel), fill="white")
                 blnk = 1
 
 
