@@ -74,6 +74,7 @@ savepoint.py              Example of savepoint/restore functionality
 scrolling_pixelart.py     Image dithering and viewport scrolling
 sprite_animation.py       Using sprite maps for animation effects
 starfield.py              3D starfield simulation
+sys_histogram.py          Display system information including a rolling histogram
 sys_info.py               Display basic system information
 terminal.py               Simple println capabilities
 tv_snow.py                Example image-blitting
