@@ -46,7 +46,7 @@ class Synchroniser():
         self.synchronised[id(task)] = True
 
     def is_synchronised(self):
-        for task in self.synchronised.iteritems():
+        for task in self.synchronised.items():
             if task[1] is False:
                 return False
         return True
