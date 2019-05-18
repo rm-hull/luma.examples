@@ -119,7 +119,7 @@ def test_get_device_led_matrix_all(capsys):
     """
     for display in cmdline.get_display_types().get('led_matrix'):
         try:
-            get_device(['--display', display])
+            get_device(['--display', display, '--interface', 'spi'])
         except SystemExit:
             assertInError('SPI device not found', capsys)
         except ImportError as e:
