@@ -64,6 +64,7 @@ grayscale.py              Greyscale rendering demo
 image_composition.py      Displays different song titles and scrolls them back and forth
 invaders.py               Space Invaders demo
 jetset_willy.py           Sprite animation framework demo
+matrix.py                 The Matrix
 maze.py                   Maze generator
 perfloop.py               Simple benchmarking utility to measure performance
 picamera_photo.py         Capture photo with picamera and display it on a screen
