@@ -11,7 +11,6 @@ Adapted from:
 https://github.com/pimoroni/unicorn-hat-hd/blob/master/examples/matrix-hd.py
 """
 
-import time
 from random import randint, gauss
 from demo_opts import get_device
 from luma.core.render import canvas
