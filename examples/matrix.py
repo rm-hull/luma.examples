@@ -48,7 +48,7 @@ def matrix(device):
     while True:
         clock += 1
         with regulator:
-            with canvas(device) as draw:
+            with canvas(device, dither=True) as draw:
                 for person in blue_pilled_population:
                     x, y, speed = person
                     for rgb in wrd_rgb:

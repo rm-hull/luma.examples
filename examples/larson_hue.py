@@ -38,7 +38,7 @@ def main():
             # Now we generate a value from 0 to 7
             offset = int(round(offset * device.width))
 
-            with canvas(device) as draw:
+            with canvas(device, dither=True) as draw:
                 for x in range(device.width):
                     sat = 1.0
 
