@@ -63,6 +63,25 @@ def main():
 
         time.sleep(5)
 
+        # Gradient
+        with canvas(device, dither=True) as draw:
+            for y in range(device.height):
+                for x in range(device.width):
+                    r = int(min(x / (device.width / 256), 255))
+                    g = int(min(y / (device.height / 256), 255))
+                    b = 0
+                    draw.point((x, y), fill=(r, g, b))
+
+            size = draw.textsize("gradient")
+            left = (device.width - size[0]) // 2
+            top = (device.height - size[1]) // 2
+            right = left + size[0]
+            bottom = top + size[1]
+            draw.rectangle((left - 1, top, right, bottom), fill="black")
+            draw.text((left, top), text="gradient", fill="white")
+
+        time.sleep(5)
+
         # Random blocks
         w = device.width // 12
         h = device.height // 8
