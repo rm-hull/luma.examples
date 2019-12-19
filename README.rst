@@ -41,7 +41,8 @@ Running the examples
 After cloning the repository, enter the ``examples`` directory and try running
 one of the following examples listed below. For example::
 
-  python examples/3d_box.py
+  cd examples
+  python 3d_box.py
 
 ========================= ================================================================
 Example                   Description
