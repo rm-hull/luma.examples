@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2014-18 Richard Hull and contributors
+# Copyright (c) 2014-2020 Richard Hull and contributors
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
@@ -107,7 +107,7 @@ else:
 
 try:
     stream = tweepy.Stream(auth=api.auth, listener=listener(queue))
-    stream.filter(track=search_terms, async=True)  # noqa: W606
+    stream.filter(track=search_terms, is_async=True)  # noqa: W606
 
     try:
         while True:
