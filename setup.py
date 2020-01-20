@@ -47,7 +47,7 @@ setup(
     install_requires=[
         "luma.core>=1.8.0",
         "luma.emulator>=1.0.2",
-        "luma.oled>=3.1.0",
+        "luma.oled>=3.4.0",
         "luma.lcd>=1.0.3",
         "luma.led_matrix>=1.0.7",
         "argcomplete"
