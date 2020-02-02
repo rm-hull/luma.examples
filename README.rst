@@ -61,7 +61,7 @@ demo.py                   Use misc draw commands to create a simple image
 dotmatrixtool.py          Simple demo showing how to integrate output from http://dotmatrixtool.com
 font_awesome.py           A meander through some awesome fonts
 game_of_life.py           Conway's game of life
-grayscale.py              Greyscale rendering demo
+greyscale.py              Greyscale rendering demo
 image_composition.py      Displays different song titles and scrolls them back and forth
 invaders.py               Space Invaders demo
 jetset_willy.py           Sprite animation framework demo
