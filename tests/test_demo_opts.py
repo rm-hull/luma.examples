@@ -10,11 +10,7 @@ Tests for the :py:mod:`demo_opts` module.
 import os
 import sys
 
-try:
-    from unittest.mock import patch, Mock
-except ImportError:
-    from mock import patch, Mock
-
+from unittest.mock import patch, Mock
 import pytest
 
 import luma.emulator.device

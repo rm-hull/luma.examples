@@ -30,7 +30,6 @@ README = read_file("README.rst")
 needs_pytest = {'pytest', 'test', 'ptr'}.intersection(sys.argv)
 pytest_runner = ['pytest-runner'] if needs_pytest else []
 test_deps = [
-    'mock;python_version<"3.3"',
     "pytest>=3.1",
     "pytest-cov"
 ]
@@ -72,11 +71,10 @@ setup(
         "Topic :: Education",
         "Topic :: System :: Hardware",
         "Topic :: System :: Hardware :: Hardware Drivers",
-        "Programming Language :: Python :: 2",
-        "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
-        "Programming Language :: Python :: 3.6"
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8"
     ]
 )
