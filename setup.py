@@ -44,11 +44,11 @@ setup(
     keywords="raspberry orange banana pi rpi opi sbc oled lcd led display screen spi i2c",
     url="https://github.com/rm-hull/luma.examples",
     install_requires=[
-        "luma.core>=1.8.0",
-        "luma.emulator>=1.0.2",
-        "luma.oled>=3.4.0",
-        "luma.lcd>=1.0.3",
-        "luma.led_matrix>=1.0.7",
+        "luma.core>=1.14.0",
+        "luma.emulator>=1.3.0",
+        "luma.oled>=3.5.0",
+        "luma.lcd>=2.4.0",
+        "luma.led_matrix>=1.5.0",
         "argcomplete"
     ],
     setup_requires=pytest_runner,
