@@ -1,0 +1,19 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+"autopep8" = "*"
+rope = "*"
+flake8 = "*"
+
+[packages]
+luma-oled = "*"
+luma-lcd = "*"
+luma-led_matrix = "*"
+luma-emulator = "*"
+luma-core = ">=1.17.0"
+
+[requires]
+python_version = "3.8"
