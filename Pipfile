@@ -13,7 +13,7 @@ luma-oled = "*"
 luma-lcd = "*"
 luma-led_matrix = "*"
 luma-emulator = "*"
-luma-core = ">=1.17.0"
+luma-core = ">=1.17.1"
 
 [requires]
 python_version = "3.8"
