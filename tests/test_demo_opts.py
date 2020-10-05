@@ -37,11 +37,13 @@ def test_display_settings():
     """
     display_name = 'Awesome display'
 
+    class Device:
+        width = 120
+        height = 80
+
     class DisplaySettingsConfig(object):
         display = display_name
         interface = 'USB'
-        width = 120
-        height = 80
 
     with patch('luma.core.cmdline.get_display_types') as mocka:
         mocka.return_value = {
@@ -53,7 +55,7 @@ def test_display_settings():
         luma_fake_lib.__version__ = '1.2.3'
         with patch.dict('sys.modules', {'luma.superhdscreenz': luma_fake_lib}):
 
-            result = display_settings(DisplaySettingsConfig())
+            result = display_settings(Device(), DisplaySettingsConfig())
 
             assert result == """Version: luma.superhdscreenz 1.2.3 (luma.core 4.5.6)
 Display: Awesome display
