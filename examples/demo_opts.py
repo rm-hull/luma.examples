@@ -17,7 +17,7 @@ logging.basicConfig(
 logging.getLogger('PIL').setLevel(logging.ERROR)
 
 
-def display_settings(args):
+def display_settings(device, args):
     """
     Display a short summary of the settings.
 
@@ -39,7 +39,7 @@ def display_settings(args):
         lib_name, lib_version, luma.core.__version__)
 
     return 'Version: {}\nDisplay: {}\n{}Dimensions: {} x {}\n{}'.format(
-        version, args.display, iface, args.width, args.height, '-' * 60)
+        version, args.display, iface, device.width, device.height, '-' * 60)
 
 
 def get_device(actual_args=None):
@@ -56,12 +56,12 @@ def get_device(actual_args=None):
         config = cmdline.load_config(args.config)
         args = parser.parse_args(config + actual_args)
 
-    print(display_settings(args))
-
     # create device
     try:
         device = cmdline.create_device(args)
+        print(display_settings(device, args))
+        return device
+
     except error.Error as e:
         parser.error(e)
-
-    return device
+        return None
