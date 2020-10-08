@@ -18,21 +18,19 @@
     "default": {
         "cbor2": {
             "hashes": [
-                "sha256:91759bd0ee5ef0d4fa24144dfa551670730baeca8cf2fff1cc59f734ecd21de6"
+                "sha256:a33aa2e5534fd74401ac95686886e655e3b2ce6383b3f958199b6e70a87c94bf"
             ],
-            "version": "==5.1.2"
+            "version": "==5.2.0"
         },
         "deprecated": {
             "hashes": [
                 "sha256:525ba66fb5f90b07169fdd48b6373c18f1ee12728ca277ca44567a367d9d7f74",
                 "sha256:a766c1dccb30c5f6eb2b203f87edd1d8588847709c78589e1521d769addc8218"
             ],
-            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
             "version": "==1.2.10"
         },
         "luma-core": {
             "hashes": [
-                "sha256:b4a9f934f4dbf9b1d5c74259f871b4187aaa754b139964153f7702badaaccffd",
                 "sha256:db47ded88f405da960493fed4449b61a52703a175457bd7ffe897fb3573dab31"
             ],
             "index": "pypi",
@@ -40,7 +38,6 @@
         },
         "luma-emulator": {
             "hashes": [
-                "sha256:8329c940173186848217391f16224a5d531a5762ed4058375526c0666817143d",
                 "sha256:a00f22b5d3b072395107097ffdb10ae66791fdc44920bbf04ba90be4e91d7ecb"
             ],
             "index": "pypi",
@@ -48,7 +45,6 @@
         },
         "luma-lcd": {
             "hashes": [
-                "sha256:7a05b31d2d1687e14e9fae3114ec8c4239cbfa51690c9519b32b57a92c09c5da",
                 "sha256:f8024c0c820dc0d79b7377b6ea97cc91b768056a5f6eca089adfb1b9ab5e0c77"
             ],
             "index": "pypi",
@@ -56,16 +52,14 @@
         },
         "luma-led-matrix": {
             "hashes": [
-                "sha256:9527f8a9083b27682ab0250d40a539c46d48f62ee3016ddf4b06c93469e9a0e8",
-                "sha256:ae7010cfa0c6fdda07161157c217394083827f9b9af56cce8c8a0f9813fc891a"
+                "sha256:9527f8a9083b27682ab0250d40a539c46d48f62ee3016ddf4b06c93469e9a0e8"
             ],
             "index": "pypi",
             "version": "==1.5.0"
         },
         "luma-oled": {
             "hashes": [
-                "sha256:9f5cacd4137e1d8f2de4ee5e4251ca2812965981d0816ef99b291388bd61cf59",
-                "sha256:dbd8ebce1c0b10feabb725b321d4a7f9f7353fe16878c8145ca332a173c193c9"
+                "sha256:9f5cacd4137e1d8f2de4ee5e4251ca2812965981d0816ef99b291388bd61cf59"
             ],
             "index": "pypi",
             "version": "==3.6.0"
@@ -75,7 +69,6 @@
                 "sha256:b4a9f934f4dbf9b1d5c74259f871b4187aaa754b139964153f7702badaaccffd",
                 "sha256:db47ded88f405da960493fed4449b61a52703a175457bd7ffe897fb3573dab31"
             ],
-            "index": "pypi",
             "version": "==1.17.1"
         },
         "pillow": {
@@ -109,7 +102,6 @@
                 "sha256:f7e30c27477dffc3e85c2463b3e649f751789e0f6c8456099eea7ddd53be4a8a",
                 "sha256:ffe538682dc19cc542ae7c3e504fdf54ca7f86fb8a135e59dd6bc8627eae6cce"
             ],
-            "markers": "python_version >= '3.5'",
             "version": "==7.2.0"
         },
         "pyftdi": {
@@ -117,7 +109,6 @@
                 "sha256:5f591cefc87c89177798b53c70914fadff54717433afc9ccb50213d053e87ee6",
                 "sha256:f26d61fe14a3d089ea7700e774501c52ce3312f3522763a407cd33988124bd5e"
             ],
-            "markers": "python_version >= '3.5'",
             "version": "==0.52.0"
         },
         "pygame": {
@@ -164,11 +155,25 @@
             ],
             "version": "==1.1.0"
         },
+        "rpi.gpio": {
+            "hashes": [
+                "sha256:7424bc6c205466764f30f666c18187a0824077daf20b295c42f08aea2cb87d3f"
+            ],
+            "markers": "platform_system == 'Linux'",
+            "version": "==0.7.0"
+        },
         "smbus2": {
             "hashes": [
                 "sha256:210e66eebe4d0b1fe836b3ec2751841942e1c4918c0b429b20a0e20a222228b4"
             ],
             "version": "==0.3.0"
+        },
+        "spidev": {
+            "hashes": [
+                "sha256:4314e52f573d95233c907f307558893313a8a606e197e77bb711526b0e179e80"
+            ],
+            "markers": "platform_system == 'Linux'",
+            "version": "==3.4"
         },
         "wrapt": {
             "hashes": [
@@ -187,11 +192,11 @@
         },
         "flake8": {
             "hashes": [
-                "sha256:15e351d19611c887e482fb960eae4d44845013cc142d42896e9862f775d8cf5c",
-                "sha256:f04b9fcbac03b0a3e58c0ab3a0ecc462e023a9faf046d57794184028123aa208"
+                "sha256:749dbbd6bfd0cf1318af27bf97a14e28e5ff548ef8e5b1566ccfb25a11e7c839",
+                "sha256:aadae8761ec651813c24be05c6f7b4680857ef6afaae4651a4eccaef97ce6c3b"
             ],
             "index": "pypi",
-            "version": "==3.8.3"
+            "version": "==3.8.4"
         },
         "mccabe": {
             "hashes": [
@@ -205,7 +210,6 @@
                 "sha256:2295e7b2f6b5bd100585ebcb1f616591b652db8a741695b3d8f5d28bdc934367",
                 "sha256:c58a7d2815e0e8d7972bf1803331fb0152f867bd89adf8a01dfd55085434192e"
             ],
-            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
             "version": "==2.6.0"
         },
         "pyflakes": {
@@ -213,7 +217,6 @@
                 "sha256:0d94e0e05a19e57a99444b6ddcf9a6eb2e5c68d3ca1e98e90707af8152c90a92",
                 "sha256:35b2d75ee967ea93b55750aa9edbbf72813e06a66ba54438df2cfac9e3c27fc8"
             ],
-            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
             "version": "==2.2.0"
         },
         "rope": {
