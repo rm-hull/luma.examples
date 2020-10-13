@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2017-18 Richard Hull and contributors
+# Copyright (c) 2017-2020 Richard Hull and contributors
 # See LICENSE.rst for details.
 
 """
 Tests for the :py:mod:`demo_opts` module.
 """
 
-import os
 import sys
+from pathlib import Path
 
 from unittest.mock import patch, Mock
 import pytest
@@ -18,8 +18,7 @@ import luma.emulator.device
 from demo_opts import display_settings, get_device, cmdline
 
 
-test_config_file = os.path.join(os.path.dirname(__file__),
-    'resources', 'config-test.txt')
+test_config_file = str(Path(__file__).resolve().parent.joinpath('resources', 'config-test.txt'))
 
 
 def assertInError(msg, capsys):

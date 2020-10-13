@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2014-18 Richard Hull and contributors
+# Copyright (c) 2014-2020 Richard Hull and contributors
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
@@ -16,6 +16,7 @@ Needs psutil (+ dependencies) installed::
 import os
 import sys
 import time
+from pathlib import Path
 from datetime import datetime
 
 if os.name != 'posix':
@@ -82,8 +83,7 @@ def network(iface):
 
 def stats(device):
     # use custom font
-    font_path = os.path.abspath(os.path.join(os.path.dirname(__file__),
-                                'fonts', 'C&C Red Alert [INET].ttf'))
+    font_path = str(Path(__file__).resolve().parent.joinpath('fonts', 'C&C Red Alert [INET].ttf'))
     font2 = ImageFont.truetype(font_path, 12)
 
     with canvas(device) as draw:

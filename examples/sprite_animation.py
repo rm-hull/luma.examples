@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2014-18 Richard Hull and contributors
+# Copyright (c) 2014-2020 Richard Hull and contributors
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
@@ -9,14 +9,13 @@ Sprite animation
 """
 
 import time
-import os.path
+from pathlib import Path
 from demo_opts import get_device
 from PIL import Image
 
 
 def mickey():
-    img_path = os.path.abspath(os.path.join(os.path.dirname(__file__),
-        'images', 'mickey-sprite.png'))
+    img_path = str(Path(__file__).resolve().parent.joinpath('images', 'mickey-sprite.png'))
     spritemap = Image.open(img_path).convert("RGBA")
 
     background = Image.new("RGBA", device.size, "black")
@@ -43,8 +42,7 @@ def mickey():
 
 
 def explosion():
-    img_path = os.path.abspath(os.path.join(os.path.dirname(__file__),
-        'images', 'explosion.png'))
+    img_path = str(Path(__file__).resolve().parent.joinpath('images', 'explosion.png'))
     spritemap = Image.open(img_path).convert("RGBA")
 
     background = Image.new("RGBA", device.size, "black")

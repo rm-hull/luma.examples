@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2017-18 Richard Hull and contributors
+# Copyright (c) 2017-2020 Richard Hull and contributors
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
@@ -11,7 +11,7 @@ from @pixel_dailies twitter feed.
 
 import time
 import random
-import os.path
+from pathlib import Path
 from demo_opts import get_device
 from luma.core.virtual import viewport
 from PIL import Image
@@ -65,8 +65,7 @@ def main():
     ]
 
     while True:
-        img_path = os.path.abspath(os.path.join(os.path.dirname(__file__),
-            'images', random.choice(images)))
+        img_path = str(Path(__file__).resolve().parent.joinpath('images', random.choice(images)))
         pixel_art = Image.open(img_path).convert(device.mode)
         w, h = pixel_art.size
 

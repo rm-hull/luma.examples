@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2017-18 Michael Svanström, Richard Hull and contributors
+# Copyright (c) 2017-2020 Michael Svanström, Richard Hull and contributors
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
@@ -13,12 +13,11 @@ BTC/USD $2300.00
 24h Hi $2400.00 Lo $2200.00
 LTC/USD $40.00
 24h Hi $50.00 Lo $30.00
-
 """
 
-import os
 import sys
 import time
+from pathlib import Path
 
 try:
     import requests
@@ -50,8 +49,7 @@ def get_price_text(crypto_currency, fiat_currency):
 
 def show_price(device):
     # use custom font
-    font_path = os.path.abspath(os.path.join(os.path.dirname(__file__),
-                                'fonts', 'C&C Red Alert [INET].ttf'))
+    font_path = str(Path(__file__).resolve().parent.joinpath('fonts', 'C&C Red Alert [INET].ttf'))
     font2 = ImageFont.truetype(font_path, 12)
 
     with canvas(device) as draw:
