@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2014-18 Richard Hull and contributors
+# Copyright (c) 2014-2020 Richard Hull and contributors
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
@@ -11,9 +11,9 @@ Ported from:
 https://gist.github.com/TheRayTracer/dd12c498e3ecb9b8b47f#file-invaders-py
 """
 
-import os.path
 import time
 import random
+from pathlib import Path
 from demo_opts import get_device
 from PIL import Image
 from luma.core.render import canvas
@@ -196,7 +196,7 @@ if __name__ == '__main__':
     army = army()
     rows = random.sample(range(12), 12)
 
-    img_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'images', 'splash.bmp'))
+    img_path = str(Path(__file__).resolve().parent.joinpath('images', 'splash.bmp'))
     splash = Image.open(img_path) \
         .transform((device.width, device.height), Image.AFFINE, (1, 0, 0, 0, 1, 0), Image.BILINEAR) \
         .convert(device.mode)

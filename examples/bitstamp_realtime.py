@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2017-18 Michael Svanström, Richard Hull and contributors
+# Copyright (c) 2017-2020 Michael Svanström, Richard Hull and contributors
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
@@ -8,11 +8,11 @@
 Displays the latest Bitcoin trades in realtime at Bitstamp
 """
 
-import os
 import sys
 import time
 import signal
 import json
+from pathlib import Path
 
 try:
     import pusherclient
@@ -29,8 +29,7 @@ from PIL import ImageFont
 # Refer to https://www.bitstamp.net/websocket/ for more documentation.
 BITSTAMP_PUSHER_KEY = 'de504dc5763aeef9ff52'
 
-font_path = os.path.abspath(os.path.join(os.path.dirname(__file__),
-                            'fonts', 'C&C Red Alert [INET].ttf'))
+font_path = str(Path(__file__).resolve().parent.joinpath('fonts', 'C&C Red Alert [INET].ttf'))
 font = ImageFont.truetype(font_path, 12)
 
 rows = []

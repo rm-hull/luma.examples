@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2014-18 Richard Hull and contributors
+# Copyright (c) 2014-2020 Richard Hull and contributors
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
@@ -10,13 +10,13 @@ from __future__ import unicode_literals
 A wander through some (all, if you are patient) of the font awesome
 TTF glyphs.
 
-See: http://fontawesome.io/license/ for license details of included
+See: https://fontawesome.com/license for license details of included
 fontawesome-webfont.ttf file
 """
 
-import os
 import sys
 import random
+from pathlib import Path
 from PIL import ImageFont
 
 from demo_opts import get_device
@@ -125,8 +125,7 @@ codes = [
 
 
 def make_font(name, size):
-    font_path = os.path.abspath(os.path.join(
-        os.path.dirname(__file__), 'fonts', name))
+    font_path = str(Path(__file__).resolve().parent.joinpath('fonts', name))
     return ImageFont.truetype(font_path, size)
 
 

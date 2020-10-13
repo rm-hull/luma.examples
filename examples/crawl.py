@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2014-18 Richard Hull and contributors
+# Copyright (c) 2014-2020 Richard Hull and contributors
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
@@ -9,7 +9,7 @@ A vertical scrolling demo, which should be familiar.
 """
 
 import time
-import os.path
+from pathlib import Path
 from demo_opts import get_device
 from luma.core.virtual import viewport
 from luma.core.render import canvas
@@ -54,8 +54,7 @@ galaxy....
 
 
 def main():
-    img_path = os.path.abspath(os.path.join(os.path.dirname(__file__),
-        'images', 'starwars.png'))
+    img_path = str(Path(__file__).resolve().parent.joinpath('images', 'starwars.png'))
     logo = Image.open(img_path)
 
     virtual = viewport(device, width=device.width, height=768)

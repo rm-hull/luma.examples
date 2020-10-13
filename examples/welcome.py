@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2014-18 Richard Hull and contributors
+# Copyright (c) 2014-2020 Richard Hull and contributors
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
@@ -8,8 +8,8 @@
 Unicode font rendering & scrolling.
 """
 
-import os
 import random
+from pathlib import Path
 from demo_opts import get_device
 from luma.core.virtual import viewport, snapshot, range_overlap
 from luma.core.sprite_system import framerate_regulator
@@ -116,8 +116,7 @@ colors = [
 
 
 def make_font(name, size):
-    font_path = os.path.abspath(os.path.join(
-        os.path.dirname(__file__), 'fonts', name))
+    font_path = str(Path(__file__).resolve().parent.joinpath('fonts', name))
     return ImageFont.truetype(font_path, size)
 
 

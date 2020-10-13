@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2014-18 Richard Hull and contributors
+# Copyright (c) 2014-2020 Richard Hull and contributors
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
@@ -11,15 +11,14 @@ Color rendering demo.
 import math
 import time
 import random
-import os.path
+from pathlib import Path
 from demo_opts import get_device
 from luma.core.render import canvas
 from PIL import Image
 
 
 def main():
-    img_path = os.path.abspath(os.path.join(
-        os.path.dirname(__file__), 'images', 'balloon.png'))
+    img_path = str(Path(__file__).resolve().parent.joinpath('images', 'balloon.png'))
     balloon = Image.open(img_path) \
         .transform(device.size, Image.AFFINE, (1, 0, 0, 0, 1, 0), Image.BILINEAR) \
         .convert(device.mode)

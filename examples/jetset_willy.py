@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2014-18 Richard Hull and contributors
+# Copyright (c) 2014-2020 Richard Hull and contributors
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
 import sys
-import os.path
+from pathlib import Path
 from PIL import Image
 from demo_opts import get_device
 
@@ -14,11 +14,9 @@ from luma.core.sprite_system import spritesheet, framerate_regulator
 
 def main(num_iterations=sys.maxsize):
     data = {
-        'image': os.path.abspath(
-            os.path.join(
-                os.path.dirname(__file__),
-                'images',
-                'jsw_{0}.gif'.format(device.mode))),
+        'image': str(Path(__file__).resolve().parent.joinpath(
+            'images', 'jsw_{0}.gif'.format(device.mode))
+        ),
         'frames': {
             'width': 16,
             'height': 16,

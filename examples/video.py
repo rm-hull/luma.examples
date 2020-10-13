@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2017-18 Richard Hull and contributors
+# Copyright (c) 2017-2020 Richard Hull and contributors
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
@@ -17,7 +17,7 @@ And the pyav package (might take a while):
 """
 
 import sys
-import os.path
+from pathlib import Path
 from demo_opts import get_device
 
 import PIL
@@ -30,8 +30,7 @@ except ImportError:
 
 
 def main():
-    video_path = os.path.abspath(os.path.join(os.path.dirname(__file__),
-        'images', 'movie.mp4'))
+    video_path = str(Path(__file__).resolve().parent.joinpath('images', 'movie.mp4'))
     print('Loading {}...'.format(video_path))
 
     clip = av.open(video_path)

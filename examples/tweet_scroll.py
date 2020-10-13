@@ -35,9 +35,9 @@ access_token_secret = "TWITTER_API_ACCESS_TOKEN_SECRET"
 
 search_terms = ['python']
 
-import os
 import sys
 import time
+from pathlib import Path
 from PIL import ImageFont
 
 try:
@@ -58,8 +58,7 @@ except ImportError:
 
 
 def make_font(name, size):
-    font_path = os.path.abspath(os.path.join(
-        os.path.dirname(__file__), 'fonts', name))
+    font_path = str(Path(__file__).resolve().parent.joinpath('fonts', name))
     return ImageFont.truetype(font_path, size)
 
 
