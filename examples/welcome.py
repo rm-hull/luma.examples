@@ -203,11 +203,11 @@ def main():
         widget_a = make_snapshot(device.width, device.height, welcome_a, fonts, color_a)
         widget_b = make_snapshot(device.width, device.height, welcome_b, fonts, color_b)
 
-        posn_a = random_point(virtual.width - device.width, virtual.height - device.height)
-        posn_b = random_point(virtual.width - device.width, virtual.height - device.height)
-
-        while overlapping(posn_a, posn_b, device.width, device.height):
+        while True:
+            posn_a = random_point(virtual.width - device.width, virtual.height - device.height)
             posn_b = random_point(virtual.width - device.width, virtual.height - device.height)
+            if not overlapping(posn_a, posn_b, device.width, device.height):
+                break
 
         virtual.add_hotspot(widget_a, posn_a)
         virtual.add_hotspot(widget_b, posn_b)
