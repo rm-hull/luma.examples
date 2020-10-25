@@ -69,6 +69,11 @@ def main():
         pixel_art = Image.open(img_path).convert(device.mode)
         w, h = pixel_art.size
 
+        if w < device.width or h < device.height:
+            ratio = device.width * 2 / w
+            pixel_art = pixel_art.resize((int(w * ratio), int(h * ratio)), Image.LANCZOS)
+            w, h = pixel_art.size
+
         virtual = viewport(device, width=w, height=h)
 
         virtual.display(pixel_art)
