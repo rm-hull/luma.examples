@@ -1,7 +1,7 @@
 `luma.core <https://github.com/rm-hull/luma.core>`__ **|**
 `luma.docs <https://github.com/rm-hull/luma.docs>`__ **|**
-luma.examples **|**
 `luma.emulator <https://github.com/rm-hull/luma.emulator>`__ **|**
+luma.examples **|**
 `luma.lcd <https://github.com/rm-hull/luma.lcd>`__ **|**
 `luma.led_matrix <https://github.com/rm-hull/luma.led_matrix>`__ **|**
 `luma.oled <https://github.com/rm-hull/luma.oled>`__
