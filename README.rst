@@ -9,13 +9,13 @@ luma.examples **|**
 Luma.Examples
 =============
 
-.. image:: https://travis-ci.org/rm-hull/luma.examples.svg?branch=master
-   :target: https://travis-ci.org/rm-hull/luma.examples
-
+.. image:: https://github.com/rm-hull/luma.examples/workflows/luma.examples/badge.svg?branch=master
+   :target: https://github.com/rm-hull/luma.examples/actions?workflow=luma.examples
 .. image:: https://img.shields.io/maintenance/yes/2020.svg?maxAge=2592000
 
 This is the companion repo for running examples against the `luma.emulator <https://github.com/rm-hull/luma.emulator>`_,
-`luma.oled <https://github.com/rm-hull/luma.oled>`_, `luma.lcd <https://github.com/rm-hull/luma.lcd>`_ and `luma.led_matrix <https://github.com/rm-hull/luma.led_matrix>`_ display drivers.
+`luma.oled <https://github.com/rm-hull/luma.oled>`_, `luma.lcd <https://github.com/rm-hull/luma.lcd>`_ and
+`luma.led_matrix <https://github.com/rm-hull/luma.led_matrix>`_ display drivers.
 
 Installation instructions
 -------------------------
@@ -23,7 +23,7 @@ Assuming you are using a Raspberry Pi (running Debian Jessie or newer), follow t
 instructions in the above repositories to wire up your display, then from a command-line::
 
   $ sudo usermod -a -G i2c,spi,gpio pi
-  $ sudo apt install python-dev python-pip libfreetype6-dev libjpeg-dev build-essential
+  $ sudo apt install python3-dev python3-pip libfreetype6-dev libjpeg-dev build-essential
   $ sudo apt install libsdl-dev libportmidi-dev libsdl-ttf2.0-dev libsdl-mixer1.2-dev libsdl-image1.2-dev
 
 Log out and in again and clone this repository::
@@ -42,7 +42,7 @@ After cloning the repository, enter the ``examples`` directory and try running
 one of the following examples listed below. For example::
 
   cd examples
-  python 3d_box.py
+  python3 3d_box.py
 
 ========================= ================================================================
 Example                   Description
@@ -92,21 +92,27 @@ By default, all the examples will asume I2C port 1, address ``0x3C`` and the
 specified on the command line – each program can be invoked with a ``--help``
 flag to show the options::
 
-   $ python examples/demo.py --help
-   usage: demo.py [-h] [--config CONFIG] [--display DISPLAY] [--width WIDTH]
-                  [--height HEIGHT] [--rotate ROTATION] [--interface INTERFACE]
-                  [--i2c-port I2C_PORT] [--i2c-address I2C_ADDRESS] [--spi-port SPI_PORT]
-                  [--spi-device SPI_DEVICE] [--spi-bus-speed SPI_BUS_SPEED]
-                  [--spi-cs-high SPI_CS_HIGH] [--spi-transfer-size SPI_TRANSFER_SIZE]
-                  [--ftdi-device FTDI_DEVICE] [--gpio GPIO] [--gpio-mode GPIO_MODE]
-                  [--gpio-data-command GPIO_DATA_COMMAND] [--gpio-reset GPIO_RESET]
-                  [--gpio-backlight GPIO_BACKLIGHT]
-                  [--gpio-reset-hold-time GPIO_RESET_HOLD_TIME]
-                  [--gpio-reset-release-time GPIO_RESET_RELEASE_TIME]
-                  [--block-orientation ORIENTATION] [--mode MODE] [--framebuffer FRAMEBUFFER]
-                  [--bgr] [--inverse] [--h-offset H_OFFSET] [--v-offset V_OFFSET]
-                  [--backlight-active VALUE] [--transform TRANSFORM] [--scale SCALE]
-                  [--duration DURATION] [--loop LOOP] [--max-frames MAX_FRAMES]
+    $ python3 examples/demo.py --help
+    usage: demo.py [-h] [--config CONFIG] [--display DISPLAY] [--width WIDTH]
+                     [--height HEIGHT] [--rotate ROTATION] [--interface INTERFACE]
+                     [--i2c-port I2C_PORT] [--i2c-address I2C_ADDRESS]
+                     [--spi-port SPI_PORT] [--spi-device SPI_DEVICE]
+                     [--spi-bus-speed SPI_BUS_SPEED]
+                     [--spi-transfer-size SPI_TRANSFER_SIZE]
+                     [--spi-cs-high SPI_CS_HIGH] [--ftdi-device FTDI_DEVICE]
+                     [--framebuffer-device FRAMEBUFFER_DEVICE] [--gpio GPIO]
+                     [--gpio-mode GPIO_MODE]
+                     [--gpio-data-command GPIO_DATA_COMMAND]
+                     [--gpio-chip-select GPIO_CHIP_SELECT]
+                     [--gpio-reset GPIO_RESET] [--gpio-backlight GPIO_BACKLIGHT]
+                     [--gpio-reset-hold-time GPIO_RESET_HOLD_TIME]
+                     [--gpio-reset-release-time GPIO_RESET_RELEASE_TIME]
+                     [--block-orientation ORIENTATION] [--mode MODE]
+                     [--framebuffer FRAMEBUFFER] [--num-segments NUM_SEGMENTS]
+                     [--bgr] [--inverse] [--h-offset H_OFFSET]
+                     [--v-offset V_OFFSET] [--backlight-active VALUE] [--debug]
+                     [--transform TRANSFORM] [--scale SCALE] [--duration DURATION]
+                     [--loop LOOP] [--max-frames MAX_FRAMES]
 
     luma.examples arguments
 
@@ -115,21 +121,26 @@ flag to show the options::
 
     General:
       --config CONFIG, -f CONFIG
-                            Load configuration settings from a file (default: None)
+                            Load configuration settings from a file (default:
+                            None)
       --display DISPLAY, -d DISPLAY
-                            Display type, supports real devices or emulators. Allowed values
-                            are: ssd1306, ssd1309, ssd1322, ssd1362, ssd1322_nhd, ssd1325,
-                            ssd1327, ssd1331, ssd1351, sh1106, ws0010, winstar_weh, pcd8544,
-                            st7735, ht1621, uc1701x, st7567, ili9341, hd44780, max7219,
-                            ws2812, neopixel, neosegment, apa102, unicornhathd, capture,
-                            gifanim, pygame, asciiart, asciiblock (default: ssd1306)
+                            Display type, supports real devices or emulators.
+                            Allowed values are: ssd1306, ssd1309, ssd1322,
+                            ssd1362, ssd1322_nhd, ssd1325, ssd1327, ssd1331,
+                            ssd1351, sh1106, ws0010, winstar_weh, pcd8544, st7735,
+                            ht1621, uc1701x, st7567, ili9341, ili9486, hd44780,
+                            max7219, ws2812, neopixel, neosegment, apa102,
+                            unicornhathd, capture, gifanim, pygame, asciiart,
+                            asciiblock, linux_framebuffer (default: ssd1306)
       --width WIDTH         Width of the device in pixels (default: 128)
       --height HEIGHT       Height of the device in pixels (default: 64)
       --rotate ROTATION, -r ROTATION
-                            Rotation factor. Allowed values are: 0, 1, 2, 3 (default: 0)
+                            Rotation factor. Allowed values are: 0, 1, 2, 3
+                            (default: 0)
       --interface INTERFACE, -i INTERFACE
-                            Interface type. Allowed values are: i2c, spi, bitbang, ftdi_spi,
-                            ftdi_i2c, pcf8574, bitbang_6800 (default: i2c)
+                            Interface type. Allowed values are: i2c, noop, spi,
+                            gpio_cs_spi, bitbang, ftdi_spi, ftdi_i2c, pcf8574,
+                            bitbang_6800 (default: i2c)
 
     I2C:
       --i2c-port I2C_PORT   I2C bus number (default: 1)
@@ -142,71 +153,88 @@ flag to show the options::
                             SPI device (default: 0)
       --spi-bus-speed SPI_BUS_SPEED
                             SPI max bus speed (Hz) (default: 8000000)
-      --spi-cs-high SPI_CS_HIGH
-                            SPI chip select is high (default: False)
       --spi-transfer-size SPI_TRANSFER_SIZE
                             SPI bus max transfer unit (bytes) (default: 4096)
+      --spi-cs-high SPI_CS_HIGH
+                            SPI chip select is high (gpio_cs_spi driver only)
+                            (default: False)
 
     FTDI:
       --ftdi-device FTDI_DEVICE
                             FTDI device (default: ftdi://::/1)
 
+    Linux framebuffer:
+      --framebuffer-device FRAMEBUFFER_DEVICE
+                            Linux framebuffer device (default: /dev/fd0)
+
     GPIO:
-      --gpio GPIO           Alternative RPi.GPIO compatible implementation (SPI devices only)
-                            (default: None)
+      --gpio GPIO           Alternative RPi.GPIO compatible implementation (SPI
+                            interface only) (default: None)
       --gpio-mode GPIO_MODE
-                            Alternative pin mapping mode (SPI devices only) (default: None)
+                            Alternative pin mapping mode (SPI interface only)
+                            (default: None)
       --gpio-data-command GPIO_DATA_COMMAND
-                            GPIO pin for D/C RESET (SPI devices only) (default: 24)
+                            GPIO pin for D/C RESET (SPI interface only) (default:
+                            24)
+      --gpio-chip-select GPIO_CHIP_SELECT
+                            GPIO pin for Chip select (GPIO_CS_SPI interface only)
+                            (default: 24)
       --gpio-reset GPIO_RESET
-                            GPIO pin for RESET (SPI devices only) (default: 25)
+                            GPIO pin for RESET (SPI interface only) (default: 25)
       --gpio-backlight GPIO_BACKLIGHT
-                            GPIO pin for backlight (PCD8544, ST7735 devices only) (default:
-                            18)
+                            GPIO pin for backlight (PCD8544, ST7735 devices only)
+                            (default: 18)
       --gpio-reset-hold-time GPIO_RESET_HOLD_TIME
-                            Duration to hold reset line active on startup (seconds) (SPI
-                            devices only) (default: 0)
+                            Duration to hold reset line active on startup
+                            (seconds) (SPI interface only) (default: 0)
       --gpio-reset-release-time GPIO_RESET_RELEASE_TIME
-                            Duration to pause for after reset line was made active on startup
-                            (seconds) (SPI devices only) (default: 0)
+                            Duration to pause for after reset line was made active
+                            on startup (seconds) (SPI interface only) (default: 0)
 
     Misc:
       --block-orientation ORIENTATION
-                            Fix 90° phase error (MAX7219 LED matrix only). Allowed values are:
-                            0, 90, -90, 180 (default: 0)
-      --mode MODE           Colour mode (SSD1322, SSD1325 and emulator only). Allowed values
-                            are: 1, RGB, RGBA (default: RGB)
+                            Fix 90° phase error (MAX7219 LED matrix only). Allowed
+                            values are: 0, 90, -90, 180 (default: 0)
+      --mode MODE           Colour mode (SSD1322, SSD1325 and emulator only).
+                            Allowed values are: 1, RGB, RGBA (default: RGB)
       --framebuffer FRAMEBUFFER
-                            Framebuffer implementation (SSD1331, SSD1322, ST7735 displays
-                            only). Allowed values are: diff_to_previous, full_frame (default:
+                            Framebuffer implementation (SSD1331, SSD1322, ST7735,
+                            ILI9341 displays only). Allowed values are:
+                            diff_to_previous, full_frame (default:
                             diff_to_previous)
-      --bgr                 Set if LCD pixels laid out in BGR (ST7735 displays only).
-                            (default: False)
-      --inverse             Set if LCD has swapped black and white (ST7735 displays only).
-                            (default: False)
-      --h-offset H_OFFSET   Horizontal offset (in pixels) of screen to display memory (ST7735
-                            displays only) (default: 0)
-      --v-offset V_OFFSET   Vertical offset (in pixels) of screen to display memory (ST7735
-                            displays only) (default: 0)
+      --num-segments NUM_SEGMENTS
+                            Sets the number of segments to when using the diff-to-
+                            previous framebuffer implementation. (default: 4)
+      --bgr                 Set if LCD pixels laid out in BGR (ST7735 displays
+                            only). (default: False)
+      --inverse             Set if LCD has swapped black and white (ST7735
+                            displays only). (default: False)
+      --h-offset H_OFFSET   Horizontal offset (in pixels) of screen to display
+                            memory (ST7735 displays only). (default: 0)
+      --v-offset V_OFFSET   Vertical offset (in pixels) of screen to display
+                            memory (ST7735 displays only). (default: 0)
       --backlight-active VALUE
-                            Set to "low" if LCD backlight is active low, else "high" otherwise
-                            (PCD8544, ST7735 displays only). Allowed values are: low, high
-                            (default: low)
+                            Set to "low" if LCD backlight is active low, else
+                            "high" otherwise (PCD8544, ST7735 displays only).
+                            Allowed values are: low, high (default: low)
+      --debug               Set to enable debugging. (default: False)
 
     Emulator:
       --transform TRANSFORM
-                            Scaling transform to apply (emulator only). Allowed values are:
-                            identity, led_matrix, none, scale2x, seven_segment, smoothscale
-                            (default: scale2x)
+                            Scaling transform to apply (emulator only). Allowed
+                            values are: identity, led_matrix, none, scale2x,
+                            seven_segment, smoothscale (default: scale2x)
       --scale SCALE         Scaling factor to apply (emulator only) (default: 2)
-      --duration DURATION   Animation frame duration (gifanim emulator only) (default: 0.01)
-      --loop LOOP           Repeat loop, zero=forever (gifanim emulator only) (default: 0)
+      --duration DURATION   Animation frame duration (gifanim emulator only)
+                            (default: 0.01)
+      --loop LOOP           Repeat loop, zero=forever (gifanim emulator only)
+                            (default: 0)
       --max-frames MAX_FRAMES
-                            Maximum frames to record (gifanim emulator only) (default: None)
+                            Maximum frames to record (gifanim emulator only)
+                            (default: None)
 
 .. note::
-   #. Substitute ``python3`` for ``python`` in the above examples if you are using python3.
-   #. ``python-dev`` (apt-get) and ``psutil`` (pip/pip3) are required to run the ``sys_info.py``
+   #. ``python3-dev`` (apt-get) and ``psutil`` (pip/pip3) are required to run the ``sys_info.py``
       example. See `install instructions <https://github.com/rm-hull/luma.examples/blob/master/examples/sys_info.py#L10-L13>`_ for the exact commands to use.
 
 Emulators
@@ -226,11 +254,11 @@ and screen capture functionality:
 
 Invoke the demos with::
 
-  $ python examples/clock.py --display capture
+  $ python3 examples/clock.py --display capture
 
 or::
 
-  $ python examples/clock.py --display pygame
+  $ python3 examples/clock.py --display pygame
 
 Documentation
 -------------
