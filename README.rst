@@ -15,7 +15,8 @@ Luma.Examples
 .. image:: https://img.shields.io/maintenance/yes/2020.svg?maxAge=2592000
 
 This is the companion repo for running examples against the `luma.emulator <https://github.com/rm-hull/luma.emulator>`_,
-`luma.oled <https://github.com/rm-hull/luma.oled>`_, `luma.lcd <https://github.com/rm-hull/luma.lcd>`_ and `luma.led_matrix <https://github.com/rm-hull/luma.led_matrix>`_ display drivers.
+`luma.oled <https://github.com/rm-hull/luma.oled>`_, `luma.lcd <https://github.com/rm-hull/luma.lcd>`_ and
+`luma.led_matrix <https://github.com/rm-hull/luma.led_matrix>`_ display drivers.
 
 Installation instructions
 -------------------------
