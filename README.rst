@@ -23,7 +23,7 @@ Assuming you are using a Raspberry Pi (running Debian Jessie or newer), follow t
 instructions in the above repositories to wire up your display, then from a command-line::
 
   $ sudo usermod -a -G i2c,spi,gpio pi
-  $ sudo apt install python-dev python-pip libfreetype6-dev libjpeg-dev build-essential
+  $ sudo apt install python3-dev python3-pip libfreetype6-dev libjpeg-dev build-essential
   $ sudo apt install libsdl-dev libportmidi-dev libsdl-ttf2.0-dev libsdl-mixer1.2-dev libsdl-image1.2-dev
 
 Log out and in again and clone this repository::
@@ -42,7 +42,7 @@ After cloning the repository, enter the ``examples`` directory and try running
 one of the following examples listed below. For example::
 
   cd examples
-  python 3d_box.py
+  python3 3d_box.py
 
 ========================= ================================================================
 Example                   Description
@@ -92,7 +92,7 @@ By default, all the examples will asume I2C port 1, address ``0x3C`` and the
 specified on the command line – each program can be invoked with a ``--help``
 flag to show the options::
 
-    $ python examples/demo.py --help
+    $ python3 examples/demo.py --help
     usage: demo.py [-h] [--config CONFIG] [--display DISPLAY] [--width WIDTH]
                      [--height HEIGHT] [--rotate ROTATION] [--interface INTERFACE]
                      [--i2c-port I2C_PORT] [--i2c-address I2C_ADDRESS]
@@ -234,8 +234,7 @@ flag to show the options::
                             (default: None)
 
 .. note::
-   #. Substitute ``python3`` for ``python`` in the above examples if you are using python3.
-   #. ``python-dev`` (apt-get) and ``psutil`` (pip/pip3) are required to run the ``sys_info.py``
+   #. ``python3-dev`` (apt-get) and ``psutil`` (pip/pip3) are required to run the ``sys_info.py``
       example. See `install instructions <https://github.com/rm-hull/luma.examples/blob/master/examples/sys_info.py#L10-L13>`_ for the exact commands to use.
 
 Emulators
@@ -255,11 +254,11 @@ and screen capture functionality:
 
 Invoke the demos with::
 
-  $ python examples/clock.py --display capture
+  $ python3 examples/clock.py --display capture
 
 or::
 
-  $ python examples/clock.py --display pygame
+  $ python3 examples/clock.py --display pygame
 
 Documentation
 -------------
