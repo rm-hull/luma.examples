@@ -83,7 +83,8 @@ welcome = [
     u"ยินดีต้อนรับ",
     u"Hoş geldiniz",
     u"Croeso",
-    u"Bonvenon"
+    u"Bonvenon",
+    u"Vitajte"
 ]
 
 colors = [
