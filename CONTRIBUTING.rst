@@ -18,3 +18,4 @@ Contributors
 * Saumyakanta Sahoo (@somu1795)
 * Michael Svanström (@squeezeday)
 * Tomislav Kopić (@Tkopic001)
+* Maciej Sokolowski (@matemaciek)
