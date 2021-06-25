@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2014-18 Richard Hull and contributors
+# Copyright (c) 2014-2021 Richard Hull and contributors
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
 """
-3 Day weather forecast from the BBC
+3 Day weather forecast from the BBC.
 """
 
 import sys
@@ -23,11 +23,11 @@ except ImportError:
 
 
 def main(num_iterations=sys.maxsize):
-    # Go to http://www.bbc.co.uk/weather and enter your town/city into
+    # Go to https://www.bbc.com/weather and enter your town/city into
     # the 'Find a forecast' box. Then when you click through, substitute
     # the location_id below
     location_id = 2647428
-    weather_rss_url = "http://open.live.bbc.co.uk/weather/feeds/en/{0}/3dayforecast.rss".format(location_id)
+    weather_rss_url = "https://weather-broker-cdn.api.bbci.co.uk/en/forecast/rss/3day/{0}".format(location_id)
 
     device = get_device()
 
