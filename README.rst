@@ -236,6 +236,7 @@ flag to show the options::
 .. note::
    #. ``python3-dev`` (apt-get) and ``psutil`` (pip/pip3) are required to run the ``sys_info.py``
       example. See `install instructions <https://github.com/rm-hull/luma.examples/blob/master/examples/sys_info.py#L10-L13>`_ for the exact commands to use.
+   #. At runtime, ``luma.core`` enumerates which display drivers are present and dynamically constructs the list of ``--display`` options, therefore (for example) the ``capture``/``gifanim``/``pygame`` options will not show unless `luma.emulator` is installed
 
 Emulators
 ^^^^^^^^^
@@ -252,7 +253,7 @@ and screen capture functionality:
 * The `luma.emulator.device.pygame` device uses the `pygame` library to
   render the displayed image to a pygame display surface.
 
-Invoke the demos with::
+*After installing* luma.emulator (see Documentation link below) you can invoke the demos with::
 
   $ python3 examples/clock.py --display capture
 
