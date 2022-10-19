@@ -44,7 +44,7 @@ setup(
     license="MIT",
     keywords="raspberry orange banana pi rpi opi sbc oled lcd led display screen spi i2c",
     url="https://github.com/rm-hull/luma.examples",
-    python_requires='>=3.6, <4',
+    python_requires='>=3.7, <4',
     install_requires=[
         "luma.core>=1.17.1",
         "luma.emulator>=1.3.0",
@@ -74,9 +74,9 @@ setup(
         "Topic :: System :: Hardware",
         "Topic :: System :: Hardware :: Hardware Drivers",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.9"
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10"
     ]
 )
