@@ -37,7 +37,7 @@ def display_settings(device, args):
     import luma.core
     version = f'luma.{lib_name} {lib_version} (luma.core {luma.core.__version__})'
 
-    return f'Version: {version}\nDisplay: {args.display}\n{iface}Dimensions: {device.width} x {device.height}\n{'-' * 60}'
+    return f'Version: {version}\nDisplay: {args.display}\n{iface}Dimensions: {device.width} x {device.height}\n{"-" * 60}'
 
 
 def get_device(actual_args=None):

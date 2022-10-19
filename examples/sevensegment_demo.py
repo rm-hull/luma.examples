@@ -71,7 +71,7 @@ def main():
     device = get_device()
 
     if not hasattr(device, 'segment_mapper'):
-        sys.exit(f'sevensegment is not supported on a {device.__class__.__name__)} device')
+        sys.exit(f'sevensegment is not supported on a {device.__class__.__name__} device')
 
     seg = sevensegment(device)
 
