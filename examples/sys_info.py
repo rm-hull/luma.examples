@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2014-2020 Richard Hull and contributors
+# Copyright (c) 2014-2022 Richard Hull and contributors
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
@@ -20,7 +20,7 @@ from pathlib import Path
 from datetime import datetime
 
 if os.name != 'posix':
-    sys.exit('{} platform not supported'.format(os.name))
+    sys.exit(f'{os.name} platform is not supported')
 
 from demo_opts import get_device
 from luma.core.render import canvas
@@ -52,7 +52,7 @@ def bytes2human(n):
         if n >= prefix[s]:
             value = int(float(n) / prefix[s])
             return '%s%s' % (value, s)
-    return "%sB" % n
+    return f"{n}B"
 
 
 def cpu_usage():

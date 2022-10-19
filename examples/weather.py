@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2014-2021 Richard Hull and contributors
+# Copyright (c) 2014-2022 Richard Hull and contributors
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
@@ -27,7 +27,7 @@ def main(num_iterations=sys.maxsize):
     # the 'Find a forecast' box. Then when you click through, substitute
     # the location_id below
     location_id = 2647428
-    weather_rss_url = "https://weather-broker-cdn.api.bbci.co.uk/en/forecast/rss/3day/{0}".format(location_id)
+    weather_rss_url = f"https://weather-broker-cdn.api.bbci.co.uk/en/forecast/rss/3day/{location_id}"
 
     device = get_device()
 

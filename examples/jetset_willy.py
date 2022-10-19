@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2014-2020 Richard Hull and contributors
+# Copyright (c) 2014-2022 Richard Hull and contributors
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
@@ -15,7 +15,7 @@ from luma.core.sprite_system import spritesheet, framerate_regulator
 def main(num_iterations=sys.maxsize):
     data = {
         'image': str(Path(__file__).resolve().parent.joinpath(
-            'images', 'jsw_{0}.gif'.format(device.mode))
+            'images', f'jsw_{device.mode}.gif')
         ),
         'frames': {
             'width': 16,

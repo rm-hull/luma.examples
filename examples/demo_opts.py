@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (c) 2014-18 Richard Hull and contributors
+# Copyright (c) 2014-2022 Richard Hull and contributors
 # See LICENSE.rst for details.
 
 import sys
@@ -26,7 +26,7 @@ def display_settings(device, args):
     iface = ''
     display_types = cmdline.get_display_types()
     if args.display not in display_types['emulator']:
-        iface = 'Interface: {}\n'.format(args.interface)
+        iface = f'Interface: {args.interface}\n'
 
     lib_name = cmdline.get_library_for_display_type(args.display)
     if lib_name is not None:
@@ -35,11 +35,9 @@ def display_settings(device, args):
         lib_name = lib_version = 'unknown'
 
     import luma.core
-    version = 'luma.{} {} (luma.core {})'.format(
-        lib_name, lib_version, luma.core.__version__)
+    version = f'luma.{lib_name} {lib_version} (luma.core {luma.core.__version__})'
 
-    return 'Version: {}\nDisplay: {}\n{}Dimensions: {} x {}\n{}'.format(
-        version, args.display, iface, device.width, device.height, '-' * 60)
+    return f'Version: {version}\nDisplay: {args.display}\n{iface}Dimensions: {device.width} x {device.height}\n{'-' * 60}'
 
 
 def get_device(actual_args=None):

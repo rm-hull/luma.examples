@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2017-2020 Michael Svanström, Richard Hull and contributors
+# Copyright (c) 2017-2022 Michael Svanström, Richard Hull and contributors
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
@@ -42,7 +42,7 @@ rows = []
 def trade_callback(data):
     json_data = json.loads(data)
 
-    str_row = "${}  {}".format(json_data['price_str'], json_data['amount'])
+    str_row = f"${json_data['price_str']}  {json_data['amount']}"
     rows.insert(0, str_row)
     if len(rows) > 5:
         rows.pop()

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2017-18 Richard Hull and contributors
+# Copyright (c) 2017-2022 Richard Hull and contributors
 # See LICENSE.rst for details.
 
 """
@@ -71,8 +71,7 @@ def main():
     device = get_device()
 
     if not hasattr(device, 'segment_mapper'):
-        sys.exit('sevensegment is not supported on a {} device'.format(
-            device.__class__.__name__))
+        sys.exit(f'sevensegment is not supported on a {device.__class__.__name__)} device')
 
     seg = sevensegment(device)
 
