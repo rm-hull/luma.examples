@@ -31,7 +31,7 @@ def main():
     demo.primitives(device, draw)
 
     for i in range(5, 0, -1):
-        sys.stdout.write("Starting in {0} seconds...\r".format(i))
+        sys.stdout.write(f"Starting in {i} seconds...\r")
         sys.stdout.flush()
         time.sleep(1)
 

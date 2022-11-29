@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2014-2020 Richard Hull and contributors
+# Copyright (c) 2014-2022 Richard Hull and contributors
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
@@ -189,7 +189,7 @@ if __name__ == '__main__':
     device = get_device()
 
     if device.width < 96 or device.height < 64:
-        raise ValueError("Unsupported mode: {0}x{1}".format(device.width, device.height))
+        raise ValueError(f"Unsupported mode: {device.width}x{device.height}")
 
     regulator = framerate_regulator()
     plyr = player()
@@ -223,7 +223,7 @@ if __name__ == '__main__':
                     army.render(draw)
                     plyr.render(draw)
 
-                    draw.text((8, 0), text="Score: {0}".format(army.score()), fill="blue")
+                    draw.text((8, 0), text=f"Score: {army.score()}", fill="blue")
 
         # Double buffering in pygame?
         for i in range(2):

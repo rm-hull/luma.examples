@@ -1,10 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2014-2020 Richard Hull and contributors
+# Copyright (c) 2014-2022 Richard Hull and contributors
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
-
-from __future__ import unicode_literals
 
 """
 Using Twitter's Streaming API to display scrolling notifications.
@@ -63,8 +61,8 @@ def make_font(name, size):
 
 
 def scroll_message(status, font=None, speed=1):
-    author = u"@{0}".format(status.author.screen_name)
-    full_text = u"{0}  {1}".format(author, status.text).replace("\n", " ")
+    author = f"@{status.author.screen_name}"
+    full_text = f"{author}  {status.text}".replace("\n", " ")
     x = device.width
 
     # First measure the text size

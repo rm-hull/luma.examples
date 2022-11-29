@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2017-18 Richard Hull and contributors
+# Copyright (c) 2017-2022 Richard Hull and contributors
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
@@ -48,7 +48,7 @@ def main():
         # "rewind" the stream to the beginning so we can read its content
         stream.seek(0)
 
-        print("Displaying photo for {0} seconds...".format(displayTime))
+        print(f"Displaying photo for {displayTime} seconds...")
 
         # open photo
         photo = Image.open(stream)

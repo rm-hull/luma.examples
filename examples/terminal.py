@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2014-2020 Richard Hull and contributors
+# Copyright (c) 2014-2022 Richard Hull and contributors
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
@@ -31,7 +31,7 @@ def main():
             term.println("Uses any font to output text using a number of different print methods.")
             term.println()
             time.sleep(2)
-            term.println("The '{0}' font supports a terminal size of {1}x{2} characters.".format(fontname, term.width, term.height))
+            term.println(f"The '{fontname}' font supports a terminal size of {term.width}x{term.height} characters.")
             term.println()
             time.sleep(2)
             term.println("An animation effect is defaulted to give the appearance of spooling to a teletype device.")
