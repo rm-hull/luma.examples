@@ -11,7 +11,6 @@ Luma.Examples
 
 .. image:: https://github.com/rm-hull/luma.examples/workflows/luma.examples/badge.svg?branch=master
    :target: https://github.com/rm-hull/luma.examples/actions?workflow=luma.examples
-.. image:: https://img.shields.io/maintenance/yes/2022.svg?maxAge=2592000
 
 This is the companion repo for running examples against the `luma.emulator <https://github.com/rm-hull/luma.emulator>`_,
 `luma.oled <https://github.com/rm-hull/luma.oled>`_, `luma.lcd <https://github.com/rm-hull/luma.lcd>`_ and
