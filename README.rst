@@ -22,8 +22,8 @@ Assuming you are using a Raspberry Pi (running Debian Jessie or newer), follow t
 instructions in the above repositories to wire up your display, then from a command-line::
 
   $ sudo usermod -a -G i2c,spi,gpio pi
-  $ sudo apt install python3-dev python3-pip libfreetype6-dev libjpeg-dev build-essential
-  $ sudo apt install libsdl-dev libportmidi-dev libsdl-ttf2.0-dev libsdl-mixer1.2-dev libsdl-image1.2-dev
+  $ sudo apt install python3-dev python3-pip python3-numpy libfreetype6-dev libjpeg-dev build-essential
+  $ sudo apt install libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libportmidi-dev
 
 Log out and in again and clone this repository::
 
@@ -274,7 +274,7 @@ License
 -------
 The MIT License (MIT)
 
-Copyright (c) 2017-2022 Richard Hull & Contributors
+Copyright (c) 2017-2023 Richard Hull & Contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
