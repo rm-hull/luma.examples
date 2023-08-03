@@ -253,13 +253,16 @@ and screen capture functionality:
 * The `luma.emulator.device.pygame` device uses the `pygame` library to
   render the displayed image to a pygame display surface.
 
-*After installing* luma.emulator (see Documentation link below) you can invoke the demos with::
+After [installing luma.emulator](https://luma-emulator.readthedocs.io/en/latest/install.html)
+you can invoke the demos with::
 
-  $ python3 examples/clock.py --display capture
+  $ python3 examples/clock.py --display pygame
 
 or::
 
-  $ python3 examples/clock.py --display pygame
+  $ python3 examples/clock.py --display gifanim
+
+  $ python3 examples/starfield.py --display capture
 
 Documentation
 -------------
