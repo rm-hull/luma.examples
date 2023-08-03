@@ -93,29 +93,29 @@ flag to show the options::
 
     $ python3 examples/demo.py --help
     usage: demo.py [-h] [--config CONFIG] [--display DISPLAY] [--width WIDTH]
-                     [--height HEIGHT] [--rotate ROTATION] [--interface INTERFACE]
-                     [--i2c-port I2C_PORT] [--i2c-address I2C_ADDRESS]
-                     [--spi-port SPI_PORT] [--spi-device SPI_DEVICE]
-                     [--spi-bus-speed SPI_BUS_SPEED]
-                     [--spi-transfer-size SPI_TRANSFER_SIZE]
-                     [--spi-cs-high SPI_CS_HIGH] [--ftdi-device FTDI_DEVICE]
-                     [--framebuffer-device FRAMEBUFFER_DEVICE] [--gpio GPIO]
-                     [--gpio-mode GPIO_MODE]
-                     [--gpio-data-command GPIO_DATA_COMMAND]
-                     [--gpio-chip-select GPIO_CHIP_SELECT]
-                     [--gpio-reset GPIO_RESET] [--gpio-backlight GPIO_BACKLIGHT]
-                     [--gpio-reset-hold-time GPIO_RESET_HOLD_TIME]
-                     [--gpio-reset-release-time GPIO_RESET_RELEASE_TIME]
-                     [--block-orientation ORIENTATION] [--mode MODE]
-                     [--framebuffer FRAMEBUFFER] [--num-segments NUM_SEGMENTS]
-                     [--bgr] [--inverse] [--h-offset H_OFFSET]
-                     [--v-offset V_OFFSET] [--backlight-active VALUE] [--debug]
-                     [--transform TRANSFORM] [--scale SCALE] [--duration DURATION]
-                     [--loop LOOP] [--max-frames MAX_FRAMES]
+                    [--height HEIGHT] [--rotate ROTATION] [--interface INTERFACE]
+                    [--i2c-port I2C_PORT] [--i2c-address I2C_ADDRESS]
+                    [--spi-port SPI_PORT] [--spi-device SPI_DEVICE]
+                    [--spi-bus-speed SPI_BUS_SPEED]
+                    [--spi-transfer-size SPI_TRANSFER_SIZE]
+                    [--spi-cs-high SPI_CS_HIGH] [--ftdi-device FTDI_DEVICE]
+                    [--framebuffer-device FRAMEBUFFER_DEVICE] [--gpio GPIO]
+                    [--gpio-mode GPIO_MODE]
+                    [--gpio-data-command GPIO_DATA_COMMAND]
+                    [--gpio-chip-select GPIO_CHIP_SELECT]
+                    [--gpio-reset GPIO_RESET] [--gpio-backlight GPIO_BACKLIGHT]
+                    [--gpio-reset-hold-time GPIO_RESET_HOLD_TIME]
+                    [--gpio-reset-release-time GPIO_RESET_RELEASE_TIME]
+                    [--block-orientation ORIENTATION] [--mode MODE]
+                    [--framebuffer FRAMEBUFFER] [--num-segments NUM_SEGMENTS]
+                    [--bgr] [--inverse] [--h-offset H_OFFSET]
+                    [--v-offset V_OFFSET] [--backlight-active VALUE] [--debug]
+                    [--transform TRANSFORM] [--scale SCALE] [--duration DURATION]
+                    [--loop LOOP] [--max-frames MAX_FRAMES]
 
     luma.examples arguments
 
-    optional arguments:
+    options:
       -h, --help            show this help message and exit
 
     General:
@@ -126,11 +126,12 @@ flag to show the options::
                             Display type, supports real devices or emulators.
                             Allowed values are: ssd1306, ssd1309, ssd1322,
                             ssd1362, ssd1322_nhd, ssd1325, ssd1327, ssd1331,
-                            ssd1351, sh1106, ws0010, winstar_weh, pcd8544, st7735,
-                            ht1621, uc1701x, st7567, ili9341, ili9486, hd44780,
-                            max7219, ws2812, neopixel, neosegment, apa102,
-                            unicornhathd, capture, gifanim, pygame, asciiart,
-                            asciiblock, linux_framebuffer (default: ssd1306)
+                            ssd1351, sh1106, sh1107, ws0010, winstar_weh, pcd8544,
+                            st7735, st7789, ht1621, uc1701x, st7567, ili9341,
+                            ili9486, ili9488, hd44780, max7219, ws2812, neopixel,
+                            neosegment, apa102, unicornhathd, capture, gifanim,
+                            pygame, asciiart, asciiblock, linux_framebuffer
+                            (default: ssd1306)
       --width WIDTH         Width of the device in pixels (default: 128)
       --height HEIGHT       Height of the device in pixels (default: 64)
       --rotate ROTATION, -r ROTATION
