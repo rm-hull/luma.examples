@@ -64,7 +64,7 @@ def main():
                 if i == 0:
                     left, top, right, bottom = draw.textbbox((0, 0), text)
                     w, h = right - left, bottom - top
-  
+
                     left = (device.width - w) // 2
                     top = (device.height - h) // 2
                     draw.rectangle((left - 1, top, left + w + 1, top + h), fill="black", outline="white")
