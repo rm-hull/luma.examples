@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2014-2020 Richard Hull and contributors
+# Copyright (c) 2014-2023 Richard Hull and contributors
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
@@ -32,7 +32,11 @@ def main():
         for color in ["black", "white", "red", "orange", "yellow", "green", "blue", "indigo", "violet"]:
             with canvas(device, dither=True) as draw:
                 draw.rectangle(device.bounding_box, fill=color)
-                size = draw.textsize(color)
+                # measure
+                left, top, right, bottom = draw.textbbox((0, 0), color)
+                size = right - left, bottom - top
+
+                # draw
                 left = (device.width - size[0]) // 2
                 top = (device.height - size[1]) // 2
                 right = left + size[0]
@@ -52,7 +56,11 @@ def main():
                 rgb = (r << 16) | (g << 8) | b
                 draw.rectangle((i * w, 0, (i + 1) * w, device.height), fill=rgb)
 
-            size = draw.textsize("rainbow")
+            # measure
+            left, top, right, bottom = draw.textbbox((0, 0), "rainbow")
+            size = right - left, bottom - top
+
+            # draw
             left = (device.width - size[0]) // 2
             top = (device.height - size[1]) // 2
             right = left + size[0]
@@ -71,7 +79,11 @@ def main():
                     b = 0
                     draw.point((x, y), fill=(r, g, b))
 
-            size = draw.textsize("gradient")
+            # measure
+            left, top, right, bottom = draw.textbbox((0, 0), "gradient")
+            size = right - left, bottom - top
+
+            # draw
             left = (device.width - size[0]) // 2
             top = (device.height - size[1]) // 2
             right = left + size[0]

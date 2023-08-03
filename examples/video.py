@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2017-2022 Richard Hull and contributors
+# Copyright (c) 2017-2023 Richard Hull and contributors
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
@@ -42,7 +42,7 @@ def main():
         if img.width != device.width or img.height != device.height:
             # resize video to fit device
             size = device.width, device.height
-            img = img.resize(size, PIL.Image.ANTIALIAS)
+            img = img.resize(size, PIL.Image.LANCZOS)
 
         device.display(img.convert(device.mode))
 

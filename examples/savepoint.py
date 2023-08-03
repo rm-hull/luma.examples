@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2014-2022 Richard Hull and contributors
+# Copyright (c) 2014-2023 Richard Hull and contributors
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
@@ -16,12 +16,16 @@ from luma.core.render import canvas
 
 def render_box(draw, idx, color):
     message = f"Nesting level: {idx}"
-    width, height = draw.textsize(message)
+    # measure
+    left, top, right, bottom = draw.textbbox((0, 0), message)
+    width, height = right - left, bottom - top
+
     left = idx * 4
     right = left + width + 2
     top = idx * 4
     bottom = top + height + 2
 
+    # draw
     draw.rectangle((left, top, right, bottom), outline="white", fill="black")
     draw.text((left + 2, top + 1), text=message, fill=color)
 

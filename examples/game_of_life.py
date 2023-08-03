@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2014-18 Richard Hull and contributors
+# Copyright (c) 2014-2023 Richard Hull and contributors
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
@@ -40,6 +40,7 @@ def iterate(board):
 
 
 def main():
+    text = "Game of Life"
     scale = 3
     cols = device.width // scale
     rows = device.height // scale
@@ -61,11 +62,13 @@ def main():
                         draw.rectangle((left, top, right, bottom), fill="white", outline="black")
 
                 if i == 0:
-                    w, h = draw.textsize("Game of Life")
+                    left, top, right, bottom = draw.textbbox((0, 0), text)
+                    w, h = right - left, bottom - top
+
                     left = (device.width - w) // 2
                     top = (device.height - h) // 2
                     draw.rectangle((left - 1, top, left + w + 1, top + h), fill="black", outline="white")
-                    draw.text((left + 1, top), text="Game of Life", fill="white")
+                    draw.text((left + 1, top), text=text, fill="white")
 
             if i == 0:
                 time.sleep(3)

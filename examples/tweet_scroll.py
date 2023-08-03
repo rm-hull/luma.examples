@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2014-2022 Richard Hull and contributors
+# Copyright (c) 2014-2023 Richard Hull and contributors
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
@@ -67,7 +67,8 @@ def scroll_message(status, font=None, speed=1):
 
     # First measure the text size
     with canvas(device) as draw:
-        w, h = draw.textsize(full_text, font)
+        left, top, right, bottom = draw.textbbox((0, 0), full_text, font)
+        w, h = right - left, bottom - top
 
     virtual = viewport(device, width=max(device.width, w + x + x), height=max(h, device.height))
     with canvas(virtual) as draw:

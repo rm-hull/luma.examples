@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2014-2020 Richard Hull and contributors
+# Copyright (c) 2014-2023 Richard Hull and contributors
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
@@ -26,7 +26,9 @@ titles = [
 class TextImage():
     def __init__(self, device, text, font):
         with canvas(device) as draw:
-            w, h = draw.textsize(text, font)
+            left, top, right, bottom = draw.textbbox((0, 0), text, font)
+            w, h = right - left, bottom - top
+
         self.image = Image.new(device.mode, (w, h))
         draw = ImageDraw.Draw(self.image)
         draw.text((0, 0), text, font=font, fill="white")

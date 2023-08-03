@@ -22,8 +22,8 @@ Assuming you are using a Raspberry Pi (running Debian Jessie or newer), follow t
 instructions in the above repositories to wire up your display, then from a command-line::
 
   $ sudo usermod -a -G i2c,spi,gpio pi
-  $ sudo apt install python3-dev python3-pip libfreetype6-dev libjpeg-dev build-essential
-  $ sudo apt install libsdl-dev libportmidi-dev libsdl-ttf2.0-dev libsdl-mixer1.2-dev libsdl-image1.2-dev
+  $ sudo apt install python3-dev python3-pip python3-numpy libfreetype6-dev libjpeg-dev build-essential
+  $ sudo apt install libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libportmidi-dev
 
 Log out and in again and clone this repository::
 
@@ -93,29 +93,29 @@ flag to show the options::
 
     $ python3 examples/demo.py --help
     usage: demo.py [-h] [--config CONFIG] [--display DISPLAY] [--width WIDTH]
-                     [--height HEIGHT] [--rotate ROTATION] [--interface INTERFACE]
-                     [--i2c-port I2C_PORT] [--i2c-address I2C_ADDRESS]
-                     [--spi-port SPI_PORT] [--spi-device SPI_DEVICE]
-                     [--spi-bus-speed SPI_BUS_SPEED]
-                     [--spi-transfer-size SPI_TRANSFER_SIZE]
-                     [--spi-cs-high SPI_CS_HIGH] [--ftdi-device FTDI_DEVICE]
-                     [--framebuffer-device FRAMEBUFFER_DEVICE] [--gpio GPIO]
-                     [--gpio-mode GPIO_MODE]
-                     [--gpio-data-command GPIO_DATA_COMMAND]
-                     [--gpio-chip-select GPIO_CHIP_SELECT]
-                     [--gpio-reset GPIO_RESET] [--gpio-backlight GPIO_BACKLIGHT]
-                     [--gpio-reset-hold-time GPIO_RESET_HOLD_TIME]
-                     [--gpio-reset-release-time GPIO_RESET_RELEASE_TIME]
-                     [--block-orientation ORIENTATION] [--mode MODE]
-                     [--framebuffer FRAMEBUFFER] [--num-segments NUM_SEGMENTS]
-                     [--bgr] [--inverse] [--h-offset H_OFFSET]
-                     [--v-offset V_OFFSET] [--backlight-active VALUE] [--debug]
-                     [--transform TRANSFORM] [--scale SCALE] [--duration DURATION]
-                     [--loop LOOP] [--max-frames MAX_FRAMES]
+                    [--height HEIGHT] [--rotate ROTATION] [--interface INTERFACE]
+                    [--i2c-port I2C_PORT] [--i2c-address I2C_ADDRESS]
+                    [--spi-port SPI_PORT] [--spi-device SPI_DEVICE]
+                    [--spi-bus-speed SPI_BUS_SPEED]
+                    [--spi-transfer-size SPI_TRANSFER_SIZE]
+                    [--spi-cs-high SPI_CS_HIGH] [--ftdi-device FTDI_DEVICE]
+                    [--framebuffer-device FRAMEBUFFER_DEVICE] [--gpio GPIO]
+                    [--gpio-mode GPIO_MODE]
+                    [--gpio-data-command GPIO_DATA_COMMAND]
+                    [--gpio-chip-select GPIO_CHIP_SELECT]
+                    [--gpio-reset GPIO_RESET] [--gpio-backlight GPIO_BACKLIGHT]
+                    [--gpio-reset-hold-time GPIO_RESET_HOLD_TIME]
+                    [--gpio-reset-release-time GPIO_RESET_RELEASE_TIME]
+                    [--block-orientation ORIENTATION] [--mode MODE]
+                    [--framebuffer FRAMEBUFFER] [--num-segments NUM_SEGMENTS]
+                    [--bgr] [--inverse] [--h-offset H_OFFSET]
+                    [--v-offset V_OFFSET] [--backlight-active VALUE] [--debug]
+                    [--transform TRANSFORM] [--scale SCALE] [--duration DURATION]
+                    [--loop LOOP] [--max-frames MAX_FRAMES]
 
     luma.examples arguments
 
-    optional arguments:
+    options:
       -h, --help            show this help message and exit
 
     General:
@@ -126,11 +126,12 @@ flag to show the options::
                             Display type, supports real devices or emulators.
                             Allowed values are: ssd1306, ssd1309, ssd1322,
                             ssd1362, ssd1322_nhd, ssd1325, ssd1327, ssd1331,
-                            ssd1351, sh1106, ws0010, winstar_weh, pcd8544, st7735,
-                            ht1621, uc1701x, st7567, ili9341, ili9486, hd44780,
-                            max7219, ws2812, neopixel, neosegment, apa102,
-                            unicornhathd, capture, gifanim, pygame, asciiart,
-                            asciiblock, linux_framebuffer (default: ssd1306)
+                            ssd1351, sh1106, sh1107, ws0010, winstar_weh, pcd8544,
+                            st7735, st7789, ht1621, uc1701x, st7567, ili9341,
+                            ili9486, ili9488, hd44780, max7219, ws2812, neopixel,
+                            neosegment, apa102, unicornhathd, capture, gifanim,
+                            pygame, asciiart, asciiblock, linux_framebuffer
+                            (default: ssd1306)
       --width WIDTH         Width of the device in pixels (default: 128)
       --height HEIGHT       Height of the device in pixels (default: 64)
       --rotate ROTATION, -r ROTATION
@@ -252,13 +253,16 @@ and screen capture functionality:
 * The `luma.emulator.device.pygame` device uses the `pygame` library to
   render the displayed image to a pygame display surface.
 
-*After installing* luma.emulator (see Documentation link below) you can invoke the demos with::
+After `installing luma.emulator <https://luma-emulator.readthedocs.io/en/latest/install.html>`_
+you can invoke the demos with::
 
-  $ python3 examples/clock.py --display capture
+  $ python3 examples/clock.py --display pygame
 
 or::
 
-  $ python3 examples/clock.py --display pygame
+  $ python3 examples/clock.py --display gifanim
+
+  $ python3 examples/starfield.py --display capture
 
 Documentation
 -------------
@@ -274,7 +278,7 @@ License
 -------
 The MIT License (MIT)
 
-Copyright (c) 2017-2022 Richard Hull & Contributors
+Copyright (c) 2017-2023 Richard Hull & Contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

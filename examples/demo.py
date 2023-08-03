@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2014-18 Richard Hull and contributors
+# Copyright (c) 2014-2023 Richard Hull and contributors
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
@@ -18,34 +18,42 @@ from luma.core.render import canvas
 
 
 def primitives(device, draw):
-    # Draw some shapes.
-    # First define some constants to allow easy resizing of shapes.
+    # Draw some shapes
+    # First define some constants to allow easy resizing of shapes
     padding = 2
     shape_width = 20
     top = padding
     bottom = device.height - padding - 1
-    # Move left to right keeping track of the current x position for drawing shapes.
+
+    # Move left to right keeping track of the current x position for drawing shapes
     x = padding
-    # Draw an ellipse.
+
+    # Draw an ellipse
     draw.ellipse((x, top, x + shape_width, bottom), outline="red", fill="black")
     x += shape_width + padding
-    # Draw a rectangle.
+
+    # Draw a rectangle
     draw.rectangle((x, top, x + shape_width, bottom), outline="blue", fill="black")
     x += shape_width + padding
-    # Draw a triangle.
+
+    # Draw a triangle
     draw.polygon([(x, bottom), (x + shape_width / 2, top), (x + shape_width, bottom)], outline="green", fill="black")
     x += shape_width + padding
-    # Draw an X.
+
+    # Draw an X
     draw.line((x, bottom, x + shape_width, top), fill="yellow")
     draw.line((x, top, x + shape_width, bottom), fill="yellow")
     x += shape_width + padding
-    # Write two lines of text.
-    size = draw.textsize('World!')
-    x = device.width - padding - size[0]
-    draw.rectangle((x, top + 4, x + size[0], top + size[1]), fill="black")
-    draw.rectangle((x, top + 16, x + size[0], top + 16 + size[1]), fill="black")
-    draw.text((device.width - padding - size[0], top + 4), 'Hello', fill="cyan")
-    draw.text((device.width - padding - size[0], top + 16), 'World!', fill="purple")
+
+    # Write two lines of text
+    left, t, right, bottom = draw.textbbox((0, 0), 'World!')
+    w, h = right - left, bottom - t
+    x = device.width - padding - w
+    draw.rectangle((x, top + 4, x + w, top + h), fill="black")
+    draw.rectangle((x, top + 16, x + w, top + 16 + h), fill="black")
+    draw.text((device.width - padding - w, top + 4), 'Hello', fill="cyan")
+    draw.text((device.width - padding - w, top + 16), 'World!', fill="purple")
+
     # Draw a rectangle of the same size of screen
     draw.rectangle(device.bounding_box, outline="white")
 
