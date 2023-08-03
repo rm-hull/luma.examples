@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2014-2020 Richard Hull and contributors
+# Copyright (c) 2014-2023 Richard Hull and contributors
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
@@ -163,14 +163,18 @@ def make_snapshot(width, height, text, fonts, color="white"):
     def render(draw, width, height):
         t = text
 
+        # measure text
         for font in fonts:
-            size = draw.multiline_textsize(t, font)
+            left, top, right, bottom = draw.multiline_textbbox((0, 0), t, font)
+            size = right - left, bottom - top
             if size[0] > width:
                 t = text.replace(" ", "\n")
-                size = draw.multiline_textsize(t, font)
+                left, top, right, bottom = draw.multiline_textbbox((0, 0), t, font)
+                size = right - left, bottom - top
             else:
                 break
 
+        # draw text
         left = (width - size[0]) // 2
         top = (height - size[1]) // 2
         draw.multiline_text((left, top), text=t, font=font, fill=color,

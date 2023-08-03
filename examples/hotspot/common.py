@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2014-2022 Richard Hull and contributors
+# Copyright (c) 2014-2023 Richard Hull and contributors
 # See LICENSE.rst for details.
 
 from pathlib import Path
@@ -34,10 +34,10 @@ def bytes2human(n, fmt="{0:0.2f}"):
 
 
 def right_text(draw, y, width, margin, text):
-    x = width - margin - draw.textsize(text, font=tiny_font)[0]
+    x = width - margin - draw.textlength(text, font=tiny_font)
     draw.text((x, y), text=text, font=tiny_font, fill="white")
 
 
 def title_text(draw, y, width, text):
-    x = (width - draw.textsize(text)[0]) / 2
+    x = (width - draw.textlength(text)) / 2
     draw.text((x, y), text=text, fill="yellow")

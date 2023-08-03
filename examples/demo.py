@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2014-18 Richard Hull and contributors
+# Copyright (c) 2014-2023 Richard Hull and contributors
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
@@ -40,7 +40,8 @@ def primitives(device, draw):
     draw.line((x, top, x + shape_width, bottom), fill="yellow")
     x += shape_width + padding
     # Write two lines of text.
-    size = draw.textsize('World!')
+    left, t, right, bottom = draw.textbbox((0, 0), 'World!')
+    size = right - left, bottom - t
     x = device.width - padding - size[0]
     draw.rectangle((x, top + 4, x + size[0], top + size[1]), fill="black")
     draw.rectangle((x, top + 16, x + size[0], top + 16 + size[1]), fill="black")

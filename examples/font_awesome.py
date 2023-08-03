@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright (c) 2014-2020 Richard Hull and contributors
+# Copyright (c) 2014-2023 Richard Hull and contributors
 # See LICENSE.rst for details.
 # PYTHON_ARGCOMPLETE_OK
 
@@ -149,7 +149,8 @@ def main(num_iterations=sys.maxsize):
                 break
 
             with canvas(device) as draw:
-                w, h = draw.textsize(text=code, font=font)
+                left, top, right, bottom = draw.textbbox((0, 0), code, font)
+                w, h = right - left, bottom - top
                 left = (device.width - w) / 2
                 top = (device.height - h) / 2
                 draw.text((left, top), text=code, font=font, fill="white")
