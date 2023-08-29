@@ -10,6 +10,8 @@ from luma.core.render import canvas
 from PIL import ImageFont
 import psutil
 import subprocess as sp
+import socket
+from collections import OrderedDict
 
 
 def get_temp():
@@ -22,12 +24,10 @@ def get_cpu():
 
 
 def get_mem():
-    total_memory, used_memory, free_memory = map(
-    int, os.popen('free -t -m').readlines()[-1].split()[1:])
-    return used_memory / total_memory * 100
+    return psutil.virtual_memory().percent
 
 
-def get_disk():
+def get_disk_usage():
     usage = psutil.disk_usage("/")
     return usage.used / usage.total * 100
 
@@ -37,9 +37,39 @@ def get_uptime():
     return "UpTime: %s" % (uptime)
 
 
-def get_ip():
-    ip = sp.getoutput("hostname -I").split(' ')[0]
-    return "IP: %s" % (ip)
+def find_single_ipv4_address(addrs):
+    for addr in addrs:
+        if addr.family == socket.AddressFamily.AF_INET: # IPv4
+            return addr.address
+
+
+def get_ipv4_address(interface_name = None):
+    if_addrs = psutil.net_if_addrs()
+
+    if isinstance(interface_name, str) and interface_name in if_addrs:
+        addrs = if_addrs.get(interface_name)
+        address = find_single_ipv4_address(addrs)
+        return address if isinstance(address, str) else ""
+    else:
+        if_stats = psutil.net_if_stats()
+        # remove loopback
+        if_stats_filtered = { key:if_stats[key] for key, stat in if_stats.items() if "loopback" not in stat.flags }
+        # sort interfaces by
+        # 1. Up/Down
+        # 2. Duplex mode (full: 2, half: 1, unknown: 0)
+        if_names_sorted = [stat[0] for stat in sorted(if_stats_filtered.items(), key=lambda x: (x[1].isup, x[1].duplex), reverse=True)]
+        if_addrs_sorted = OrderedDict((key, if_addrs[key]) for key in if_names_sorted if key in if_addrs)
+
+        for _, addrs in if_addrs_sorted.items():
+            address = find_single_ipv4_address(addrs)
+            if isinstance(address, str):
+                return address
+
+        return ""
+
+
+def get_ip(network_interface_name):
+    return "IP: %s" % (get_ipv4_address(network_interface_name))
 
 
 def format_percent(percent):
@@ -84,7 +114,7 @@ def stats(device):
         else :
             draw_bar_full(draw, 2)
 
-        disk = get_disk()
+        disk = get_disk_usage()
         draw_text(draw, 0, 3, "Disk")
         if disk < 100 :
             draw_text(draw, margin_x_figure, 3, "%s %%" % (format_percent(disk)))
@@ -95,7 +125,7 @@ def stats(device):
         if datetime.now().second % (toggle_interval_seconds * 2) < toggle_interval_seconds :
             draw_text(draw, 0, 4, get_uptime())
         else :
-            draw_text(draw, 0, 4, get_ip())
+            draw_text(draw, 0, 4, get_ip(network_interface_name))
 
 
 font_size = 12
@@ -108,6 +138,11 @@ bar_width_full = 95
 bar_height = 8
 bar_margin_top = 3
 toggle_interval_seconds = 4
+
+
+# None : find suitable IPv4 address among all network interfaces
+# or specify the desired interface name as string.
+network_interface_name = None
 
 
 device = get_device()
