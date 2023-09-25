@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 
-import os
 import time
 from pathlib import Path
 from datetime import datetime
@@ -16,7 +15,7 @@ from collections import OrderedDict
 
 
 def get_temp():
-    temp = float(sp.getoutput("vcgencmd measure_temp").split('=')[1].split("'")[0])
+    temp = float(sp.getoutput("vcgencmd measure_temp").split("=")[1].split("'")[0])
     return temp
 
 
@@ -34,17 +33,17 @@ def get_disk_usage():
 
 
 def get_uptime():
-    uptime = ("%s" % (datetime.now() - datetime.fromtimestamp(psutil.boot_time()))).split('.')[0]
+    uptime = ("%s" % (datetime.now() - datetime.fromtimestamp(psutil.boot_time()))).split(".")[0]
     return "UpTime: %s" % (uptime)
 
 
 def find_single_ipv4_address(addrs):
     for addr in addrs:
-        if addr.family == socket.AddressFamily.AF_INET: # IPv4
+        if addr.family == socket.AddressFamily.AF_INET:  # IPv4
             return addr.address
 
 
-def get_ipv4_address(interface_name = None):
+def get_ipv4_address(interface_name=None):
     if_addrs = psutil.net_if_addrs()
 
     if isinstance(interface_name, str) and interface_name in if_addrs:
@@ -54,7 +53,7 @@ def get_ipv4_address(interface_name = None):
     else:
         if_stats = psutil.net_if_stats()
         # remove loopback
-        if_stats_filtered = { key:if_stats[key] for key, stat in if_stats.items() if "loopback" not in stat.flags }
+        if_stats_filtered = {key: if_stats[key] for key, stat in if_stats.items() if "loopback" not in stat.flags}
         # sort interfaces by
         # 1. Up/Down
         # 2. Duplex mode (full: 2, half: 1, unknown: 0)
@@ -74,7 +73,7 @@ def get_ip(network_interface_name):
 
 
 def format_percent(percent):
-    return "%5.1f" %(percent)
+    return "%5.1f" % (percent)
 
 
 def draw_text(draw, margin_x, line_num, text):
@@ -82,13 +81,13 @@ def draw_text(draw, margin_x, line_num, text):
 
 
 def draw_bar(draw, line_num, percent):
-    top_left_y = margin_y_line[line_num] + bar_margin_top;
+    top_left_y = margin_y_line[line_num] + bar_margin_top
     draw.rectangle((margin_x_bar, top_left_y, margin_x_bar + bar_width, top_left_y + bar_height), outline="white")
     draw.rectangle((margin_x_bar, top_left_y, margin_x_bar + bar_width * percent / 100, top_left_y + bar_height), fill="white")
 
 
 def draw_bar_full(draw, line_num):
-    top_left_y = margin_y_line[line_num] + bar_margin_top;
+    top_left_y = margin_y_line[line_num] + bar_margin_top
     draw.rectangle((margin_x_bar, top_left_y, margin_x_bar + bar_width_full, top_left_y + bar_height), fill="white")
     draw.text((65, top_left_y - 2), "100 %", font=font_full, fill="black")
 
@@ -101,31 +100,31 @@ def stats(device):
 
         cpu = get_cpu()
         draw_text(draw, 0, 1, "CPU")
-        if cpu < 100 :
+        if cpu < 100:
             draw_text(draw, margin_x_figure, 1, "%s %%" % (format_percent(cpu)))
             draw_bar(draw, 1, cpu)
-        else :
+        else:
             draw_bar_full(draw, 1)
 
         mem = get_mem()
         draw_text(draw, 0, 2, "Mem")
-        if mem < 100 :
+        if mem < 100:
             draw_text(draw, margin_x_figure, 2, "%s %%" % (format_percent(mem)))
             draw_bar(draw, 2, mem)
-        else :
+        else:
             draw_bar_full(draw, 2)
 
         disk = get_disk_usage()
         draw_text(draw, 0, 3, "Disk")
-        if disk < 100 :
+        if disk < 100:
             draw_text(draw, margin_x_figure, 3, "%s %%" % (format_percent(disk)))
             draw_bar(draw, 3, disk)
-        else :
+        else:
             draw_bar_full(draw, 3)
 
-        if datetime.now().second % (toggle_interval_seconds * 2) < toggle_interval_seconds :
+        if datetime.now().second % (toggle_interval_seconds * 2) < toggle_interval_seconds:
             draw_text(draw, 0, 4, get_uptime())
-        else :
+        else:
             draw_text(draw, 0, 4, get_ip(network_interface_name))
 
 
@@ -147,11 +146,10 @@ network_interface_name = None
 
 
 device = get_device()
-font_default = ImageFont.truetype(str(Path(__file__).resolve().parent.joinpath('fonts', 'DejaVuSansMono.ttf')), font_size)
-font_default = ImageFont.truetype(str(Path(__file__).resolve().parent.joinpath('fonts', 'DejaVuSansMono.ttf')), font_size_full)
+font_default = ImageFont.truetype(str(Path(__file__).resolve().parent.joinpath("fonts", "DejaVuSansMono.ttf")), font_size)
+font_full = ImageFont.truetype(str(Path(__file__).resolve().parent.joinpath("fonts", "DejaVuSansMono.ttf")), font_size_full)
 
 
 while True:
     stats(device)
     time.sleep(0.5)
-
