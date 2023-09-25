@@ -78,6 +78,7 @@ sprite_animation.py       Using sprite maps for animation effects
 starfield.py              3D starfield simulation
 sys_histogram.py          Display system information including a rolling histogram
 sys_info.py               Display basic system information
+sys_info_extended.py      Display detailed system information in graph format
 terminal.py               Simple println capabilities
 tv_snow.py                Example image-blitting
 tweet_scroll.py           Using Twitter's Streaming API to display scrolling notifications

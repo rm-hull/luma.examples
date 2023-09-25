@@ -1,6 +1,17 @@
-#!/usr/bin/python3
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+# Copyright (c) 2023 Richard Hull and contributors
+# See LICENSE.rst for details.
 
+"""
+Display detailed system information in graph format.
+It provides a display of CPU, memory, disk utilization, temperature, IP address and system Uptime.
+
+Needs psutil (+ dependencies) installed::
+
+  $ sudo apt-get install python-dev
+  $ sudo -H pip install psutil
+"""
 
 import time
 from pathlib import Path
