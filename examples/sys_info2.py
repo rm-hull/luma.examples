@@ -4,6 +4,7 @@
 
 import os
 import time
+from pathlib import Path
 from datetime import datetime
 from demo_opts import get_device
 from luma.core.render import canvas
@@ -146,8 +147,8 @@ network_interface_name = None
 
 
 device = get_device()
-font_default = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf', font_size)
-font_full = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf', font_size_full)
+font_default = ImageFont.truetype(str(Path(__file__).resolve().parent.joinpath('fonts', 'DejaVuSansMono.ttf')), font_size)
+font_default = ImageFont.truetype(str(Path(__file__).resolve().parent.joinpath('fonts', 'DejaVuSansMono.ttf')), font_size_full)
 
 
 while True:
