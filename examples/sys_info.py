@@ -61,7 +61,7 @@ class IPAddressChecker:
                 return s.getsockname()[0]
         except Exception as e:
             print(f"Error: {e}")
-            return None
+            return ""
 
 
 def bytes2human(n):
