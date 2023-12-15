@@ -18,7 +18,7 @@ This is the companion repo for running examples against the `luma.emulator <http
 
 Installation instructions
 -------------------------
-Assuming you are using a Raspberry Pi (running Debian Jessie or newer), follow the pre-requisites &
+Assuming you are using a Raspberry Pi (running Raspberry Pi OS), follow the pre-requisites &
 instructions in the above repositories to wire up your display, then from a command-line::
 
   $ sudo usermod -a -G i2c,spi,gpio pi
@@ -30,10 +30,16 @@ Log out and in again and clone this repository::
   $ git clone https://github.com/rm-hull/luma.examples.git
   $ cd luma.examples
 
-Finally, install the luma libraries using::
+Next, create a `virtual environment <https://docs.python.org/3/library/venv.html>`__::
 
-  $ sudo -H pip install -e .
+  $ python3 -m venv ~/luma-env
 
+This creates a virtual environment in the home directory called `luma-env`
+and a Python executable at `~/luma-env/bin/python`.
+
+Finally, install the luma libraries using in the virtual environment with::
+
+  $ ~/luma-env/bin/python -m pip install -e .
 
 Running the examples
 --------------------
@@ -41,7 +47,7 @@ After cloning the repository, enter the ``examples`` directory and try running
 one of the following examples listed below. For example::
 
   cd examples
-  python3 3d_box.py
+  ~/luma-env/bin/python 3d_box.py
 
 ========================= ================================================================
 Example                   Description
@@ -92,7 +98,7 @@ By default, all the examples will asume I2C port 1, address ``0x3C`` and the
 specified on the command line – each program can be invoked with a ``--help``
 flag to show the options::
 
-    $ python3 examples/demo.py --help
+    $ ~/luma-env/bin/python examples/demo.py --help
     usage: demo.py [-h] [--config CONFIG] [--display DISPLAY] [--width WIDTH]
                     [--height HEIGHT] [--rotate ROTATION] [--interface INTERFACE]
                     [--i2c-port I2C_PORT] [--i2c-address I2C_ADDRESS]
@@ -257,13 +263,13 @@ and screen capture functionality:
 After `installing luma.emulator <https://luma-emulator.readthedocs.io/en/latest/install.html>`_
 you can invoke the demos with::
 
-  $ python3 examples/clock.py --display pygame
+  $ ~/luma-env/bin/python examples/clock.py --display pygame
 
 or::
 
-  $ python3 examples/clock.py --display gifanim
+  $ ~/luma-env/bin/python examples/clock.py --display gifanim
 
-  $ python3 examples/starfield.py --display capture
+  $ ~/luma-env/bin/python examples/starfield.py --display capture
 
 Documentation
 -------------
