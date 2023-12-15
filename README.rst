@@ -34,8 +34,8 @@ Next, create a `virtual environment <https://docs.python.org/3/library/venv.html
 
   $ python3 -m venv ~/luma-env
 
-This creates a virtual environment in the home directory called `luma-env`
-and a Python executable at `~/luma-env/bin/python`.
+This creates a virtual environment in the home directory called ``luma-env``
+and a Python executable at ``~/luma-env/bin/python``.
 
 Finally, install the luma libraries using in the virtual environment with::
 
