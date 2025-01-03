@@ -59,13 +59,13 @@ def cpu_usage():
     # load average, uptime
     uptime = datetime.now() - datetime.fromtimestamp(psutil.boot_time())
     av1, av2, av3 = os.getloadavg()
-    return "Ld:%.1f %.1f %.1f Up: %s" \
+    return "Ld:%.1f %.1f %.1f Up:%s" \
         % (av1, av2, av3, str(uptime).split('.')[0])
 
 
 def mem_usage():
     usage = psutil.virtual_memory()
-    return "Mem: %s %.0f%%" \
+    return "Mem: %s used %.0f%% avail" \
         % (bytes2human(usage.used), 100 - usage.percent)
 
 
@@ -75,26 +75,36 @@ def disk_usage(dir):
         % (bytes2human(usage.used), usage.percent)
 
 
+def ipaddress(iface):
+    return "%s" % \
+        psutil.net_if_addrs()[iface][0][1]
+
 def network(iface):
     stat = psutil.net_io_counters(pernic=True)[iface]
-    return "%s: Tx%s, Rx%s" % \
-           (iface, bytes2human(stat.bytes_sent), bytes2human(stat.bytes_recv))
+    return "%s: Tx %s, Rx %s " % \
+        (iface, bytes2human(stat.bytes_sent), bytes2human(stat.bytes_recv))
 
 
 def stats(device):
     # use custom font
     font_path = str(Path(__file__).resolve().parent.joinpath('fonts', 'C&C Red Alert [INET].ttf'))
-    font2 = ImageFont.truetype(font_path, 12)
+    font12 = ImageFont.truetype(font_path, 12)
+    font14 = ImageFont.truetype(font_path, 14)
 
     with canvas(device) as draw:
-        draw.text((0, 0), cpu_usage(), font=font2, fill="white")
+        if device.width >= 132:
+            draw.text((0, 0), cpu_usage(), font=font12, fill="white")
+        else:
+            draw.text((0, 0), cpu_usage().replace(" days,","d"), font=font12, fill="white")
+
         if device.height >= 32:
-            draw.text((0, 14), mem_usage(), font=font2, fill="white")
+            draw.text((0, 13), mem_usage(), font=font12, fill="white")
 
         if device.height >= 64:
-            draw.text((0, 26), disk_usage('/'), font=font2, fill="white")
+            draw.text((0, 26), disk_usage('/'), font=font12, fill="white")
+            draw.text((58, 25), ipaddress('wlan0'), font=font14, fill="white")
             try:
-                draw.text((0, 38), network('wlan0'), font=font2, fill="white")
+                draw.text((0, 39), network('wlan0'), font=font12, fill="white")
             except KeyError:
                 # no wifi enabled/available
                 pass
@@ -112,3 +122,4 @@ if __name__ == "__main__":
         main()
     except KeyboardInterrupt:
         pass
+
