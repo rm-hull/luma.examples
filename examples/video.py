@@ -35,8 +35,8 @@ def main():
 
     clip = av.open(video_path)
 
-    for frame in clip.decode(video=0):
-        print(f'{frame.index} ------')
+    for i, frame in enumerate(clip.decode(video=0)):
+        print(f'{i} ------')
 
         img = frame.to_image()
         if img.width != device.width or img.height != device.height:
