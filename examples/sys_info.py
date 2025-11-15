@@ -14,6 +14,7 @@ Needs psutil (+ dependencies) installed::
 """
 
 import os
+import signal
 import sys
 import time
 from pathlib import Path
@@ -35,6 +36,15 @@ except ImportError:
 
 # TODO: custom font bitmaps for up/down arrows
 # TODO: Load histogram
+
+
+def shutdown(signum, frame):
+    device.clear()
+    sys.exit(0)
+
+
+signal.signal(signal.SIGTERM, shutdown)
+signal.signal(signal.SIGINT, shutdown)
 
 
 def bytes2human(n):
@@ -125,3 +135,5 @@ if __name__ == "__main__":
         main()
     except KeyboardInterrupt:
         pass
+    finally:
+        device.clear()
