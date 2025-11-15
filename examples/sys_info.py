@@ -58,7 +58,7 @@ class IPAddressChecker:
     def _retrieve_ip_address():
         try:
             with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
-                s.connect(("8.8.8.8", 80)) # Google DNS. Probably will never be down.
+                s.connect(("8.8.8.8", 80))  # Google DNS. Probably will never be down.
                 return s.getsockname()[0]
         except Exception as e:
             print(f"Error: {e}")
