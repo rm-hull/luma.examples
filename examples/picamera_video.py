@@ -42,7 +42,6 @@ class ImageProcessor(threading.Thread):
 
     def run(self):
         # this method runs in a separate thread
-        global done
         while not self.terminated:
             # wait for an image to be written to the stream
             if self.event.wait(1):
@@ -53,9 +52,6 @@ class ImageProcessor(threading.Thread):
                     photo = Image.open(self.stream)
                     device.display(photo.convert(device.mode))
 
-                    # set done to True if you want the script to terminate
-                    # at some point
-                    # done=True
                 finally:
                     # Reset the stream and event
                     self.stream.seek(0)
