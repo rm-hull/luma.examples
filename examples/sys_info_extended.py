@@ -56,20 +56,26 @@ def find_single_ipv4_address(addrs):
 
 def get_ipv4_address(interface_name=None):
     if_addrs = psutil.net_if_addrs()
+    if_stats = psutil.net_if_stats()
 
     if isinstance(interface_name, str) and interface_name in if_addrs:
         addrs = if_addrs.get(interface_name)
         address = find_single_ipv4_address(addrs)
         return address if isinstance(address, str) else ""
     else:
-        if_stats = psutil.net_if_stats()
-        # remove loopback
-        if_stats_filtered = {key: if_stats[key] for key, stat in if_stats.items() if "loopback" not in stat.flags}
-        # sort interfaces by
-        # 1. Up/Down
-        # 2. Duplex mode (full: 2, half: 1, unknown: 0)
-        if_names_sorted = [stat[0] for stat in sorted(if_stats_filtered.items(), key=lambda x: (x[1].isup, x[1].duplex), reverse=True)]
-        if_addrs_sorted = OrderedDict((key, if_addrs[key]) for key in if_names_sorted if key in if_addrs)
+        # filter out loopback interfaces based on their address
+        if_addrs_filtered = {
+            iface: addrs
+            for iface, addrs in if_addrs.items()
+            if not any(addr.address == '127.0.0.1' for addr in addrs if addr.family == socket.AF_INET)
+        }
+
+        if_names_sorted = [
+            iface for iface, _ in sorted(if_stats.items(), key=lambda x: (x[1].isup, x[1].duplex), reverse=True)
+            if iface in if_addrs_filtered
+        ]
+
+        if_addrs_sorted = OrderedDict((iface, if_addrs_filtered[iface]) for iface in if_names_sorted)
 
         for _, addrs in if_addrs_sorted.items():
             address = find_single_ipv4_address(addrs)
