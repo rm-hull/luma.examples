@@ -53,6 +53,7 @@ def find_single_ipv4_address(addrs):
         if addr.family == socket.AddressFamily.AF_INET:  # IPv4
             return addr.address
 
+
 def get_ipv4_address(interface_name=None):
     if_addrs = psutil.net_if_addrs()
     if_stats = psutil.net_if_stats()
