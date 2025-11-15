@@ -146,7 +146,7 @@ def stats(device):
                 if device.height >= (line_height * 4):
                     draw.text((2, line_height * 3), network('wlan0'), font=font2, fill="white")
 
-                if device.height >= (line_height * 5)    
+                if device.height >= (line_height * 5):
                     draw.text((2, line_height * 4), ip_address_checker.get_ip_address(), font=font2, fill="white")
             except KeyError:
                 # no wifi enabled/available
