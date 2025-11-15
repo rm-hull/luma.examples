@@ -56,23 +56,32 @@ def bytes2human(n):
 
 
 def cpu_usage():
-    # load average, uptime
+    # cpu usage, uptime
     uptime = datetime.now() - datetime.fromtimestamp(psutil.boot_time())
-    av1, av2, av3 = os.getloadavg()
-    return "Ld:%.1f %.1f %.1f Up: %s" \
-        % (av1, av2, av3, str(uptime).split('.')[0])
+    days = uptime.days
+    hours, remainder = divmod(uptime.seconds, 3600)
+    minutes, _ = divmod(remainder, 60)
+    
+    cpu_percent = psutil.cpu_percent(interval=1)
+    return "CPU: %d%% Up: %dd%dh%dm" % (cpu_percent, days, hours, minutes)
 
 
 def mem_usage():
     usage = psutil.virtual_memory()
-    return "Mem: %s %.0f%%" \
-        % (bytes2human(usage.used), 100 - usage.percent)
+    return "RAM: %s/%s (%.0f%%)" % (
+        bytes2human(usage.used),
+        bytes2human(usage.total),
+        usage.percent
+    )
 
 
 def disk_usage(dir):
     usage = psutil.disk_usage(dir)
-    return "SD:  %s %.0f%%" \
-        % (bytes2human(usage.used), usage.percent)
+    return "SD: %s/%s (%.0f%%)" % (
+        bytes2human(usage.used),
+        bytes2human(usage.total),
+        usage.percent
+    )
 
 
 def network(iface):
@@ -83,18 +92,22 @@ def network(iface):
 
 def stats(device):
     # use custom font
-    font_path = str(Path(__file__).resolve().parent.joinpath('fonts', 'C&C Red Alert [INET].ttf'))
-    font2 = ImageFont.truetype(font_path, 12)
+    font_path = str(Path(__file__).resolve().parent.joinpath('fonts', 'DejaVuSansMono.ttf'))
+    font2 = ImageFont.truetype(font_path, 10)
+    ascent, descent = font2.getmetrics()
+    line_height = ascent + descent
 
     with canvas(device) as draw:
-        draw.text((0, 0), cpu_usage(), font=font2, fill="white")
-        if device.height >= 32:
-            draw.text((0, 14), mem_usage(), font=font2, fill="white")
+        draw.rectangle(device.bounding_box, outline="white", fill=None)
+        draw.text((2, line_height * 0), cpu_usage(), font=font2, fill="white")
+        if device.height >= (line_height * 2):
+            draw.text((2, line_height * 1), mem_usage(), font=font2, fill="white")
 
-        if device.height >= 64:
-            draw.text((0, 26), disk_usage('/'), font=font2, fill="white")
+        if device.height >= (line_height * 3):
+            draw.text((2, line_height * 2), disk_usage('/'), font=font2, fill="white")
             try:
-                draw.text((0, 38), network('wlan0'), font=font2, fill="white")
+                if device.height >= (line_height * 4):
+                    draw.text((2, line_height * 3), network('wlan0'), font=font2, fill="white")
             except KeyError:
                 # no wifi enabled/available
                 pass
