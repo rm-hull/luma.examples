@@ -17,6 +17,7 @@ import os
 import signal
 import sys
 import time
+import socket
 from pathlib import Path
 from datetime import datetime
 
@@ -36,6 +37,32 @@ except ImportError:
 
 # TODO: custom font bitmaps for up/down arrows
 # TODO: Load histogram
+
+
+class IPAddressChecker:
+    def __init__(self, cache_duration_in_seconds=14400):
+        """
+        :param cache_duration_in_seconds: The duration in seconds to cache the IP address for. Default is 4 hours.
+        """
+        self._ip_address = None
+        self._last_checked = None
+        self._cache_duration = cache_duration_in_seconds
+
+    def get_ip_address(self):
+        if self._last_checked is None or time.time() - self._last_checked > self._cache_duration:
+            self._ip_address = self._retrieve_ip_address()
+            self._last_checked = time.time()
+        return self._ip_address
+
+    @staticmethod
+    def _retrieve_ip_address():
+        try:
+            with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
+                s.connect(("8.8.8.8", 80))  # Google DNS. Probably will never be down.
+                return s.getsockname()[0]
+        except Exception as e:
+            print(f"Error: {e}")
+            return ""
 
 
 def shutdown(signum, frame):
@@ -118,6 +145,9 @@ def stats(device):
             try:
                 if device.height >= (line_height * 4):
                     draw.text((2, line_height * 3), network('wlan0'), font=font2, fill="white")
+
+                if device.height >= (line_height * 5):
+                    draw.text((2, line_height * 4), ip_address_checker.get_ip_address(), font=font2, fill="white")
             except KeyError:
                 # no wifi enabled/available
                 pass
@@ -132,6 +162,7 @@ def main():
 if __name__ == "__main__":
     try:
         device = get_device()
+        ip_address_checker = IPAddressChecker()
         main()
     except KeyboardInterrupt:
         pass
