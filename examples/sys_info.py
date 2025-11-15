@@ -71,7 +71,7 @@ def cpu_usage():
     days = uptime.days
     hours, remainder = divmod(uptime.seconds, 3600)
     minutes, _ = divmod(remainder, 60)
-    
+
     cpu_percent = psutil.cpu_percent(interval=1)
     return "CPU: %d%% Up: %dd%dh%dm" % (cpu_percent, days, hours, minutes)
 
