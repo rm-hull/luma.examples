@@ -9,8 +9,8 @@ luma.examples **|**
 Luma.Examples
 =============
 
-.. image:: https://github.com/rm-hull/luma.examples/workflows/luma.examples/badge.svg?branch=master
-   :target: https://github.com/rm-hull/luma.examples/actions?workflow=luma.examples
+.. image:: https://github.com/rm-hull/luma.examples/actions/workflows/main.yml/badge.svg
+   :target: https://github.com/rm-hull/luma.examples/actions/workflows/main.yml
 
 This is the companion repo for running examples against the `luma.emulator <https://github.com/rm-hull/luma.emulator>`_,
 `luma.oled <https://github.com/rm-hull/luma.oled>`_, `luma.lcd <https://github.com/rm-hull/luma.lcd>`_ and
@@ -285,7 +285,7 @@ License
 -------
 The MIT License (MIT)
 
-Copyright (c) 2017-2023 Richard Hull & Contributors
+Copyright (c) 2017-2026 Richard Hull & Contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
