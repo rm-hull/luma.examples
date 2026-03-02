@@ -36,10 +36,10 @@ def main():
                 now = datetime.datetime.now()
                 today_date = now.strftime("%d %b %y")
 
-                margin = 4
+                margin = 5
 
                 cx = 30
-                cy = min(device.height, 64) / 2
+                cy = min(device.height, 60) / 2
 
                 left = cx - cy
                 right = cx + cy
@@ -58,8 +58,9 @@ def main():
                 draw.line((cx, cy, cx + mins[0], cy + mins[1]), fill="white")
                 draw.line((cx, cy, cx + secs[0], cy + secs[1]), fill="red")
                 draw.ellipse((cx - 2, cy - 2, cx + 2, cy + 2), fill="white", outline="white")
-                draw.text((2 * (cx + margin), cy - 8), today_date, fill="yellow")
-                draw.text((2 * (cx + margin), cy), today_time, fill="yellow")
+                text_x = 2 * (cx + margin)
+                draw.text((text_x, cy - 10), today_date, fill="yellow")
+                draw.text((text_x, cy + 2), today_time, fill="yellow")
 
         time.sleep(0.1)
 
