@@ -16,10 +16,12 @@ from demo_opts import get_device
 from luma.core.render import canvas
 from luma.core.sprite_system import framerate_regulator
 
+
 # Digital rain intensity setting
 # 1 (sparse/light) → 9 (dense/heavy)
 
 DIGITALRAIN_INTENSITY = 5
+
 
 def matrix(device):
     wrd_rgb = [
@@ -38,7 +40,7 @@ def matrix(device):
         (0, 80, 0),
         (0, 60, 0),
         (0, 40, 0),
-        (0, 0, 0)
+        (0, 0, 0),
     ]
 
     clock = 0
@@ -49,7 +51,9 @@ def matrix(device):
     def increase_population():
         drops_per_tick = max(1, int(DIGITALRAIN_INTENSITY * 0.5))
         for _ in range(drops_per_tick):
-            blue_pilled_population.append([randint(0, device.width - 1), 0, gauss(1.2, 0.6)])
+            blue_pilled_population.append(
+                [randint(0, device.width), 0, gauss(1.2, 0.6)]
+            )
 
     def should_spawn(clock):
         interval = max(1, 10 - DIGITALRAIN_INTENSITY)
@@ -81,11 +85,9 @@ def matrix(device):
         while len(blue_pilled_population) > max_population:
             blue_pilled_population.pop(0)
 
+
 if __name__ == "__main__":
     try:
         matrix(get_device())
     except KeyboardInterrupt:
         pass
-
-#EOF<*>
-
