@@ -48,14 +48,12 @@ def matrix(device):
     max_population = device.width * 8
     regulator = framerate_regulator(fps=10)
 
-
     def increase_population():
         drops_per_tick = max(1, int(DIGITALRAIN_INTENSITY * 0.5))
         for _ in range(drops_per_tick):
             blue_pilled_population.append(
-                [randint(0, device.width -1), 0, gauss(1.2, 0.6)]
+                [randint(0, device.width - 1), 0, gauss(1.2, 0.6)]
             )
-
 
     def should_spawn(clock):
         interval = max(1, 10 - DIGITALRAIN_INTENSITY)
