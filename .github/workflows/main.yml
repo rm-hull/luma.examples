@@ -12,12 +12,12 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        python-minor-version: [11, 12, 13]
+        python-minor-version: [11, 12, 13, 14]
     name: Python 3.${{ matrix.python-minor-version }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Setup pip cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         id: pipcache
         with:
           path: ~/.cache/pip
@@ -25,10 +25,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pip-
       - name: Set up Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v7
         with:
           python-version: 3.${{ matrix.python-minor-version }}
           check-latest: true
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev libfreetype6-dev libjpeg-dev python3-setuptools python3-dev python3-numpy
       - name: Display Python version
         run: python -c "import sys; print(sys.version)"
       - name: Install Python packages
