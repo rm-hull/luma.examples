@@ -29,6 +29,10 @@ jobs:
         with:
           python-version: 3.${{ matrix.python-minor-version }}
           check-latest: true
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev libfreetype6-dev libjpeg-dev python3-setuptools python3-dev python3-numpy
       - name: Display Python version
         run: python -c "import sys; print(sys.version)"
       - name: Install Python packages
